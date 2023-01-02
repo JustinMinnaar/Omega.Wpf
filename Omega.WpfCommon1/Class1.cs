@@ -1,0 +1,36 @@
+using System;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Markup;
+
+namespace Omega.WpfCommon1;
+
+public class DummyConverter : MarkupExtension, IValueConverter
+{
+    private static DummyConverter? _converter = null;
+
+    public override object ProvideValue(IServiceProvider serviceProvider)
+    {
+        if (_converter == null)
+        {
+            _converter = new DummyConverter();
+        }
+        return _converter;
+    }
+
+    #region IValueConverter Members
+
+    public object Convert(object value, Type targetType, object parameter,
+        CultureInfo culture)
+    {
+        return value; // set breakpoint here to debug your binding
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter,
+        CultureInfo culture)
+    {
+        return value;
+    }
+
+    #endregion
+}
