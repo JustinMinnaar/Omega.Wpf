@@ -21,23 +21,7 @@
 
         <local:ProjectExplorerControl1 Grid.Column="0" />
 
-        <Border BorderBrush="DarkGray" Background="DarkGray" BorderThickness="1" Margin="4" Grid.Column="1" >
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <TextBlock Text="{Binding Path=LastMessage}" Grid.Row="0" />
-                <oc:ZoomBorder x:Name="zoom" Grid.Row="2" ZoomChanged="zoom_ZoomChanged">
-                    <pl:JemProfilePageControl x:Name="ppc" />
-                </oc:ZoomBorder>
-                <!--<TextBox Grid.Row="3" Text="{Binding ElementName=zoom,Path=ZoomWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Row="4" Text="{Binding ElementName=zoom,Path=ZoomHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />-->
-            </Grid>
-        </Border>
+        <local:OcrPageProfilingControl1 Grid.Column="1" x:Name="viewer" />
 
         <!--<Grid
             Grid.Column="2">

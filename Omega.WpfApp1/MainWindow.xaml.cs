@@ -30,23 +30,20 @@ public partial class MainWindow
     {
         Dispatcher.InvokeAsync(explorer.AfterFileChanged);
 
-        zoom.PanX = 0;
-        zoom.PanY = 0;
-        zoom.ZoomWidth = 0.45f;
-        zoom.ZoomHeight = 0.45f;
+        viewer.DoSelectedFileChanged();
     }
 
     private void Explorer_SelectedPageChanged(object? sender, EventArgs e)
     {
-        ppc.PageImageSource = null;
-
+        viewer.DoSelectedPageChanged(null);
+        
         explorer.LoadPage();
 
         var oPage = explorer.oPage; if (oPage == null) return;
 
         var bmp = oPage.ToBitmap(inverse:true);
-        
-        ppc.PageImageSource = BitmapConversion.TryToWpfBitmap(bmp);
+
+        viewer.DoSelectedPageChanged(bmp);
     }
 
     private void AddProfileButton_Click(object sender, RoutedEventArgs e)
@@ -56,10 +53,5 @@ public partial class MainWindow
         var newProfile = new ProfileModel {Id = Guid.NewGuid(), Name = "(NEW)" };
         explorer.Profiles.Add(newProfile);
         explorer.SelectedProfile = newProfile;
-    }
-
-    private void zoom_ZoomChanged(object sender, EventArgs e)
-    {
-        var zoomWidth = zoom.ZoomWidth; var zoomHeight = zoom.ZoomHeight;
     }
 }
