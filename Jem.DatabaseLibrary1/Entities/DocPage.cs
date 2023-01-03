@@ -24,7 +24,7 @@
     
     public bool? IsBlank { get; set; }
     public bool IsError { get; set; }
-    public string? ProfileName { get; set; }
     public Guid? ProfileId { get; set; }
+    public string? ProfileName { get; set; }
     public float ProfileVersion { get; set; }
 }

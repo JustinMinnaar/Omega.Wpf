@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Jem.OcrLibrary22.Windows\Jem.OcrLibrary22.Windows.csproj" />
     <ProjectReference Include="..\Omega.WpfModels1\Omega.WpfModels1.csproj" />
+    <ProjectReference Include="..\Omega.WpfProfilingLibrary1\Omega.WpfProfilingLibrary1.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,48 +1,49 @@
-﻿using Omega.WpfModels1;
+﻿namespace Omega.WpfApp1;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Jem.WpfCommonLibrary22;
+using Jem.OcrLibrary22.Windows;
+using Omega.WpfCommon1;
 
-namespace Omega.WpfApp1
+public partial class MainWindow 
 {
-    public partial class MainWindow 
+    private readonly ExplorerModel explorer;
+
+    public MainWindow()
     {
-        private readonly ExplorerModel explorer;
+        InitializeComponent();
 
-        public MainWindow()
-        {
-            InitializeComponent();
+        explorer = new() { Id = Guid.NewGuid(), Name = "Explorer" };
+        explorer.SelectedRootChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadProjectsAsync);
+        explorer.SelectedProjectChanged+= (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
+        explorer.SelectedFolderChanged+= (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFiles);
+        explorer.SelectedFileChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.AfterFileChanged);
+        explorer.SelectedPageChanged += Explorer_SelectedPageChanged;// (sender, e)  => Dispatcher.Invoke(explorer.LoadPage);
 
-            explorer = new() { Id = Guid.NewGuid(), Name = "Explorer" };
-            explorer.SelectedRootChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadProjectsAsync);
-            explorer.SelectedProjectChanged+= (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
-            explorer.SelectedFolderChanged+= (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFiles);
-            explorer.SelectedFileChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadPages);
+        // Force initial load of data to happen in separate thread
+        Dispatcher.InvokeAsync(explorer.LoadRootsAsync);
 
-            Dispatcher.InvokeAsync(explorer.LoadRootsAsync);
+        DataContext = explorer;
+    }
 
-            DataContext = explorer;
-        }
+    private void Explorer_SelectedPageChanged(object? sender, EventArgs e)
+    {
+        ppc.PageImageSource = null;
 
-        private void AddProfileButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (explorer.Profiles == null) return;
+        explorer.LoadPage();
 
-            var newProfile = new ProfileModel {Id = Guid.NewGuid(), Name = "(NEW)" };
-            explorer.Profiles.Add(newProfile);
-            explorer.SelectedProfile = newProfile;
-        }
+        var oPage = explorer.oPage; if (oPage == null) return;
+
+        var bmp = oPage.ToBitmap(inverse:true);
+        
+        ppc.PageImageSource = BitmapConversion.TryToWpfBitmap(bmp);
+    }
+
+    private void AddProfileButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (explorer.Profiles == null) return;
+
+        var newProfile = new ProfileModel {Id = Guid.NewGuid(), Name = "(NEW)" };
+        explorer.Profiles.Add(newProfile);
+        explorer.SelectedProfile = newProfile;
     }
 }

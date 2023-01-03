@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+    <ProjectReference Include="..\Jem.Profiling22.Data\Jem.Profiling22.Data.csproj" />
   </ItemGroup>
 
 </Project>
