@@ -13,12 +13,12 @@
 
         <Label 
             DockPanel.Dock="Top" 
-            Content="Root:" />
+            Content="Solution:" />
         <ComboBox 
             DockPanel.Dock="Top" 
-            ItemsSource="{Binding Path=Roots}" 
+            ItemsSource="{Binding Path=Solutions}" 
             DisplayMemberPath="Name" 
-            SelectedItem="{Binding Path=SelectedRoot}" />
+            SelectedItem="{Binding Path=SelectedSolution}" />
         
         <Label 
             DockPanel.Dock="Top" 
@@ -28,6 +28,14 @@
             ItemsSource="{Binding Path=Projects}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=SelectedProject}" />
+
+        <Label 
+            DockPanel.Dock="Top" 
+            Content="Identified Filter:" />
+        <ComboBox 
+            DockPanel.Dock="Top" 
+            ItemsSource="{Binding Path=IdentifiedFilters}" 
+            SelectedItem="{Binding Path=SelectedIdentifiedFilter}" />
 
         <Label 
             DockPanel.Dock="Top" 
@@ -50,10 +58,26 @@
         <Label 
             DockPanel.Dock="Top" 
             Content="Page:" />
-        <ListBox 
+        <ComboBox 
+            DockPanel.Dock="Top" 
             ItemsSource="{Binding Path=Pages}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=SelectedPage}" />
+
+        <Label 
+            DockPanel.Dock="Top" 
+            Content="Profile:" />
+        <ComboBox 
+            DockPanel.Dock="Top" 
+            ItemsSource="{Binding Path=Profiles}" 
+            DisplayMemberPath="Name" 
+            SelectedItem="{Binding Path=SelectedProfile}" />
+
+        <Label 
+            DockPanel.Dock="Top" 
+            Content="Results:" />
+        <ListBox/>
+
 
     </DockPanel>
 </UserControl>

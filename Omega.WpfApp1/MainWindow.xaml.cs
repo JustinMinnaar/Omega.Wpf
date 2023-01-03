@@ -13,16 +13,27 @@ public partial class MainWindow
         InitializeComponent();
 
         explorer = new() { Id = Guid.NewGuid(), Name = "Explorer" };
-        explorer.SelectedRootChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadProjectsAsync);
+        explorer.SelectedSolutionChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadProjectsAsync);
         explorer.SelectedProjectChanged+= (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
-        explorer.SelectedFolderChanged+= (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFiles);
-        explorer.SelectedFileChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.AfterFileChanged);
+        explorer.SelectedIdentifiedFilterChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
+        explorer.SelectedFolderChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFiles);
+        explorer.SelectedFileChanged += Explorer_SelectedFileChanged;//(sender, e) => Dispatcher.InvokeAsync(explorer.AfterFileChanged);
         explorer.SelectedPageChanged += Explorer_SelectedPageChanged;// (sender, e)  => Dispatcher.Invoke(explorer.LoadPage);
 
         // Force initial load of data to happen in separate thread
         Dispatcher.InvokeAsync(explorer.LoadRootsAsync);
 
         DataContext = explorer;
+    }
+
+    private void Explorer_SelectedFileChanged(object? sender, EventArgs e)
+    {
+        Dispatcher.InvokeAsync(explorer.AfterFileChanged);
+
+        zoom.PanX = 0;
+        zoom.PanY = 0;
+        zoom.ZoomWidth = 0.45f;
+        zoom.ZoomHeight = 0.45f;
     }
 
     private void Explorer_SelectedPageChanged(object? sender, EventArgs e)
@@ -45,5 +56,10 @@ public partial class MainWindow
         var newProfile = new ProfileModel {Id = Guid.NewGuid(), Name = "(NEW)" };
         explorer.Profiles.Add(newProfile);
         explorer.SelectedProfile = newProfile;
+    }
+
+    private void zoom_ZoomChanged(object sender, EventArgs e)
+    {
+        var zoomWidth = zoom.ZoomWidth; var zoomHeight = zoom.ZoomHeight;
     }
 }

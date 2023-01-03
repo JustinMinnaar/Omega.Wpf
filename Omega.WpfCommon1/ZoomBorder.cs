@@ -357,7 +357,12 @@ public class ZoomBorder : Border
 
         tt.X = abosuluteX - relative.X * st.ScaleX;
         tt.Y = abosuluteY - relative.Y * st.ScaleY;
+
+        ZoomChanged?.Invoke(this, EventArgs.Empty);
+
     }
+
+    public event EventHandler ZoomChanged;
 
     #endregion Mouse Zooming
 }

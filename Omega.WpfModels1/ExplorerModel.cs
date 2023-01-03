@@ -11,21 +11,28 @@ using System.Windows.Threading;
 
 namespace Omega.WpfModels1;
 
+public enum IdentifiedFilter { All, Unknown, Known }
+
 // Projects, Folders, Files, Pages, Profiles: are loaded on demand
 public class ExplorerModel : IdNamedModel
 {
+    public ObservableCollection<SolutionModel>? Solutions { get; set; } = new();
+    public SolutionModel? SelectedSolution { get; set; }
 
-    public ObservableCollection<RootModel>? Roots { get; set; } = new();
-    public RootModel? SelectedRoot { get; set; }
-
-    public event EventHandler? SelectedRootChanged;
-    protected virtual void OnSelectedRootChanged() => SelectedRootChanged?.Invoke(this, EventArgs.Empty);
+    public event EventHandler? SelectedSolutionChanged;
+    protected virtual void OnSelectedSolutionChanged() => SelectedSolutionChanged?.Invoke(this, EventArgs.Empty);
 
     public ObservableCollection<ProjectModel>? Projects { get; set; } = new();
     public ProjectModel? SelectedProject { get; set; }
 
     public event EventHandler? SelectedProjectChanged;
     protected virtual void OnSelectedProjectChanged() => SelectedProjectChanged?.Invoke(this, EventArgs.Empty);
+
+    public IdentifiedFilter[] IdentifiedFilters => (IdentifiedFilter[])Enum.GetValues(typeof(IdentifiedFilter));
+    public IdentifiedFilter? SelectedIdentifiedFilter { get; set; } 
+
+    public event EventHandler? SelectedIdentifiedFilterChanged;
+    protected virtual void OnSelectedIdentifiedFilterChanged() => SelectedIdentifiedFilterChanged?.Invoke(this, EventArgs.Empty);
 
     public ObservableCollection<FolderModel>? Folders { get; set; } = new();
     public FolderModel? SelectedFolder { get; set; }
@@ -58,26 +65,37 @@ public class ExplorerModel : IdNamedModel
 
     public async Task LoadRootsAsync()
     {
-        SelectedRoot = null;
-        Roots = new ObservableCollection<RootModel>();
+        SelectedSolution = null;
+        SelectedProject = null;
+        SelectedIdentifiedFilter = IdentifiedFilter.All;
+        SelectedFolder = null;
+        SelectedFile = null;
+        SelectedPage = null;
+
+        Solutions = new ObservableCollection<SolutionModel>();
 
         using var db = new BdoDbContext();
         var dbRoots = await db.Root.OrderBy(r => r.Name).ToListAsync();
 
         foreach (var dbRoot in dbRoots)
         {
-            var mRoot = new RootModel { Id = dbRoot.Id, Name = dbRoot.Name };
-            Roots.Add(mRoot);
-            SelectedRoot ??= mRoot;
+            var mRoot = new SolutionModel { Id = dbRoot.Id, Name = dbRoot.Name };
+            Solutions.Add(mRoot);
+            SelectedSolution ??= mRoot;
         }
     }
 
     public async Task LoadProjectsAsync()
     {
         SelectedProject = null;
+        SelectedIdentifiedFilter = IdentifiedFilter.All;
+        SelectedFolder = null;
+        SelectedFile = null;
+        SelectedPage = null;
+
         Projects = new ObservableCollection<ProjectModel>();
 
-        var mRoot = SelectedRoot;
+        var mRoot = SelectedSolution;
         if (mRoot == null) return;
 
         using var db = new BdoDbContext();
@@ -94,17 +112,32 @@ public class ExplorerModel : IdNamedModel
     public async Task LoadFolders()
     {
         SelectedFolder = null;
+        SelectedFile = null;
+        SelectedPage = null;
+
         Folders = new ObservableCollection<FolderModel>();
 
         var mProject = SelectedProject;
         if (mProject == null) return;
 
         using var db = new BdoDbContext();
-        var dbFolders = await db.DocFolders.Where(f => f.OwnerProjectId == mProject.Id).OrderBy(f => f.Name).ToListAsync();
+
+        var q = db.DocFolders.Where(f => f.OwnerProjectId == mProject.Id);
+        if (SelectedIdentifiedFilter == IdentifiedFilter.Unknown)
+            q = q.Where(f => f.AreAllFilesIdentified == false);
+        if (SelectedIdentifiedFilter == IdentifiedFilter.Known)
+            q = q.Where(f => f.AreAllFilesIdentified == true);
+        var dbFolders = await q.OrderBy(f => f.Name).ToListAsync();
 
         foreach (var dbFolder in dbFolders)
         {
-            var mFolder = new FolderModel { Id = dbFolder.Id, Name = dbFolder.Name };
+            var mFolder = new FolderModel
+            {
+                Id = dbFolder.Id,
+                Name = dbFolder.Name,
+                AreAnyFileError = dbFolder.AreAnyFileError,
+                AreAllFilesIdentified = dbFolder.AreAllFilesIdentified
+            };
             Folders.Add(mFolder);
             SelectedFolder ??= mFolder;
         }
@@ -119,7 +152,13 @@ public class ExplorerModel : IdNamedModel
         if (mFolder == null) return;
 
         using var db = new BdoDbContext();
-        var dbFiles = await db.DocFiles.Where(f => f.OwnerFolderId == mFolder.Id).OrderBy(f => f.Name).ToListAsync();
+
+        var q = db.DocFiles.Where(f => f.OwnerFolderId == mFolder.Id);
+        if (SelectedIdentifiedFilter == IdentifiedFilter.Unknown)
+            q = q.Where(f => f.IsIdentified == false);
+        if (SelectedIdentifiedFilter == IdentifiedFilter.Known)
+            q = q.Where(f => f.IsIdentified == true);
+        var dbFiles = await q.OrderBy(f => f.Name).ToListAsync();
 
         foreach (var dbFile in dbFiles)
         {

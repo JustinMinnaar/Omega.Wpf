@@ -15,7 +15,7 @@
     <Grid Background="OldLace">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
@@ -27,11 +27,15 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Text="{Binding Path=LastMessage}" Grid.Row="0" />
-                <oc:ZoomBorder x:Name="zoom" Grid.Row="2" >
+                <oc:ZoomBorder x:Name="zoom" Grid.Row="2" ZoomChanged="zoom_ZoomChanged">
                     <pl:JemProfilePageControl x:Name="ppc" />
                 </oc:ZoomBorder>
+                <!--<TextBox Grid.Row="3" Text="{Binding ElementName=zoom,Path=ZoomWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="4" Text="{Binding ElementName=zoom,Path=ZoomHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />-->
             </Grid>
         </Border>
 
