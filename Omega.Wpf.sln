@@ -5,11 +5,19 @@ VisualStudioVersion = 17.5.33209.295
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omega.WpfApp1", "Omega.WpfApp1\Omega.WpfApp1.csproj", "{2017FAE2-F01B-4BC7-9596-FD10B5D5FB1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omega.WpfModels1", "Omega.WpfModels1\Omega.WpfModels1.csproj", "{40BDB348-B947-42BB-9F74-BCF2F8503C37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omega.WpfModels1", "Omega.WpfModels1\Omega.WpfModels1.csproj", "{40BDB348-B947-42BB-9F74-BCF2F8503C37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omega.WpfModels1.Tests", "Omega.WpfModels1.Tests\Omega.WpfModels1.Tests.csproj", "{4B9BFBA4-A244-45AD-8DD4-21473E011C37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omega.WpfModels1.Tests", "Omega.WpfModels1.Tests\Omega.WpfModels1.Tests.csproj", "{4B9BFBA4-A244-45AD-8DD4-21473E011C37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omega.WpfCommon1", "Omega.WpfCommon1\Omega.WpfCommon1.csproj", "{F4946450-ECE4-45F9-914A-8993D87CE268}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omega.WpfCommon1", "Omega.WpfCommon1\Omega.WpfCommon1.csproj", "{F4946450-ECE4-45F9-914A-8993D87CE268}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bdo.DatabaseLibrary1", "Bdo.DatabaseLibrary1\Bdo.DatabaseLibrary1.csproj", "{CD7284B9-6E31-462D-8257-FC0D877F79CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jem.DatabaseLibrary1", "Jem.DatabaseLibrary1\Jem.DatabaseLibrary1.csproj", "{A64697CF-DF78-4F4B-B16B-FF14F0C226ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jem.CommonLibrary22", "Jem.CommonLibrary22\Jem.CommonLibrary22.csproj", "{3D6813A9-062A-49DA-8DF9-1A56C3F210CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jem.CommonLibrary22.Tests", "Jem.CommonLibrary22.Tests\Jem.CommonLibrary22.Tests.csproj", "{68F36C22-63CC-44DD-8EAF-3FE297A28308}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,22 @@ Global
 		{F4946450-ECE4-45F9-914A-8993D87CE268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4946450-ECE4-45F9-914A-8993D87CE268}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4946450-ECE4-45F9-914A-8993D87CE268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7284B9-6E31-462D-8257-FC0D877F79CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7284B9-6E31-462D-8257-FC0D877F79CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7284B9-6E31-462D-8257-FC0D877F79CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7284B9-6E31-462D-8257-FC0D877F79CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A64697CF-DF78-4F4B-B16B-FF14F0C226ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64697CF-DF78-4F4B-B16B-FF14F0C226ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64697CF-DF78-4F4B-B16B-FF14F0C226ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64697CF-DF78-4F4B-B16B-FF14F0C226ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D6813A9-062A-49DA-8DF9-1A56C3F210CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D6813A9-062A-49DA-8DF9-1A56C3F210CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D6813A9-062A-49DA-8DF9-1A56C3F210CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D6813A9-062A-49DA-8DF9-1A56C3F210CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68F36C22-63CC-44DD-8EAF-3FE297A28308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F36C22-63CC-44DD-8EAF-3FE297A28308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F36C22-63CC-44DD-8EAF-3FE297A28308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F36C22-63CC-44DD-8EAF-3FE297A28308}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

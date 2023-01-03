@@ -4,9 +4,56 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Omega.WpfApp1"
+        xmlns:oc="clr-namespace:Omega.WpfCommon1;assembly=Omega.WpfCommon1"
+        xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="BDO Explorer" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=True}"
+        >
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <local:ProjectExplorerControl1 Grid.Column="0" />
+
+        <!--<Grid
+            Grid.Column="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <DockPanel
+                Grid.Row="0">
+                <Label DockPanel.Dock="Left" Content="Profile:" />
+                <Button DockPanel.Dock="Right" Content="Add" x:Name="AddProfileButton" Click="AddProfileButton_Click" />
+                <ComboBox ItemsSource="{Binding Path=Profiles}" 
+                          DisplayMemberPath="Name" 
+                          SelectedItem="{Binding Path=SelectedProfile}" />
+            </DockPanel>
+
+            <Label Grid.Row="2"  Content="Template:" />
+
+            <DockPanel
+                Grid.Row="3">
+                <ListBox ItemsSource="{Binding Path=SelectedProfile.Templates}" 
+                          DisplayMemberPath="Name" 
+                          SelectedItem="{Binding Path=SelectedProfile.SelectedTemplate}" />
+            </DockPanel>
+
+            <TextBox 
+            Grid.Column="1"
+            Text="{Binding Path=SelectedProfile.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            />
+
+        </Grid>-->
 
     </Grid>
 </Window>

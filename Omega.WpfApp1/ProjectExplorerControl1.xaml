@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Omega.WpfApp1.ProjectExplorerControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Omega.WpfApp1"
+             xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
+             mc:Ignorable="d" 
+             d:Background="White"
+             d:DesignHeight="450" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=False}">
+    <DockPanel>
+
+        <Label 
+            DockPanel.Dock="Top" 
+            Content="Root:" />
+        <ComboBox 
+            DockPanel.Dock="Top" 
+            ItemsSource="{Binding Path=Roots}" 
+            DisplayMemberPath="Name" 
+            SelectedItem="{Binding Path=SelectedRoot}" />
+        
+        <Label 
+            DockPanel.Dock="Top" 
+            Content="Project:" />
+        <ComboBox 
+            DockPanel.Dock="Top" 
+            ItemsSource="{Binding Path=Projects}" 
+            DisplayMemberPath="Name" 
+            SelectedItem="{Binding Path=SelectedProject}" />
+
+        <Label 
+            DockPanel.Dock="Top" 
+            Content="Folder:" />
+        <ComboBox 
+            DockPanel.Dock="Top" 
+            ItemsSource="{Binding Path=Folders}" 
+            DisplayMemberPath="Name" 
+            SelectedItem="{Binding Path=SelectedFolder}" />
+
+        <Label 
+            DockPanel.Dock="Top" 
+            Content="File:" />
+        <ComboBox 
+            DockPanel.Dock="Top" 
+            ItemsSource="{Binding Path=Files}" 
+            DisplayMemberPath="Name" 
+            SelectedItem="{Binding Path=SelectedFile}" />
+    
+        <Label 
+            DockPanel.Dock="Top" 
+            Content="Page:" />
+        <ListBox 
+            ItemsSource="{Binding Path=Pages}" 
+            DisplayMemberPath="Name" 
+            SelectedItem="{Binding Path=SelectedPage}" />
+
+    </DockPanel>
+</UserControl>

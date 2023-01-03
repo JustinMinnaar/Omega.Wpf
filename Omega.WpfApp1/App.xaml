@@ -4,6 +4,28 @@
              xmlns:local="clr-namespace:Omega.WpfApp1"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="DockPanel">
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
     </Application.Resources>
 </Application>

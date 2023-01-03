@@ -11,11 +11,7 @@ public class DummyConverter : MarkupExtension, IValueConverter
 
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
-        if (_converter == null)
-        {
-            _converter = new DummyConverter();
-        }
-        return _converter;
+        return _converter ??= new DummyConverter();
     }
 
     #region IValueConverter Members
