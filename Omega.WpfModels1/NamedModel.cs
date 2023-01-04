@@ -5,12 +5,14 @@ using System.ComponentModel;
 
 namespace Omega.WpfModels1
 {
+    public class CNotifyPropertyChanged: INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-    public class IdNamedModel : INotifyPropertyChanged
+    }
+    public class IdNamedModel : CNotifyPropertyChanged
     {
         public override string ToString() => Name;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         public required Guid Id { get; set; }    
 

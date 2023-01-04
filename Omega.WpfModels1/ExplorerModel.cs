@@ -1,21 +1,35 @@
-﻿using Jem.OcrLibrary22;
+﻿using Jem.CommonLibrary22;
+using Jem.OcrLibrary22;
 
 using Microsoft.EntityFrameworkCore;
 
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace Omega.WpfModels1;
 
 public enum IdentifiedFilter { All, Unknown, Known }
 
+public class ExplorerOptions : CNotifyPropertyChanged
+{
+    public bool ResetPanZoomOnFileSelect { get; set; } = true;
+    public bool SnapTop { get; set; } = true;
+    public bool SnapBottom { get; set; } = true;
+    public bool SnapLeft { get; set; } = false;
+    public bool SnapRight { get; set; } = false;
+}
+
 // Projects, Folders, Files, Pages, Profiles: are loaded on demand
 public class ExplorerModel : IdNamedModel
 {
+    public ExplorerOptions Options { get; } = new();
+
     public ObservableCollection<SolutionModel>? Solutions { get; set; } = new();
     public SolutionModel? SelectedSolution { get; set; }
 
@@ -29,7 +43,7 @@ public class ExplorerModel : IdNamedModel
     protected virtual void OnSelectedProjectChanged() => SelectedProjectChanged?.Invoke(this, EventArgs.Empty);
 
     public IdentifiedFilter[] IdentifiedFilters => (IdentifiedFilter[])Enum.GetValues(typeof(IdentifiedFilter));
-    public IdentifiedFilter? SelectedIdentifiedFilter { get; set; } 
+    public IdentifiedFilter? SelectedIdentifiedFilter { get; set; }
 
     public event EventHandler? SelectedIdentifiedFilterChanged;
     protected virtual void OnSelectedIdentifiedFilterChanged() => SelectedIdentifiedFilterChanged?.Invoke(this, EventArgs.Empty);
@@ -61,6 +75,8 @@ public class ExplorerModel : IdNamedModel
     public OcrDocument? oDocument { get; set; }
     public OcrPage? oPage { get; set; }
 
+    //public string? LastError { get; set; }
+    //public bool HasLastError => LastError != null;
     public string? LastMessage { get; set; }
 
     public async Task LoadRootsAsync()
@@ -191,7 +207,7 @@ public class ExplorerModel : IdNamedModel
 
             oDocument.ResizeTo2100();
 
-            return "Loaded ocr.";
+            return null;
         }
     }
 
@@ -277,7 +293,39 @@ public class ExplorerModel : IdNamedModel
         oPage = oDocument.Pages.FirstOrDefault(p => p.PageIndex == SelectedPage.PageIndex);
         if (oPage == null) return;
 
-        LastMessage = $"Page {(oPage.PageIndex + 1)} contains {oPage.SymbolsCount} symbols.";
+        LastMessage = $"Page {(oPage.PageIndex + 1)} contains {oPage.SymbolsCount} symbols for {SelectedFile?.Name}.";
+    }
+
+    public CRect? LastRectangleDrawn { get; set; }
+
+    public string? LastRectangleText { get; set; }
+
+    public CRect? RectangleDrawn(Rect mouseRect)
+    {
+        ExtractRectangleText(new CRect(mouseRect.X, mouseRect.Y, mouseRect.Width, mouseRect.Height));
+        return LastRectangleDrawn;
+    }
+
+    public void ExtractRectangleText(CRect rect)
+    {
+        LastRectangleDrawn = rect;
+
+        if (oPage == null) return;
+        var result = oPage?.ExtractSymbolsAndText(LastRectangleDrawn.Value, maxSymbolHeight: 999f);
+
+        LastRectangleText = result?.Text;
+        if (result == null)
+        {
+            LastRectangleDrawn = null;
+        }
+        else
+        {
+            if (Options.SnapTop) rect.Top = result.Bounds.Top; else rect.Top = Math.Min(rect.Top, result.Bounds.Top);
+            if (Options.SnapBottom) rect.Bottom = result.Bounds.Bottom; else rect.Bottom = Math.Max(rect.Bottom, result.Bounds.Bottom);
+            if (Options.SnapLeft) rect.Left = result.Bounds.Left; else rect.Left = Math.Min(rect.Left , result.Bounds.Left);
+            if (Options.SnapRight) rect.Right = result.Bounds.Right;else rect.Right = Math.Max(rect.Right, result.Bounds.Right);
+            LastRectangleDrawn = rect;
+        }
     }
 
     //public async Task LoadProfiles()

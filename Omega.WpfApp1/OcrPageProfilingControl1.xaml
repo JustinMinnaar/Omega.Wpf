@@ -9,6 +9,7 @@
              xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=True}"
+             d:Width="200" d:Height="200"
              >
     <Border BorderBrush="DarkGray" Background="DarkGray" BorderThickness="1" Margin="4" Grid.Column="1" >
         <Grid>
@@ -19,12 +20,21 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Path=LastMessage}" Grid.Row="0" />
-            <oc:ZoomBorder x:Name="zoom" Grid.Row="2">
-                <pl:JemProfilePageControl x:Name="ppc" />
+            <TextBox Text="{Binding Path=LastRectangleText}" Grid.Row="0" />
+            <!--<TextBlock 
+                Text="{Binding Path=LastError}" 
+                Background="PaleVioletRed" 
+                Grid.Row="1" 
+                Visibility="{Binding Path=HasLastError,Converter={StaticResource VisibilityConverter}}" />-->
+            <oc:ZoomBorder x:Name="zoom" Grid.Row="2" >
+                <pl:JemProfilePageControl 
+                    x:Name="ppc" 
+                    RectangleDrawn="Ppc_RectangleDrawn" 
+                    />
             </oc:ZoomBorder>
             <!--<TextBox Grid.Row="3" Text="{Binding ElementName=zoom,Path=ZoomWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="4" Text="{Binding ElementName=zoom,Path=ZoomHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />-->
+            <TextBlock Text="{Binding Path=LastMessage}" Grid.Row="4" />
         </Grid>
     </Border>
 </UserControl>

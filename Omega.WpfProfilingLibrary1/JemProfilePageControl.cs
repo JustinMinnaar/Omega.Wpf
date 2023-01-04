@@ -166,13 +166,27 @@ public class JemProfilePageControl : UserControl
 
     #endregion EditorMode
 
+    #region LastOcrRect
+
+    public Rect LastOcrRect
+    {
+        get { return (Rect)GetValue(LastOcrRectProperty); }
+        set { SetValue(LastOcrRectProperty, value); }
+    }
+
+    public static readonly DependencyProperty LastOcrRectProperty = DependencyProperty.Register
+        (nameof(LastOcrRect), typeof(Rect), typeof(JemProfilePageControl),
+         new FrameworkPropertyMetadata(Rect.Empty, FrameworkPropertyMetadataOptions.AffectsRender));
+
+    #endregion LastOcrRect
+
     #region Mouse
 
     private bool mouseLeftButtonDown;
     private Point mouseBeginPosition;
     private Point mouseMovePosition;
     private bool mouseRectangleCompleted;
-    private Rect mouseRect = new Rect();
+    private Rect mouseRect;
 
     public delegate void MouseRectDelegate(JemProfilePageControl sender, Rect mouseRect);
 
@@ -244,6 +258,8 @@ public class JemProfilePageControl : UserControl
             if (EditorMode == EEditorMode.Rectangle)
             {
                 RectangleDrawn?.Invoke(this, mouseRect);
+                mouseRect = new();
+                mouseRectangleCompleted = false;
             }
 
             if (EditorMode == EEditorMode.Line)
@@ -292,6 +308,8 @@ public class JemProfilePageControl : UserControl
         //    if (ShowOcrMatches)
         //        OnRenderOcrMatches(drawingContext);
         //}
+
+        OnRenderOcrSelection(drawingContext);
         OnRenderMouseSelection(drawingContext);
 
         //drawingContext.Pop();
@@ -309,6 +327,20 @@ public class JemProfilePageControl : UserControl
         drawingContext.DrawImage(PageImageSource, rect);
 
         drawingContext.DrawRectangle(Brushes.Transparent, new Pen(Brushes.White, 1), rect);
+    }
+
+    private void OnRenderOcrSelection(DrawingContext drawingContext)
+    {
+        if (LastOcrRect.IsEmpty) return;
+
+        var rectColor = Colors.Orange;
+
+        var rectFillColor = Color.FromArgb(50, rectColor.R, rectColor.G, rectColor.B);
+        var rectBrush = new SolidColorBrush(rectFillColor);
+        var rectPen = new Pen(new SolidColorBrush(rectColor), 1);
+
+        drawingContext.DrawRectangle(rectBrush, rectPen, LastOcrRect);
+
     }
 
     private void OnRenderMouseSelection(DrawingContext drawingContext)

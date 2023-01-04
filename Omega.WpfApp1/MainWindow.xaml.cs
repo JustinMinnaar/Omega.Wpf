@@ -30,27 +30,30 @@ public partial class MainWindow
     {
         Dispatcher.InvokeAsync(explorer.AfterFileChanged);
 
-        viewer.DoSelectedFileChanged();
+        pageExplorer.DoSelectedFileChanged();
     }
 
     private void Explorer_SelectedPageChanged(object? sender, EventArgs e)
-    {
-        viewer.DoSelectedPageChanged(null);
-        
+    {        
         explorer.LoadPage();
 
-        var oPage = explorer.oPage; if (oPage == null) return;
-
-        var bmp = oPage.ToBitmap(inverse:true);
-
-        viewer.DoSelectedPageChanged(bmp);
+        var oPage = explorer.oPage;
+        if (oPage == null)
+        {
+            pageExplorer.DoSelectedPageChanged(null);
+        }
+        else
+        {
+            var bmp = oPage.ToBitmap(inverse: true);
+            pageExplorer.DoSelectedPageChanged(bmp);
+        }
     }
 
     private void AddProfileButton_Click(object sender, RoutedEventArgs e)
     {
         if (explorer.Profiles == null) return;
 
-        var newProfile = new ProfileModel {Id = Guid.NewGuid(), Name = "(NEW)" };
+        var newProfile = new ProfileModel {Id = Guid.NewGuid(), Name = explorer.LastRectangleText ?? "(New)" };
         explorer.Profiles.Add(newProfile);
         explorer.SelectedProfile = newProfile;
     }

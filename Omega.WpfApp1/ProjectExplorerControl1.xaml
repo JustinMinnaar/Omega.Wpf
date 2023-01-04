@@ -9,6 +9,31 @@
              d:Background="White"
              d:DesignHeight="450" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <Style TargetType="DockPanel">
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,0" />
+        </Style>
+    </UserControl.Resources>
     <DockPanel>
 
         <Label 
@@ -19,7 +44,7 @@
             ItemsSource="{Binding Path=Solutions}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=SelectedSolution}" />
-        
+
         <Label 
             DockPanel.Dock="Top" 
             Content="Project:" />
@@ -54,7 +79,7 @@
             ItemsSource="{Binding Path=Files}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=SelectedFile}" />
-    
+
         <Label 
             DockPanel.Dock="Top" 
             Content="Page:" />

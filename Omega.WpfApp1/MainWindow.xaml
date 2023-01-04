@@ -8,9 +8,9 @@
         xmlns:pl="clr-namespace:Omega.WpfProfilingLibrary1;assembly=Omega.WpfProfilingLibrary1"
         xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=True}"
         Title="BDO Explorer" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=True}"
         >
     <Grid Background="OldLace">
         <Grid.ColumnDefinitions>
@@ -21,8 +21,9 @@
 
         <local:ProjectExplorerControl1 Grid.Column="0" />
 
-        <local:OcrPageProfilingControl1 Grid.Column="1" x:Name="viewer" />
+        <local:OcrPageProfilingControl1 Grid.Column="1" x:Name="pageExplorer" />
 
+        <local:ProfileExplorerControl1 Grid.Column="2" x:Name="proExplorer" />
         <!--<Grid
             Grid.Column="2">
 
