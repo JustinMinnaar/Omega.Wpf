@@ -8,7 +8,7 @@ namespace Jem.CommonLibrary22;
 
 public static class StringMatchingExtensions
 {
-    // todo: optimise
+    // todo: we could optimise this to not create a new string
     public static bool ContainsTextWithoutSpacing(this string source, string contains)
     {
         source = source.Replace(" ", "");

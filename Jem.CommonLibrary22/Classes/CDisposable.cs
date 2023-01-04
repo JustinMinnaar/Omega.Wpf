@@ -20,8 +20,5 @@ public class CDisposable : IDisposable
     public void Dispose()
     {
         Dispose(true);
-
-        // TODO: Determine if this prevent pix objects from cleaning up memory
-        //    GC.SuppressFinalize(this);
     }
 }
