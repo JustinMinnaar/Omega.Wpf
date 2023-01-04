@@ -1,6 +1,5 @@
-﻿namespace Omega.WpfModels1
+﻿namespace Omega.WpfModels1;
+
+public class SolutionModel : IdNamedModel
 {
-    public class SolutionModel : IdNamedModel
-    {
-    }
 }
