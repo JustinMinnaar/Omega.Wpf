@@ -7,7 +7,7 @@
              xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
              mc:Ignorable="d" 
              d:Background="White"
-             d:DesignHeight="450" d:DesignWidth="300"
+             d:DesignHeight="450" d:DesignWidth="200"
              d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=False}">
     <UserControl.Resources>
         <Style TargetType="DockPanel">
@@ -91,17 +91,21 @@
 
         <Label 
             DockPanel.Dock="Top" 
-            Content="Profile:" />
-        <ComboBox 
+            Content="Matched:" />
+        <TextBox
             DockPanel.Dock="Top" 
-            ItemsSource="{Binding Path=Profiles}" 
-            DisplayMemberPath="Name" 
-            SelectedItem="{Binding Path=SelectedProfile}" />
+            Text="{Binding Path=SelectedPage.ProfileName}" 
+            IsReadOnly="True"
+            Background="WhiteSmoke" 
+            />
 
         <Label 
             DockPanel.Dock="Top" 
             Content="Results:" />
-        <ListBox/>
+        <ListBox
+            ItemsSource="{Binding Path=SelectedPage.Values}"
+            Background="WhiteSmoke" 
+            />
 
 
     </DockPanel>

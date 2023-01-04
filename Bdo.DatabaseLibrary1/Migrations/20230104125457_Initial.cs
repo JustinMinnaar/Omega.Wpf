@@ -76,7 +76,19 @@ namespace Bdo.DatabaseLibrary1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RootMessages",
+                name: "DocSolutions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocSolutions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SysMessages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -86,7 +98,31 @@ namespace Bdo.DatabaseLibrary1.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RootMessages", x => x.Id);
+                    table.PrimaryKey("PK_SysMessages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SysUserSettings",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SelectedDocSolutionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SelectedDocProjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SelectedDocFolderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SelectedDocFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SelectedDocPageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SelectedProProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SelectedProTemplateId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ResetPanZoomOnFileSelect = table.Column<bool>(type: "bit", nullable: false),
+                    SnapTop = table.Column<bool>(type: "bit", nullable: false),
+                    SnapBottom = table.Column<bool>(type: "bit", nullable: false),
+                    SnapLeft = table.Column<bool>(type: "bit", nullable: false),
+                    SnapRight = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SysUserSettings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -162,6 +198,29 @@ namespace Bdo.DatabaseLibrary1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DocProjects",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OwnerSolutionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FoldersCount = table.Column<int>(type: "int", nullable: true),
+                    DocumentsCount = table.Column<int>(type: "int", nullable: true),
+                    PagesCount = table.Column<int>(type: "int", nullable: true),
+                    ImagesCount = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocProjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DocProjects_DocSolutions_OwnerSolutionId",
+                        column: x => x.OwnerSolutionId,
+                        principalTable: "DocSolutions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BdoBankCards",
                 columns: table => new
                 {
@@ -223,6 +282,29 @@ namespace Bdo.DatabaseLibrary1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DocFolders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OwnerProjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AreFilesLoaded = table.Column<bool>(type: "bit", nullable: false),
+                    AreAnyFileError = table.Column<bool>(type: "bit", nullable: false),
+                    AreAllFilesIdentified = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocFolders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DocFolders_DocProjects_OwnerProjectId",
+                        column: x => x.OwnerProjectId,
+                        principalTable: "DocProjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BdoBankPages",
                 columns: table => new
                 {
@@ -264,6 +346,39 @@ namespace Bdo.DatabaseLibrary1.Migrations
                         column: x => x.TypeId,
                         principalTable: "DocDocumentType",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DocDocument_DocFolders_OwnerFolderId",
+                        column: x => x.OwnerFolderId,
+                        principalTable: "DocFolders",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DocFiles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OwnerFolderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Size = table.Column<long>(type: "bigint", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OcrEngine = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OcrDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ProfileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsIdentified = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocFiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DocFiles_DocFolders_OwnerFolderId",
+                        column: x => x.OwnerFolderId,
+                        principalTable: "DocFolders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -292,33 +407,20 @@ namespace Bdo.DatabaseLibrary1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DocFiles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OwnerFolderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Size = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    OcrEngine = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OcrDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DocFiles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DocPages",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PageIndex = table.Column<int>(type: "int", nullable: false),
                     OwnerFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SymbolCount = table.Column<int>(type: "int", nullable: true),
                     SymbolData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     ImageCount = table.Column<int>(type: "int", nullable: true),
+                    IsBlank = table.Column<bool>(type: "bit", nullable: true),
+                    IsError = table.Column<bool>(type: "bit", nullable: false),
+                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ProfileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfileVersion = table.Column<float>(type: "real", nullable: false),
                     DocDocumentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
                 },
@@ -358,57 +460,6 @@ namespace Bdo.DatabaseLibrary1.Migrations
                         principalTable: "DocPages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DocFolders",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OwnerProjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DocFolders", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DocProjects",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OwnerRootId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RootFolderPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    IsLoadFoldersChecked = table.Column<bool>(type: "bit", nullable: false),
-                    FoldersCount = table.Column<int>(type: "int", nullable: true),
-                    DocumentsCount = table.Column<int>(type: "int", nullable: true),
-                    PagesCount = table.Column<int>(type: "int", nullable: true),
-                    ImagesCount = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DocProjects", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Root",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SelectedProjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Root", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Root_DocProjects_SelectedProjectId",
-                        column: x => x.SelectedProjectId,
-                        principalTable: "DocProjects",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -482,59 +533,19 @@ namespace Bdo.DatabaseLibrary1.Migrations
                 column: "OwnerFileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DocProjects_OwnerRootId",
+                name: "IX_DocProjects_OwnerSolutionId",
                 table: "DocProjects",
-                column: "OwnerRootId");
+                column: "OwnerSolutionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DocValue_OwnerDocumentId",
                 table: "DocValue",
                 column: "OwnerDocumentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Root_SelectedProjectId",
-                table: "Root",
-                column: "SelectedProjectId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DocDocument_DocFolders_OwnerFolderId",
-                table: "DocDocument",
-                column: "OwnerFolderId",
-                principalTable: "DocFolders",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DocFiles_DocFolders_OwnerFolderId",
-                table: "DocFiles",
-                column: "OwnerFolderId",
-                principalTable: "DocFolders",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DocFolders_DocProjects_OwnerProjectId",
-                table: "DocFolders",
-                column: "OwnerProjectId",
-                principalTable: "DocProjects",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DocProjects_Root_OwnerRootId",
-                table: "DocProjects",
-                column: "OwnerRootId",
-                principalTable: "Root",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Root_DocProjects_SelectedProjectId",
-                table: "Root");
-
             migrationBuilder.DropTable(
                 name: "BdoBankCards");
 
@@ -557,7 +568,10 @@ namespace Bdo.DatabaseLibrary1.Migrations
                 name: "DocValue");
 
             migrationBuilder.DropTable(
-                name: "RootMessages");
+                name: "SysMessages");
+
+            migrationBuilder.DropTable(
+                name: "SysUserSettings");
 
             migrationBuilder.DropTable(
                 name: "BdoBankStatements");
@@ -590,7 +604,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                 name: "DocProjects");
 
             migrationBuilder.DropTable(
-                name: "Root");
+                name: "DocSolutions");
         }
     }
 }

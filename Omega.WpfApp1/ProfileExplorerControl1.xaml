@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:Omega.WpfApp1"
              xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
              mc:Ignorable="d" 
+             d:Background="OldLace"
              d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=True}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="200" d:DesignWidth="200">
     <UserControl.Resources>
         <Style TargetType="StackPanel">
             <Setter Property="Margin" Value="4" />
@@ -34,10 +35,22 @@
         </Style>
     </UserControl.Resources>
     <DockPanel>
+
+        <StackPanel DockPanel.Dock="Top">
+
+            <TextBox Text="{Binding Path=LastRectangleText}" />
+            <TextBox Text="{Binding Path=LastRectangleDrawn}" />
+
+            <Label 
+                DockPanel.Dock="Top" 
+                Content="Profile:" />
+            <ComboBox 
+                DockPanel.Dock="Top" 
+                ItemsSource="{Binding Path=Profiles}" 
+                DisplayMemberPath="Name" 
+                SelectedItem="{Binding Path=SelectedProfile}" />
         
-    <StackPanel>
-        <TextBox Text="{Binding Path=LastRectangleText}" />
-        <TextBox Text="{Binding Path=LastRectangleDrawn}" />
-    </StackPanel>
+        </StackPanel>
+
     </DockPanel>
 </UserControl>

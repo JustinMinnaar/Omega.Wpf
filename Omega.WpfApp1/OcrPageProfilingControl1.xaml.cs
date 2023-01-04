@@ -1,8 +1,4 @@
-﻿using Bdo.DatabaseLibrary1.Migrations;
-
-using Jem.CommonLibrary22;
-
-using Omega.WpfCommon1;
+﻿using Omega.WpfCommon1;
 using Omega.WpfProfilingLibrary1;
 
 using System.Drawing;
@@ -11,17 +7,16 @@ namespace Omega.WpfApp1;
 
 public partial class OcrPageProfilingControl1 : UserControl
 {
-
     public OcrPageProfilingControl1()
     {
         InitializeComponent();
     }
 
-    ExplorerModel explorer => (ExplorerModel)DataContext;
+    public ExplorerModel Explorer => (ExplorerModel)DataContext;
 
     public void DoSelectedFileChanged()
     {
-        if (!explorer.Options.ResetPanZoomOnFileSelect) return;
+        if (Explorer.UserOptions?.ResetPanZoomOnFileSelect != true) return;
 
         zoom.PanX = 0;
         zoom.PanY = 0;
@@ -39,7 +34,7 @@ public partial class OcrPageProfilingControl1 : UserControl
 
     private void Ppc_RectangleDrawn(JemProfilePageControl sender, Rect mouseRect)
     {
-        var ocrRect = explorer.RectangleDrawn(mouseRect);
+        var ocrRect = Explorer.RectangleDrawn(mouseRect);
 
         if (ocrRect == null)
             ppc.LastOcrRect = Rect.Empty;

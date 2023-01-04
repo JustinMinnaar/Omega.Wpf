@@ -58,13 +58,13 @@ public class ZoomBorder : Border
 
     #region Translate Functions
 
-    private RotateTransform GetRotateTransform(UIElement element)
+    private static RotateTransform GetRotateTransform(UIElement element)
     {
         return (RotateTransform)((TransformGroup)element.RenderTransform)
           .Children.First(tr => tr is RotateTransform);
     }
 
-    private TranslateTransform GetTranslateTransform(UIElement element)
+    private static TranslateTransform GetTranslateTransform(UIElement element)
     {
         return (TranslateTransform)((TransformGroup)element.RenderTransform)
           .Children.First(tr => tr is TranslateTransform);
@@ -95,12 +95,12 @@ public class ZoomBorder : Border
         child = element;
         if (child != null)
         {
-            TransformGroup group = new TransformGroup();
-            ScaleTransform st = new ScaleTransform();
+            TransformGroup group = new();
+            ScaleTransform st = new();
             group.Children.Add(st);
-            TranslateTransform tt = new TranslateTransform();
+            TranslateTransform tt = new();
             group.Children.Add(tt);
-            RotateTransform rt = new RotateTransform();
+            RotateTransform rt = new();
             group.Children.Add(rt);
             child.RenderTransform = group;
             child.RenderTransformOrigin = new Point(0.0, 0.0);
@@ -133,15 +133,15 @@ public class ZoomBorder : Border
 
         var st = GetScaleTransform(child);
 
-        double width = 2510;
-        double height = 3010;
-        var fw = width / height;
-        var fh = height / width;
+        //double width = 2510;
+        //double height = 3010;
+        //var fw = width / height;
+        //var fh = height / width;
 
         //MeasureOverride(new Size(double.PositiveInfinity, double.PositiveInfinity));
-        var childSize = child.DesiredSize;
-        var fWidth = DesiredSize.Width / childSize.Width;
-        var fHeight = DesiredSize.Height / childSize.Height;
+        //var childSize = child.DesiredSize;
+        //var fWidth = DesiredSize.Width / childSize.Width;
+        //var fHeight = DesiredSize.Height / childSize.Height;
 
         st.ScaleX = 1;
         st.ScaleY = 1;
@@ -208,8 +208,8 @@ public class ZoomBorder : Border
         if (offsetX == 0 && offsetY == 0) return;
 
         var tt = GetTranslateTransform(child);
-        tt.X = tt.X + offsetX;
-        tt.Y = tt.Y + offsetY;
+        tt.X += offsetX;
+        tt.Y += offsetY;
     }
 
     #endregion Pan
@@ -312,7 +312,8 @@ public class ZoomBorder : Border
 
     public void ZoomIn()
     {
-        var pageViewer = Child as UIElement;
+        //var pageViewer = Child as UIElement;
+
         var centerPoint = new Point(0, 0);
         double zoomDelta = +mouseWheelAdjust;
         Zoom(centerPoint, zoomDelta);
@@ -322,7 +323,7 @@ public class ZoomBorder : Border
     {
         if (child == null) return;
 
-        var st = GetScaleTransform(child);
+        //var st = GetScaleTransform(child);
         var tt = GetTranslateTransform(child);
 
         var centerPoint = new Point
@@ -362,7 +363,7 @@ public class ZoomBorder : Border
 
     }
 
-    public event EventHandler ZoomChanged;
+    public event EventHandler? ZoomChanged;
 
     #endregion Mouse Zooming
 }

@@ -1,4 +1,6 @@
-﻿using Jem.CommonLibrary22;
+﻿using Bdo.DatabaseLibrary1;
+
+using Jem.CommonLibrary22;
 using Jem.OcrLibrary22;
 
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -16,8 +19,16 @@ namespace Omega.WpfModels1;
 
 public enum IdentifiedFilter { All, Unknown, Known }
 
-public class ExplorerOptions : CNotifyPropertyChanged
+public class UserOptionsModel : IdNamedModel
 {
+    public Guid? SelectedDocSolutionId { get; set; }
+    public Guid? SelectedDocProjectId { get; set; }
+    public Guid? SelectedDocFolderId { get; set; }
+    public Guid? SelectedDocFileId { get; set; }
+    public Guid? SelectedDocPageId { get; set; }
+    public Guid? SelectedProProfileId { get; set; }
+    public Guid? SelectedProTemplateId { get; set; }
+
     public bool ResetPanZoomOnFileSelect { get; set; } = true;
     public bool SnapTop { get; set; } = true;
     public bool SnapBottom { get; set; } = true;
@@ -28,7 +39,7 @@ public class ExplorerOptions : CNotifyPropertyChanged
 // Projects, Folders, Files, Pages, Profiles: are loaded on demand
 public class ExplorerModel : IdNamedModel
 {
-    public ExplorerOptions Options { get; } = new();
+    public UserOptionsModel UserOptions { get; set; } = new UserOptionsModel { Id = Guid.NewGuid(), Name = Environment.UserName };
 
     public ObservableCollection<SolutionModel>? Solutions { get; set; } = new();
     public SolutionModel? SelectedSolution { get; set; }
@@ -42,7 +53,7 @@ public class ExplorerModel : IdNamedModel
     public event EventHandler? SelectedProjectChanged;
     protected virtual void OnSelectedProjectChanged() => SelectedProjectChanged?.Invoke(this, EventArgs.Empty);
 
-    public IdentifiedFilter[] IdentifiedFilters => (IdentifiedFilter[])Enum.GetValues(typeof(IdentifiedFilter));
+    public static IdentifiedFilter[] IdentifiedFilters => (IdentifiedFilter[])Enum.GetValues(typeof(IdentifiedFilter));
     public IdentifiedFilter? SelectedIdentifiedFilter { get; set; }
 
     public event EventHandler? SelectedIdentifiedFilterChanged;
@@ -72,14 +83,72 @@ public class ExplorerModel : IdNamedModel
     public event EventHandler? SelectedProfileChanged;
     protected virtual void OnSelectedProfileChanged() => SelectedProfileChanged?.Invoke(this, EventArgs.Empty);
 
-    public OcrDocument? oDocument { get; set; }
-    public OcrPage? oPage { get; set; }
+    public OcrDocument? ODocument { get; set; }
+    public OcrPage? OPage { get; set; }
 
     //public string? LastError { get; set; }
     //public bool HasLastError => LastError != null;
     public string? LastMessage { get; set; }
 
-    public async Task LoadRootsAsync()
+    public async Task LoadAsync(string userName)
+    {
+        try
+        {
+            await LoadUserAsync(userName);
+            await LoadSolutionsAsync();
+        }
+        catch (Exception ex)
+        {
+            LastMessage = ex.Message;
+        }
+    }
+
+    public async Task<SolutionModel> AccessSolutionAsync(string solutionName)
+    {
+        using var db = new BdoDbContext();
+
+        var dbSolution = await db.TryGetSolutionAsync(solutionName);
+        if (dbSolution == null)
+        {
+            dbSolution = new DocSolution { Id = Guid.NewGuid(), Name = solutionName };
+            db.DocSolutions.Add(dbSolution);
+            await db.SaveChangesAsync();
+        }
+
+        var mSolution = new SolutionModel { Id = dbSolution.Id, Name = dbSolution.Name };
+        return mSolution;
+    }
+
+    private async Task LoadUserAsync(string userName)
+    {
+        var db = new BdoDbContext();
+        var dbUser = await db.SysUserSettings.AsNoTracking().FirstOrDefaultAsync(u => u.Name == userName);
+        if (dbUser == null)
+        {
+            dbUser = new SysUserSettings { Id = new(), Name = userName };
+            await db.SaveChangesAsync();
+        }
+
+        this.UserOptions = new UserOptionsModel
+        {
+            Id = dbUser.Id,
+            Name = dbUser.Name,
+            SnapBottom = dbUser.SnapBottom,
+            SnapLeft = dbUser.SnapLeft,
+            SnapRight = dbUser.SnapRight,
+            SnapTop = dbUser.SnapTop,
+            ResetPanZoomOnFileSelect = dbUser.ResetPanZoomOnFileSelect,
+            SelectedDocFileId = dbUser.SelectedDocFileId,
+            SelectedDocFolderId = dbUser.SelectedDocFolderId,
+            SelectedDocPageId = dbUser.SelectedDocPageId,
+            SelectedDocProjectId = dbUser.SelectedDocProjectId,
+            SelectedDocSolutionId = dbUser.SelectedDocSolutionId,
+            SelectedProProfileId = dbUser.SelectedProProfileId,
+            SelectedProTemplateId = dbUser.SelectedProTemplateId,
+        };
+    }
+
+    public async Task LoadSolutionsAsync()
     {
         SelectedSolution = null;
         SelectedProject = null;
@@ -91,13 +160,17 @@ public class ExplorerModel : IdNamedModel
         Solutions = new ObservableCollection<SolutionModel>();
 
         using var db = new BdoDbContext();
-        var dbRoots = await db.Root.OrderBy(r => r.Name).ToListAsync();
+        var dbSolutions = await db.DocSolutions.OrderBy(r => r.Name).ToListAsync();
 
-        foreach (var dbRoot in dbRoots)
+        // If no previous user selection matches, we'll select the first one
+        var dbSelected = dbSolutions.FirstOrDefault(s => s.Id == UserOptions?.SelectedDocSolutionId) ?? dbSolutions.FirstOrDefault();
+
+        // create models for each solution, and select the selected's model
+        foreach (var dbSolution in dbSolutions)
         {
-            var mRoot = new SolutionModel { Id = dbRoot.Id, Name = dbRoot.Name };
-            Solutions.Add(mRoot);
-            SelectedSolution ??= mRoot;
+            var mSolution = new SolutionModel { Id = dbSolution.Id, Name = dbSolution.Name };
+            Solutions.Add(mSolution);
+            if (dbSelected?.Id == mSolution.Id) SelectedSolution = mSolution;
         }
     }
 
@@ -115,7 +188,7 @@ public class ExplorerModel : IdNamedModel
         if (mRoot == null) return;
 
         using var db = new BdoDbContext();
-        var dbProjects = await db.DocProjects.Where(p => p.OwnerRootId == mRoot.Id).OrderBy(p => p.Name).ToListAsync();
+        var dbProjects = await db.DocProjects.Where(p => p.OwnerSolutionId == mRoot.Id).OrderBy(p => p.Name).ToListAsync();
 
         foreach (var dbProject in dbProjects)
         {
@@ -188,9 +261,9 @@ public class ExplorerModel : IdNamedModel
     {
         LastMessage = await DoLoadOcr();
 
-        async Task<string> DoLoadOcr()
+        async Task<string?> DoLoadOcr()
         {
-            oDocument = null;
+            ODocument = null;
 
             var mProject = SelectedProject; if (mProject == null) return "No project selected.";
             var mFolder = SelectedFolder; if (mFolder == null) return "No folder selected.";
@@ -202,10 +275,10 @@ public class ExplorerModel : IdNamedModel
             var fileName = System.IO.Path.GetFileNameWithoutExtension(mFile.Name);
 
             var binOcrFilePath = $@"{rootPath}\{projectName}\{folderName}\{fileName}.bocr";
-            oDocument = await OcrDocument.TryLoadFromBinaryFileAsync(binOcrFilePath);
-            if (oDocument == null) return "No Ocr available.";
+            ODocument = await OcrDocument.TryLoadFromBinaryFileAsync(binOcrFilePath);
+            if (ODocument == null) return "No Ocr available.";
 
-            oDocument.ResizeTo2100();
+            ODocument.ResizeTo2100();
 
             return null;
         }
@@ -227,9 +300,9 @@ public class ExplorerModel : IdNamedModel
         using var db = new BdoDbContext();
         var dbPages = await db.DocPages.Where(f => f.OwnerFileId == mFile.Id).OrderBy(p => p.Name).ToListAsync();
 
-        if (oDocument != null)
+        if (ODocument != null)
         {
-            foreach (var oPage in oDocument.Pages)
+            foreach (var oPage in ODocument.Pages)
             {
                 var dbPage = dbPages.FirstOrDefault(p => p.PageIndex == oPage.PageIndex);
 
@@ -284,16 +357,16 @@ public class ExplorerModel : IdNamedModel
 
     public void LoadPage()
     {
-        oPage = null;
+        OPage = null;
 
         if (SelectedPage == null) return;
 
-        if (oDocument == null) return;
+        if (ODocument == null) return;
 
-        oPage = oDocument.Pages.FirstOrDefault(p => p.PageIndex == SelectedPage.PageIndex);
-        if (oPage == null) return;
+        OPage = ODocument.Pages.FirstOrDefault(p => p.PageIndex == SelectedPage.PageIndex);
+        if (OPage == null) return;
 
-        LastMessage = $"Page {(oPage.PageIndex + 1)} contains {oPage.SymbolsCount} symbols for {SelectedFile?.Name}.";
+        LastMessage = $"Page {(OPage.PageIndex + 1)} contains {OPage.SymbolsCount} symbols for {SelectedFile?.Name}.";
     }
 
     public CRect? LastRectangleDrawn { get; set; }
@@ -310,8 +383,8 @@ public class ExplorerModel : IdNamedModel
     {
         LastRectangleDrawn = rect;
 
-        if (oPage == null) return;
-        var result = oPage?.ExtractSymbolsAndText(LastRectangleDrawn.Value, maxSymbolHeight: 999f);
+        if (OPage == null) return;
+        var result = OPage?.ExtractSymbolsAndText(LastRectangleDrawn.Value, maxSymbolHeight: 999f);
 
         LastRectangleText = result?.Text;
         if (result == null)
@@ -320,10 +393,10 @@ public class ExplorerModel : IdNamedModel
         }
         else
         {
-            if (Options.SnapTop) rect.Top = result.Bounds.Top; else rect.Top = Math.Min(rect.Top, result.Bounds.Top);
-            if (Options.SnapBottom) rect.Bottom = result.Bounds.Bottom; else rect.Bottom = Math.Max(rect.Bottom, result.Bounds.Bottom);
-            if (Options.SnapLeft) rect.Left = result.Bounds.Left; else rect.Left = Math.Min(rect.Left , result.Bounds.Left);
-            if (Options.SnapRight) rect.Right = result.Bounds.Right;else rect.Right = Math.Max(rect.Right, result.Bounds.Right);
+            if (UserOptions.SnapTop) rect.Top = result.Bounds.Top; else rect.Top = Math.Min(rect.Top, result.Bounds.Top);
+            if (UserOptions.SnapBottom) rect.Bottom = result.Bounds.Bottom; else rect.Bottom = Math.Max(rect.Bottom, result.Bounds.Bottom);
+            if (UserOptions.SnapLeft) rect.Left = result.Bounds.Left; else rect.Left = Math.Min(rect.Left, result.Bounds.Left);
+            if (UserOptions.SnapRight) rect.Right = result.Bounds.Right; else rect.Right = Math.Max(rect.Right, result.Bounds.Right);
             LastRectangleDrawn = rect;
         }
     }

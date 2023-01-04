@@ -1,4 +1,8 @@
-﻿public sealed class BdoDbContext : JemDbContext
+﻿using Jem.DatabaseLibrary1;
+
+namespace Bdo.DatabaseLibrary1;
+
+public sealed class BdoDbContext : JemDbContext
 {
     public BdoDbContext() : base(@"Server=.;Database=bdo;integrated security=true;connection timeout=5;Trust Server Certificate=true;") { }
     // public BdoDbContext() : base(@"Server=.;Database=Omega;user id=omega;password=d8W2B5HG!Nq.2g8;connection timeout=5;Trust Server Certificate=true;") { }

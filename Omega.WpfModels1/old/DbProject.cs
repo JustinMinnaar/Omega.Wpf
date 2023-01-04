@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Omega.WpfModels1
+namespace Omega.WpfModels1.old
 {
     public class DbProject
     {
@@ -8,7 +8,7 @@ namespace Omega.WpfModels1
 
         public DbProject(string rootPath)
         {
-            this.Name = System.IO.Path.GetFileName(rootPath);
+            Name = System.IO.Path.GetFileName(rootPath);
 
             var folders = System.IO.Directory.GetDirectories(rootPath);
             foreach (var folderPath in folders)

@@ -1,4 +1,4 @@
-﻿namespace Jem.DataLibrary.Sets;
+﻿namespace Jem.DatabaseLibrary1.Sets;
 
 public sealed class IdNameSet<T> where T : IdNamed, new()
 {

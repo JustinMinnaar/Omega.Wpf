@@ -91,7 +91,7 @@ public class ProIdentifier : IdNamed
         return this;
     }
 
-    internal void Compile()
+    internal virtual void Compile()
     {
         foreach (var phrase in Phrases) phrase.Compile();
         OPage = null;

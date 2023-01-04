@@ -151,7 +151,7 @@ public class ProTemplate : IdNamed
         // this.RepeatRect = this.RepeatRect.Moved(x, y);
     }
 
-    public void Compile()
+    public virtual void Compile()
     {
 
         var rect = new CRect();

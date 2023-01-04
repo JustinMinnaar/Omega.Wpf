@@ -575,33 +575,26 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Property<int?>("ImagesCount")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsLoadFoldersChecked")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<Guid?>("OwnerRootId")
+                    b.Property<Guid?>("OwnerSolutionId")
                         .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("PagesCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("RootFolderPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerRootId");
+                    b.HasIndex("OwnerSolutionId");
 
                     b.ToTable("DocProjects");
                 });
 
-            modelBuilder.Entity("DocRoot", b =>
+            modelBuilder.Entity("DocSolution", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -612,14 +605,9 @@ namespace Bdo.DatabaseLibrary1.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<Guid?>("SelectedProjectId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SelectedProjectId");
-
-                    b.ToTable("Root");
+                    b.ToTable("DocSolutions");
                 });
 
             modelBuilder.Entity("DocValue", b =>
@@ -723,7 +711,59 @@ namespace Bdo.DatabaseLibrary1.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RootMessages");
+                    b.ToTable("SysMessages");
+                });
+
+            modelBuilder.Entity("SysUserSettings", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("ResetPanZoomOnFileSelect")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("SelectedDocFileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SelectedDocFolderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SelectedDocPageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SelectedDocProjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SelectedDocSolutionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SelectedProProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SelectedProTemplateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("SnapBottom")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("SnapLeft")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("SnapRight")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("SnapTop")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysUserSettings");
                 });
 
             modelBuilder.Entity("BankAccount", b =>
@@ -853,22 +893,13 @@ namespace Bdo.DatabaseLibrary1.Migrations
 
             modelBuilder.Entity("DocProject", b =>
                 {
-                    b.HasOne("DocRoot", "OwnerRoot")
+                    b.HasOne("DocSolution", "OwnerSolution")
                         .WithMany("Projects")
-                        .HasForeignKey("OwnerRootId")
+                        .HasForeignKey("OwnerSolutionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OwnerRoot");
-                });
-
-            modelBuilder.Entity("DocRoot", b =>
-                {
-                    b.HasOne("DocProject", "SelectedProject")
-                        .WithMany()
-                        .HasForeignKey("SelectedProjectId");
-
-                    b.Navigation("SelectedProject");
+                    b.Navigation("OwnerSolution");
                 });
 
             modelBuilder.Entity("DocValue", b =>
@@ -933,7 +964,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("Folders");
                 });
 
-            modelBuilder.Entity("DocRoot", b =>
+            modelBuilder.Entity("DocSolution", b =>
                 {
                     b.Navigation("Projects");
                 });

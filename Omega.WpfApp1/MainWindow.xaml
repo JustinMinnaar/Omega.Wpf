@@ -13,10 +13,14 @@
         WindowStartupLocation="CenterScreen"
         >
     <Grid Background="OldLace">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="200" />
             <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
 
         <local:ProjectExplorerControl1 Grid.Column="0" />
@@ -24,6 +28,9 @@
         <local:OcrPageProfilingControl1 Grid.Column="1" x:Name="pageExplorer" />
 
         <local:ProfileExplorerControl1 Grid.Column="2" x:Name="proExplorer" />
+
+        <ProgressBar x:Name="progress" Grid.Row="1" Grid.ColumnSpan="3" Height="4" />
+
         <!--<Grid
             Grid.Column="2">
 

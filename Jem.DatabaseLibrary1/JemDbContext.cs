@@ -1,38 +1,54 @@
 ﻿using Jem.CommonLibrary22;
 
+namespace Jem.DatabaseLibrary1;
+
 public abstract class JemDbContext : DbContext
 {
     protected const string defaultName = "(default)";
 
-    public DbSet<SysMessage> RootMessages { get; set; } = default!;
+    public DbSet<SysUserSettings> SysUserSettings { get; set; } = default!;
 
-    #region Roots
+    public DbSet<SysMessage> SysMessages { get; set; } = default!;
 
-    public DbSet<DocRoot> Root { get; set; } = default!;
+    #region Solutions
 
-    private DocRoot? _defaultRoot;
+    public DbSet<DocSolution> DocSolutions { get; set; } = default!;
 
-    // The root object once fetched from the database
-    public DocRoot DefaultRoot
+    public async Task<DocSolution> AccessSolutionAsync(string name) =>
+        await TryGetSolutionAsync(name) ??
+        await AddSolutionAsync(name);
+
+    public async Task<DocSolution> AccessSolutionAsync(ID<DocSolution> id, string name) =>
+        await TryGetSolutionAsync(id) ??
+        await TryGetSolutionAsync(name) ??
+        await AddSolutionAsync(id, name);
+
+    public async Task<DocSolution> AddSolutionAsync(string name) =>
+        await AddSolutionAsync(new ID<DocSolution>(), name);
+
+    public async Task<DocSolution> AddSolutionAsync(ID<DocSolution> id, string name)
     {
-        get
+        var row = new DocSolution
         {
-            if (_defaultRoot != null) return _defaultRoot;
+            Id = id,
+            Name = name,
+        };
 
-            _defaultRoot = Root.Find(Guid.Empty);
-            if (_defaultRoot != null) return _defaultRoot;
+        DocSolutions.Add(row);
+        await SaveChangesAsync();
 
-            _defaultRoot = AddRoot(new ID<DocRoot>(Guid.Empty), defaultName);
-            return _defaultRoot;
-        }
+        return row;
     }
 
-    private DocRoot AddRoot(ID<DocRoot> id, string name)
-    {
-        var root = new DocRoot { Id = id, Name = name };
-        Root.Add(root);
-        return root;
-    }
+    public async Task<DocSolution> GetSolution(ID<DocSolution> id) =>
+        await TryGetSolutionAsync(id) ??
+        throw new NotFoundException($"Solution {id} not found!");
+
+    public async Task<DocSolution?> TryGetSolutionAsync(ID<DocSolution> id)
+        => await DocSolutions.FindAsync(id.Guid);
+
+    public async Task<DocSolution?> TryGetSolutionAsync(string name) =>
+        await DocSolutions.FirstOrDefaultAsync(p => p.Name == name);
 
     #endregion
 
@@ -40,54 +56,63 @@ public abstract class JemDbContext : DbContext
 
     public DbSet<DocProject> DocProjects { get; set; } = default!;
 
-    public DocProject AccessProject(string name)
-        => TryGetProject(name) ?? AddProject(name);
+    public async Task<DocProject> AccessProjectAsync(ID<DocSolution> solutionId, string name)=> 
+        await TryGetProjectAsync(solutionId, name) ?? 
+        await AddProjectAsync(solutionId, name);
 
-    public DocProject AccessProject(ID<DocProject> id, string name)
-        => TryGetProject(id) ?? TryGetProject(name) ?? AddProject(id, name);
+    public async Task<DocProject> AccessProject(ID<DocSolution> solutionId, ID<DocProject> id, string name)=> 
+        await TryGetProjectAsync(id) ?? 
+        await TryGetProjectAsync(solutionId, name) ?? 
+        await AddProjectAsync(solutionId, id, name);
 
-    public DocProject AddProject(string name) =>
-        AddProject(new ID<DocProject>(), name);
+    public async Task<DocProject> AddProjectAsync(ID<DocSolution> solutionId, string name) =>
+        await AddProjectAsync(solutionId, new ID<DocProject>(), name);
 
-    public DocProject AddProject(ID<DocProject> id, string name)
+    public async Task<DocProject> AddProjectAsync(ID<DocSolution> solutionId, ID<DocProject> id, string name)
     {
         var row = new DocProject
         {
+            OwnerSolutionId = solutionId,
             Id = id,
             Name = name,
-            OwnerRoot = DefaultRoot
         };
 
         DocProjects.Add(row);
+        await SaveChangesAsync();
         return row;
     }
 
-    public DocProject GetProject(ID<DocProject> id) => TryGetProject(id) ??
-            throw new NotFoundException($"Project {id} not found!");
+    public async Task<DocProject> GetProjectAsync(ID<DocProject> id) =>
+        await TryGetProjectAsync(id) ??
+        throw new NotFoundException($"Project {id} not found!");
 
-    public DocProject? TryGetProject(ID<DocProject> id) => DocProjects.Find(id.Guid);
+    public async Task<DocProject?> TryGetProjectAsync(ID<DocProject> id) =>
+        await DocProjects.FindAsync(id.Guid);
 
-    public DocProject? TryGetProject(string name) =>
-        DocProjects.FirstOrDefault(p => p.OwnerRoot == DefaultRoot && p.Name == name);
+    public async Task<DocProject?> TryGetProjectAsync(ID<DocSolution> solutionId, string name) =>
+        await DocProjects.FirstOrDefaultAsync(p => p.OwnerSolutionId == solutionId && p.Name == name);
+
+    public void DropProjects(params DocProject[] rows) =>
+        DocProjects.RemoveRange(rows);
 
     #endregion
-        
+
     #region Folders
 
     public DbSet<DocFolder> DocFolders { get; set; } = default!;
 
-    public DocFolder AccessFolder(ID<DocProject> ownerProjectId, string name) =>
-        TryGetFolder(ownerProjectId, name) ??
-        AddFolder(ownerProjectId, name);
+    public async Task<DocFolder> AccessFolderAsync(ID<DocProject> ownerProjectId, string name) =>
+        await TryGetFolderAsync(ownerProjectId, name) ??
+        await AddFolderAsync(ownerProjectId, name);
 
-    public DocFolder AccessFolder(ID<DocProject> ownerProjectId, ID<DocFolder> id, string name) =>
-        TryGetFolder(id) ??
-        AddFolder(ownerProjectId, id, name);
+    public async Task<DocFolder> AccessFolderAsync(ID<DocProject> ownerProjectId, ID<DocFolder> id, string name) =>
+        await TryGetFolderAsync(id) ??
+        await AddFolderAsync(ownerProjectId, id, name);
 
-    public DocFolder AddFolder(ID<DocProject> ownerProjectId, string folderName)
-        => AddFolder(ownerProjectId, new ID<DocFolder>(), folderName);
+    public async Task<DocFolder> AddFolderAsync(ID<DocProject> ownerProjectId, string folderName)
+        => await AddFolderAsync(ownerProjectId, new ID<DocFolder>(), folderName);
 
-    public DocFolder AddFolder(ID<DocProject> ownerProjectId, ID<DocFolder> folderId, string folderName)
+    public async Task<DocFolder> AddFolderAsync(ID<DocProject> ownerProjectId, ID<DocFolder> folderId, string folderName)
     {
         var row = new DocFolder
         {
@@ -95,19 +120,24 @@ public abstract class JemDbContext : DbContext
             Id = folderId,
             Name = folderName,
         };
+
         DocFolders.Add(row);
+        await SaveChangesAsync();
         return row;
     }
 
-    public DocFolder GetFolder(ID<DocFolder> id) =>
-        TryGetFolder(id) ?? throw new NotFoundException($"Folder {id} not found!");
+    public async Task<DocFolder> GetFolder(ID<DocFolder> id) =>
+        await TryGetFolderAsync(id)
+        ?? throw new NotFoundException($"Folder {id} not found!");
 
-    public DocFolder? TryGetFolder(ID<DocFolder> id) => DocFolders.Find(id);
+    public async Task<DocFolder?> TryGetFolderAsync(ID<DocFolder> id) =>
+        await DocFolders.FindAsync(id);
 
-    public DocFolder? TryGetFolder(ID<DocProject> projectId, string name) =>
-        DocFolders.FirstOrDefault(p => p.Name == name && p.OwnerProjectId == projectId);
+    public async Task<DocFolder?> TryGetFolderAsync(ID<DocProject> projectId, string name) =>
+        await DocFolders.FirstOrDefaultAsync(p => p.Name == name && p.OwnerProjectId == projectId);
 
-    public void DropFolders(params DocFolder[] rows) => DocFolders.RemoveRange(rows);
+    public void DropFolders(params DocFolder[] rows) =>
+        DocFolders.RemoveRange(rows);
 
     #endregion
 
@@ -115,19 +145,19 @@ public abstract class JemDbContext : DbContext
 
     public DbSet<DocFile> DocFiles { get; set; } = default!;
 
-    public DocFile AccessFile(ID<DocFolder> ownerFolderId, string name) =>
-        TryGetFile(ownerFolderId, name) ??
-        AddFile(ownerFolderId, new(), name);
+    public async Task<DocFile> AccessFileAsync(ID<DocFolder> ownerFolderId, string name) =>
+        await TryGetFileAsync(ownerFolderId, name) ??
+        await AddFileAsync(ownerFolderId, new(), name);
 
-    public DocFile AccessFile(ID<DocFolder> ownerFolderId, ID<DocFile> id, string name) =>
-        TryGetFile(id) ??
-        TryGetFile(ownerFolderId, name) ??
-        AddFile(ownerFolderId, id, name);
+    public async Task<DocFile> AccessFileAsync(ID<DocFolder> ownerFolderId, ID<DocFile> id, string name) =>
+        await TryGetFileAsync(id) ??
+        await TryGetFileAsync(ownerFolderId, name) ??
+        await AddFileAsync(ownerFolderId, id, name);
 
-    public DocFile AddFile(ID<DocFolder> ownerFolderId, string fileName)
-        => AddFile(ownerFolderId, new(), fileName);
+    public async Task<DocFile> AddFileAsync(ID<DocFolder> ownerFolderId, string fileName)
+        => await AddFileAsync(ownerFolderId, new(), fileName);
 
-    public DocFile AddFile(ID<DocFolder> ownerFolderId, ID<DocFile> fileId, string fileName)
+    public async Task<DocFile> AddFileAsync(ID<DocFolder> ownerFolderId, ID<DocFile> fileId, string fileName)
     {
         var row = new DocFile
         {
@@ -135,18 +165,21 @@ public abstract class JemDbContext : DbContext
             Id = fileId,
             Name = fileName,
         };
+
         DocFiles.Add(row);
+        await SaveChangesAsync();
         return row;
     }
 
-    public DocFile GetFile(ID<DocFile> id) => 
-        TryGetFile(id) ?? throw new NotFoundException($"File {id} not found!");
+    public async Task<DocFile> GetFileAsync(ID<DocFile> id) =>
+        await TryGetFileAsync(id) ??
+        throw new NotFoundException($"File {id} not found!");
 
-    public DocFile? TryGetFile(ID<DocFile> id) =>
-        DocFiles.Find(id);
+    public async Task<DocFile?> TryGetFileAsync(ID<DocFile> id) =>
+        await DocFiles.FindAsync(id);
 
-    public DocFile? TryGetFile(ID<DocFolder> folderId, string name) =>
-        DocFiles.FirstOrDefault(p => p.Name == name && p.OwnerFolderId == folderId);
+    public async Task<DocFile?> TryGetFileAsync(ID<DocFolder> folderId, string name) =>
+        await DocFiles.FirstOrDefaultAsync(p => p.Name == name && p.OwnerFolderId == folderId);
 
     public void DropFiles(params DocFile[] rows) =>
         DocFiles.RemoveRange(rows);
@@ -264,10 +297,10 @@ public abstract class JemDbContext : DbContext
 
     public DbSet<DocPage> DocPages { get; set; } = default!;
 
-    public DocPage AddPage(ID<DocFile> ownerFileId, string name) =>
-        AddPage(ownerFileId, new(), name);
+    public async Task<DocPage> AddPageAsync(ID<DocFile> ownerFileId, string name) =>
+        await AddPageAsync(ownerFileId, new(), name);
 
-    public DocPage AddPage(ID<DocFile> ownerFileId, ID<DocPage> id, string name)
+    public async Task<DocPage> AddPageAsync(ID<DocFile> ownerFileId, ID<DocPage> id, string name)
     {
         var row = new DocPage
         {
@@ -277,22 +310,24 @@ public abstract class JemDbContext : DbContext
         };
 
         DocPages.Add(row);
+        await SaveChangesAsync();
         return row;
     }
 
-    public DocPage GetPage(ID<DocPage> id) =>
-        TryGetPage(id) ?? throw new NotFoundException($"Page {id} not found!");
+    public async Task<DocPage> GetPageAsync(ID<DocPage> id) =>
+        await TryGetPageAsync(id) ??
+        throw new NotFoundException($"Page {id} not found!");
 
-    public DocPage? TryGetPage(ID<DocPage> id) =>
-        DocPages.Find(id.Guid);
+    public async Task<DocPage?> TryGetPageAsync(ID<DocPage> id) =>
+        await DocPages.FindAsync(id.Guid);
 
-    public DocPage? TryGetPage(ID<DocFile> ownerFileId, string name) =>
-        DocPages.FirstOrDefault(d => d.Name == name && d.OwnerFileId == ownerFileId);
+    public async Task<DocPage?> TryGetPage(ID<DocFile> ownerFileId, string name) =>
+        await DocPages.FirstOrDefaultAsync(d => d.Name == name && d.OwnerFileId == ownerFileId);
 
-    public DocPage AccessPage(ID<DocFile> ownerFileId, ID<DocPage> id, string name) =>
-        TryGetPage(id) ??
-        TryGetPage(ownerFileId, name) ??
-        AddPage(ownerFileId, id, name);
+    public async Task<DocPage> AccessPageAsync(ID<DocFile> ownerFileId, ID<DocPage> id, string name) =>
+        await TryGetPageAsync(id) ??
+        await TryGetPage(ownerFileId, name) ??
+        await AddPageAsync(ownerFileId, id, name);
 
     #endregion
 
@@ -300,10 +335,10 @@ public abstract class JemDbContext : DbContext
 
     public DbSet<DocImage> DocImages { get; set; } = default!;
 
-    public DocImage AddImage(DocPage ownerPage, string name) =>
-        AddImage(ownerPage, new(), name);
+    public async Task<DocImage> AddImageAsync(DocPage ownerPage, string name) =>
+        await AddImageAsync(ownerPage, new(), name);
 
-    public DocImage AddImage(DocPage ownerPage, ID<DocImage> id, string name,
+    public async Task<DocImage> AddImageAsync(DocPage ownerPage, ID<DocImage> id, string name,
         int width = 0, int height = 0, string? checksum = null)
     {
         var row = new DocImage
@@ -315,23 +350,26 @@ public abstract class JemDbContext : DbContext
             Height = height,
             Checksum = checksum,
         };
+
         DocImages.Add(row);
+        await SaveChangesAsync();
         return row;
     }
 
-    public DocImage GetImage(ID<DocImage> id) => 
-        TryGetImage(id) ?? throw new NotFoundException($"Image {id} not found!");
+    public async Task<DocImage> GetImageAsync(ID<DocImage> id) =>
+        await TryGetImageAsync(id) ?? 
+        throw new NotFoundException($"Image {id} not found!");
 
-    public DocImage? TryGetImage(ID<DocImage> id) =>
-        DocImages.Find(id);
+    public async Task<DocImage?> TryGetImageAsync(ID<DocImage> id) =>
+        await DocImages.FindAsync(id);
 
-    public DocImage? TryGetImage(DocPage ownerPage, string name) =>
-        DocImages.FirstOrDefault(d => d.Name == name && d.OwnerPage == ownerPage);
+    public async Task<DocImage?>  TryGetImageAsync(DocPage ownerPage, string name) =>
+        await DocImages.FirstOrDefaultAsync(d => d.Name == name && d.OwnerPage == ownerPage);
 
-    public DocImage AccessImage(DocPage page, ID<DocImage> id, string name) => 
-        TryGetImage(id) ??
-        TryGetImage(page, name) ??
-        AddImage(page, id, name);
+    public async Task<DocImage> AccessImageAsync(DocPage page, ID<DocImage> id, string name) =>
+        await TryGetImageAsync(id) ??
+        await TryGetImageAsync(page, name) ??
+        await AddImageAsync(page, id, name);
 
     #endregion
 
@@ -367,9 +405,9 @@ public abstract class JemDbContext : DbContext
 
     private static void ConfigRoots(ModelBuilder m)
     {
-        m.Entity<DocRoot>()
+        m.Entity<DocSolution>()
             .HasMany<DocProject>(type => type.Projects)
-            .WithOne(project => project.OwnerRoot)
+            .WithOne(project => project.OwnerSolution)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
     }
@@ -439,5 +477,4 @@ public abstract class JemDbContext : DbContext
     //}
 
     #endregion
-
 }

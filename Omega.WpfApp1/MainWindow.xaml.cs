@@ -4,6 +4,7 @@ using Jem.WpfCommonLibrary22;
 using Jem.OcrLibrary22.Windows;
 using Omega.WpfCommon1;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.ComponentModel;
 
 // todo: store the last selected root, project, folder, file, page in the database
 // todo: store the last selected profile, template, identifier, etc. in the database
@@ -14,7 +15,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 // todo: test pages using profiles
 // todo: show page not matched
 
-public partial class MainWindow 
+public partial class MainWindow
 {
     private readonly ExplorerModel explorer;
 
@@ -24,16 +25,21 @@ public partial class MainWindow
 
         explorer = new() { Id = Guid.NewGuid(), Name = "Explorer" };
         explorer.SelectedSolutionChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadProjectsAsync);
-        explorer.SelectedProjectChanged+= (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
+        explorer.SelectedProjectChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
         explorer.SelectedIdentifiedFilterChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
         explorer.SelectedFolderChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFiles);
-        explorer.SelectedFileChanged += Explorer_SelectedFileChanged;//(sender, e) => Dispatcher.InvokeAsync(explorer.AfterFileChanged);
-        explorer.SelectedPageChanged += Explorer_SelectedPageChanged;// (sender, e)  => Dispatcher.Invoke(explorer.LoadPage);
+        explorer.SelectedFileChanged += Explorer_SelectedFileChanged;
+        explorer.SelectedPageChanged += Explorer_SelectedPageChanged;
 
         // Force initial load of data to happen in separate thread
-        Dispatcher.InvokeAsync(explorer.LoadRootsAsync);
+        Dispatcher.InvokeAsync(LoadAsync);
 
         DataContext = explorer;
+    }
+
+    private async Task LoadAsync()
+    {
+        await explorer.LoadAsync(Environment.UserName);
     }
 
     private void Explorer_SelectedFileChanged(object? sender, EventArgs e)
@@ -44,10 +50,10 @@ public partial class MainWindow
     }
 
     private void Explorer_SelectedPageChanged(object? sender, EventArgs e)
-    {        
+    {
         explorer.LoadPage();
 
-        var oPage = explorer.oPage;
+        var oPage = explorer.OPage;
         if (oPage == null)
         {
             pageExplorer.DoSelectedPageChanged(null);
@@ -63,7 +69,7 @@ public partial class MainWindow
     {
         if (explorer.Profiles == null) return;
 
-        var newProfile = new ProfileModel {Id = Guid.NewGuid(), Name = explorer.LastRectangleText ?? "(New)" };
+        var newProfile = new ProfileModel { Id = Guid.NewGuid(), Name = explorer.LastRectangleText ?? "(New)" };
         explorer.Profiles.Add(newProfile);
         explorer.SelectedProfile = newProfile;
     }

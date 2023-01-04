@@ -131,7 +131,7 @@ public class ProExtractor : IdNamed
         return this;
     }
 
-    internal void Compile()
+    internal virtual void Compile()
     {
 
     }
