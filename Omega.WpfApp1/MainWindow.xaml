@@ -7,8 +7,9 @@
         xmlns:oc="clr-namespace:Omega.WpfCommon1;assembly=Omega.WpfCommon1"
         xmlns:pl="clr-namespace:Omega.WpfProfilingLibrary1;assembly=Omega.WpfProfilingLibrary1"
         xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
+        xmlns:controllers="clr-namespace:Omega.WpfControllers1;assembly=Omega.WpfControllers1"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=True}"
         Title="BDO Explorer" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         >

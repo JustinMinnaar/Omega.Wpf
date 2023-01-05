@@ -5,41 +5,24 @@ using Jem.OcrLibrary22;
 
 using Microsoft.EntityFrameworkCore;
 
+using Omega.WpfModels1;
+
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
-namespace Omega.WpfModels1;
+namespace Omega.WpfControllers1;
 
-public enum IdentifiedFilter { All, Unknown, Known }
-
-public class UserOptionsModel : IdNamedModel
+public class DocumentsController : CNotifyPropertyChanged
 {
-    public Guid? SelectedDocSolutionId { get; set; }
-    public Guid? SelectedDocProjectId { get; set; }
-    public Guid? SelectedDocFolderId { get; set; }
-    public Guid? SelectedDocFileId { get; set; }
-    public Guid? SelectedDocPageId { get; set; }
-    public Guid? SelectedProProfileId { get; set; }
-    public Guid? SelectedProTemplateId { get; set; }
+    public required MainController Main { get; init; }
+    public string? LastMessage { get; set; }
 
-    public bool ResetPanZoomOnFileSelect { get; set; } = true;
-    public bool SnapTop { get; set; } = true;
-    public bool SnapBottom { get; set; } = true;
-    public bool SnapLeft { get; set; } = false;
-    public bool SnapRight { get; set; } = false;
-}
+    // Projects, Folders, Files, Pages, Profiles: are loaded on demand
 
-// Projects, Folders, Files, Pages, Profiles: are loaded on demand
-public class ExplorerModel : IdNamedModel
-{
-    public UserOptionsModel UserOptions { get; set; } = new UserOptionsModel { Id = Guid.NewGuid(), Name = Environment.UserName };
+    #region Solutions
 
     public ObservableCollection<SolutionModel>? Solutions { get; set; } = new();
     public SolutionModel? SelectedSolution { get; set; }
@@ -47,11 +30,17 @@ public class ExplorerModel : IdNamedModel
     public event EventHandler? SelectedSolutionChanged;
     protected virtual void OnSelectedSolutionChanged() => SelectedSolutionChanged?.Invoke(this, EventArgs.Empty);
 
+    #endregion
+    #region Projects
+
     public ObservableCollection<ProjectModel>? Projects { get; set; } = new();
     public ProjectModel? SelectedProject { get; set; }
 
     public event EventHandler? SelectedProjectChanged;
     protected virtual void OnSelectedProjectChanged() => SelectedProjectChanged?.Invoke(this, EventArgs.Empty);
+
+    #endregion
+    #region IdentifiedFilters 
 
     public static IdentifiedFilter[] IdentifiedFilters => (IdentifiedFilter[])Enum.GetValues(typeof(IdentifiedFilter));
     public IdentifiedFilter? SelectedIdentifiedFilter { get; set; }
@@ -59,11 +48,17 @@ public class ExplorerModel : IdNamedModel
     public event EventHandler? SelectedIdentifiedFilterChanged;
     protected virtual void OnSelectedIdentifiedFilterChanged() => SelectedIdentifiedFilterChanged?.Invoke(this, EventArgs.Empty);
 
+    #endregion
+    #region Folders
+
     public ObservableCollection<FolderModel>? Folders { get; set; } = new();
     public FolderModel? SelectedFolder { get; set; }
 
     public event EventHandler? SelectedFolderChanged;
     protected virtual void OnSelectedFolderChanged() => SelectedFolderChanged?.Invoke(this, EventArgs.Empty);
+
+    #endregion
+    #region Files
 
     public ObservableCollection<FileModel>? Files { get; set; } = new();
     public FileModel? SelectedFile { get; set; }
@@ -71,81 +66,32 @@ public class ExplorerModel : IdNamedModel
     public event EventHandler? SelectedFileChanged;
     protected virtual void OnSelectedFileChanged() => SelectedFileChanged?.Invoke(this, EventArgs.Empty);
 
+    #endregion
+    #region Pages
+
     public ObservableCollection<PageModel>? Pages { get; set; } = new();
     public PageModel? SelectedPage { get; set; }
 
     public event EventHandler? SelectedPageChanged;
     protected virtual void OnSelectedPageChanged() => SelectedPageChanged?.Invoke(this, EventArgs.Empty);
 
-    public ObservableCollection<ProfileModel>? Profiles { get; set; } = new();
-    public ProfileModel? SelectedProfile { get; set; }
-
-    public event EventHandler? SelectedProfileChanged;
-    protected virtual void OnSelectedProfileChanged() => SelectedProfileChanged?.Invoke(this, EventArgs.Empty);
+    #endregion
+    #region Ocr
 
     public OcrDocument? ODocument { get; set; }
     public OcrPage? OPage { get; set; }
 
-    //public string? LastError { get; set; }
-    //public bool HasLastError => LastError != null;
-    public string? LastMessage { get; set; }
-
-    public async Task LoadAsync(string userName)
-    {
-        try
-        {
-            await LoadUserAsync(userName);
-            await LoadSolutionsAsync();
-        }
-        catch (Exception ex)
-        {
-            LastMessage = ex.Message;
-        }
-    }
+    #endregion
 
     public async Task<SolutionModel> AccessSolutionAsync(string solutionName)
     {
         using var db = new BdoDbContext();
 
-        var dbSolution = await db.TryGetSolutionAsync(solutionName);
-        if (dbSolution == null)
-        {
-            dbSolution = new DocSolution { Id = Guid.NewGuid(), Name = solutionName };
-            db.DocSolutions.Add(dbSolution);
-            await db.SaveChangesAsync();
-        }
+        var dbSolution = await db.AccessSolutionAsync(solutionName);
 
         var mSolution = new SolutionModel { Id = dbSolution.Id, Name = dbSolution.Name };
+        SelectedSolution = mSolution;
         return mSolution;
-    }
-
-    private async Task LoadUserAsync(string userName)
-    {
-        var db = new BdoDbContext();
-        var dbUser = await db.SysUserSettings.AsNoTracking().FirstOrDefaultAsync(u => u.Name == userName);
-        if (dbUser == null)
-        {
-            dbUser = new SysUserSettings { Id = new(), Name = userName };
-            await db.SaveChangesAsync();
-        }
-
-        this.UserOptions = new UserOptionsModel
-        {
-            Id = dbUser.Id,
-            Name = dbUser.Name,
-            SnapBottom = dbUser.SnapBottom,
-            SnapLeft = dbUser.SnapLeft,
-            SnapRight = dbUser.SnapRight,
-            SnapTop = dbUser.SnapTop,
-            ResetPanZoomOnFileSelect = dbUser.ResetPanZoomOnFileSelect,
-            SelectedDocFileId = dbUser.SelectedDocFileId,
-            SelectedDocFolderId = dbUser.SelectedDocFolderId,
-            SelectedDocPageId = dbUser.SelectedDocPageId,
-            SelectedDocProjectId = dbUser.SelectedDocProjectId,
-            SelectedDocSolutionId = dbUser.SelectedDocSolutionId,
-            SelectedProProfileId = dbUser.SelectedProProfileId,
-            SelectedProTemplateId = dbUser.SelectedProTemplateId,
-        };
     }
 
     public async Task LoadSolutionsAsync()
@@ -163,7 +109,7 @@ public class ExplorerModel : IdNamedModel
         var dbSolutions = await db.DocSolutions.OrderBy(r => r.Name).ToListAsync();
 
         // If no previous user selection matches, we'll select the first one
-        var dbSelected = dbSolutions.FirstOrDefault(s => s.Id == UserOptions?.SelectedDocSolutionId) ?? dbSolutions.FirstOrDefault();
+        var dbSelected = dbSolutions.FirstOrDefault(s => s.Id == Main.Settings?.SelectedDocSolutionId) ?? dbSolutions.FirstOrDefault();
 
         // create models for each solution, and select the selected's model
         foreach (var dbSolution in dbSolutions)
@@ -198,7 +144,7 @@ public class ExplorerModel : IdNamedModel
         }
     }
 
-    public async Task LoadFolders()
+    public async Task LoadFoldersAsync()
     {
         SelectedFolder = null;
         SelectedFile = null;
@@ -232,7 +178,7 @@ public class ExplorerModel : IdNamedModel
         }
     }
 
-    public async Task LoadFiles()
+    public async Task LoadFilesAsync()
     {
         SelectedFile = null;
         Files = new ObservableCollection<FileModel>();
@@ -257,7 +203,13 @@ public class ExplorerModel : IdNamedModel
         }
     }
 
-    public async Task LoadOcr()
+    public async Task AfterFileChangedAsync()
+    {
+        await LoadOcrAsync();
+        await LoadPagesAsync();
+    }
+
+    public async Task LoadOcrAsync()
     {
         LastMessage = await DoLoadOcr();
 
@@ -284,13 +236,7 @@ public class ExplorerModel : IdNamedModel
         }
     }
 
-    public async Task AfterFileChanged()
-    {
-        await LoadOcr();
-        await LoadPages();
-    }
-
-    private async Task LoadPages()
+    private async Task LoadPagesAsync()
     {
         SelectedPage = null;
         Pages = new ObservableCollection<PageModel>();
@@ -393,36 +339,12 @@ public class ExplorerModel : IdNamedModel
         }
         else
         {
-            if (UserOptions.SnapTop) rect.Top = result.Bounds.Top; else rect.Top = Math.Min(rect.Top, result.Bounds.Top);
-            if (UserOptions.SnapBottom) rect.Bottom = result.Bounds.Bottom; else rect.Bottom = Math.Max(rect.Bottom, result.Bounds.Bottom);
-            if (UserOptions.SnapLeft) rect.Left = result.Bounds.Left; else rect.Left = Math.Min(rect.Left, result.Bounds.Left);
-            if (UserOptions.SnapRight) rect.Right = result.Bounds.Right; else rect.Right = Math.Max(rect.Right, result.Bounds.Right);
+            if (Main.Settings.SnapTop) rect.Top = result.Bounds.Top; else rect.Top = Math.Min(rect.Top, result.Bounds.Top);
+            if (Main.Settings.SnapBottom) rect.Bottom = result.Bounds.Bottom; else rect.Bottom = Math.Max(rect.Bottom, result.Bounds.Bottom);
+            if (Main.Settings.SnapLeft) rect.Left = result.Bounds.Left; else rect.Left = Math.Min(rect.Left, result.Bounds.Left);
+            if (Main.Settings.SnapRight) rect.Right = result.Bounds.Right; else rect.Right = Math.Max(rect.Right, result.Bounds.Right);
             LastRectangleDrawn = rect;
         }
     }
 
-    //public async Task LoadProfiles()
-    //{
-    //    SelectedProfile = null;
-    //    Profiles = new ObservableCollection<ProfileModel>();
-
-    //    using var db = new BdoDbContext();
-    //    var dbProfiles = await db.ProProfiles.ToListAsync();
-
-    //    foreach (var dbProfile in dbProfiles)
-    //    {
-    //        var mProfile = new ProfileModel { Id = dbProfile.Id, Name = dbProfile.Name };
-    //        Profiles.Add(mProfile);
-    //        SelectedProfile ??= mProfile;
-    //    }
-    //}
-
-    //public async Task LoadProfiles()
-    //{
-
-    //        var profile = new ProfileModel { Name = "Standard Statement" };
-    //        profile.Templates.Add(new TemplateModel { Name = "Page" });
-    //        mRoot.Profiles.Add(profile);
-
-    //}
 }

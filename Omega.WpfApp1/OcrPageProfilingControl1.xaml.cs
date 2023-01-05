@@ -1,4 +1,5 @@
 ﻿using Omega.WpfCommon1;
+using Omega.WpfControllers1;
 using Omega.WpfProfilingLibrary1;
 
 using System.Drawing;
@@ -12,11 +13,11 @@ public partial class OcrPageProfilingControl1 : UserControl
         InitializeComponent();
     }
 
-    public ExplorerModel Explorer => (ExplorerModel)DataContext;
+    public MainController Controller => (MainController)DataContext;
 
     public void DoSelectedFileChanged()
     {
-        if (Explorer.UserOptions?.ResetPanZoomOnFileSelect != true) return;
+        if (Controller.Settings.ResetPanZoomOnFileSelect != true) return;
 
         zoom.PanX = 0;
         zoom.PanY = 0;
@@ -34,7 +35,7 @@ public partial class OcrPageProfilingControl1 : UserControl
 
     private void Ppc_RectangleDrawn(JemProfilePageControl sender, Rect mouseRect)
     {
-        var ocrRect = Explorer.RectangleDrawn(mouseRect);
+        var ocrRect = Controller.Explorer.RectangleDrawn(mouseRect);
 
         if (ocrRect == null)
             ppc.LastOcrRect = Rect.Empty;

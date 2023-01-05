@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Fody" Version="6.6.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
+		<PackageReference Include="PropertyChanging.Fody" Version="1.30.3" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Bdo.DatabaseLibrary1\Bdo.DatabaseLibrary1.csproj" />
+		<ProjectReference Include="..\Jem.DatabaseLibrary1\Jem.DatabaseLibrary1.csproj" />
+		<ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+		<ProjectReference Include="..\Jem.Profiling22.Data\Jem.Profiling22.Data.csproj" />
+		<ProjectReference Include="..\Omega.WpfModels1\Omega.WpfModels1.csproj" />
+	</ItemGroup>
+
+</Project>

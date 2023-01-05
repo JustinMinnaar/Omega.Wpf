@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:Omega.WpfApp1"
              xmlns:oc="clr-namespace:Omega.WpfCommon1;assembly=Omega.WpfCommon1"
              xmlns:pl="clr-namespace:Omega.WpfProfilingLibrary1;assembly=Omega.WpfProfilingLibrary1"
+             xmlns:controllers="clr-namespace:Omega.WpfControllers1;assembly=Omega.WpfControllers1"
              xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=False}"
              d:Width="200" d:Height="200"
              >
-    <Border BorderBrush="DarkGray" Background="DarkGray" BorderThickness="1" Margin="4" Grid.Column="1" >
+    <Border BorderBrush="DarkGray" Background="DarkGray" BorderThickness="1" Margin="4" Grid.Column="1" Padding="1" >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -20,7 +21,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding Path=LastRectangleText}" Grid.Row="0" />
+            <TextBox Text="{Binding Path=Explorer.LastRectangleText}" Grid.Row="0" Background="OldLace" />
             <!--<TextBlock 
                 Text="{Binding Path=LastError}" 
                 Background="PaleVioletRed" 
@@ -34,7 +35,7 @@
             </oc:ZoomBorder>
             <!--<TextBox Grid.Row="3" Text="{Binding ElementName=zoom,Path=ZoomWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="4" Text="{Binding ElementName=zoom,Path=ZoomHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />-->
-            <TextBlock Text="{Binding Path=LastMessage}" Grid.Row="4" />
+            <TextBlock Text="{Binding Path=Explorer.LastMessage}" Grid.Row="4" />
         </Grid>
     </Border>
 </UserControl>

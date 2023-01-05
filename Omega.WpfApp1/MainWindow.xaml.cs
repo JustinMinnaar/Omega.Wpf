@@ -3,8 +3,7 @@
 using Jem.WpfCommonLibrary22;
 using Jem.OcrLibrary22.Windows;
 using Omega.WpfCommon1;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.ComponentModel;
+using Omega.WpfControllers1;
 
 // todo: store the last selected root, project, folder, file, page in the database
 // todo: store the last selected profile, template, identifier, etc. in the database
@@ -17,43 +16,43 @@ using System.ComponentModel;
 
 public partial class MainWindow
 {
-    private readonly ExplorerModel explorer;
+    private readonly MainController controller;
 
     public MainWindow()
     {
         InitializeComponent();
 
-        explorer = new() { Id = Guid.NewGuid(), Name = "Explorer" };
-        explorer.SelectedSolutionChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadProjectsAsync);
-        explorer.SelectedProjectChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
-        explorer.SelectedIdentifiedFilterChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFolders);
-        explorer.SelectedFolderChanged += (sender, e) => Dispatcher.InvokeAsync(explorer.LoadFiles);
-        explorer.SelectedFileChanged += Explorer_SelectedFileChanged;
-        explorer.SelectedPageChanged += Explorer_SelectedPageChanged;
+        controller = new MainController();
+        controller.Explorer.SelectedSolutionChanged += (sender, e) => Dispatcher.InvokeAsync(controller.Explorer.LoadProjectsAsync);
+        controller.Explorer.SelectedProjectChanged += (sender, e) => Dispatcher.InvokeAsync(controller.Explorer.LoadFoldersAsync);
+        controller.Explorer.SelectedIdentifiedFilterChanged += (sender, e) => Dispatcher.InvokeAsync(controller.Explorer.LoadFoldersAsync);
+        controller.Explorer.SelectedFolderChanged += (sender, e) => Dispatcher.InvokeAsync(controller.Explorer.LoadFilesAsync);
+        controller.Explorer.SelectedFileChanged += Explorer_SelectedFileChanged;
+        controller.Explorer.SelectedPageChanged += Explorer_SelectedPageChanged;
 
         // Force initial load of data to happen in separate thread
         Dispatcher.InvokeAsync(LoadAsync);
 
-        DataContext = explorer;
+        DataContext = controller;
     }
 
     private async Task LoadAsync()
     {
-        await explorer.LoadAsync(Environment.UserName);
+        await controller.TryLoadAsync(Environment.UserName);
     }
 
     private void Explorer_SelectedFileChanged(object? sender, EventArgs e)
     {
-        Dispatcher.InvokeAsync(explorer.AfterFileChanged);
+        Dispatcher.InvokeAsync(controller.Explorer.AfterFileChangedAsync);
 
-        pageExplorer.DoSelectedFileChanged();
+        this.pageExplorer.DoSelectedFileChanged();
     }
 
     private void Explorer_SelectedPageChanged(object? sender, EventArgs e)
     {
-        explorer.LoadPage();
+        controller.Explorer.LoadPage();
 
-        var oPage = explorer.OPage;
+        var oPage = controller.Explorer.OPage;
         if (oPage == null)
         {
             pageExplorer.DoSelectedPageChanged(null);
@@ -67,10 +66,10 @@ public partial class MainWindow
 
     private void AddProfileButton_Click(object sender, RoutedEventArgs e)
     {
-        if (explorer.Profiles == null) return;
+        if (controller.Profiling.Profiles == null) return;
 
-        var newProfile = new ProfileModel { Id = Guid.NewGuid(), Name = explorer.LastRectangleText ?? "(New)" };
-        explorer.Profiles.Add(newProfile);
-        explorer.SelectedProfile = newProfile;
+        var newProfile = new ProfileModel { Id = Guid.NewGuid(), Name = controller.Explorer.LastRectangleText ?? "(New)" };
+        controller.Profiling.Profiles.Add(newProfile);
+        controller.Profiling.SelectedProfile = newProfile;
     }
 }

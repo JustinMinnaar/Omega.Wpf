@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Omega.WpfApp1"
              xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
+             xmlns:controllers="clr-namespace:Omega.WpfControllers1;assembly=Omega.WpfControllers1"
              mc:Ignorable="d" 
              d:Background="OldLace"
-             d:DataContext="{d:DesignInstance Type=models:ExplorerModel,IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=True}"
              d:DesignHeight="200" d:DesignWidth="200">
     <UserControl.Resources>
         <Style TargetType="StackPanel">
@@ -38,17 +39,17 @@
 
         <StackPanel DockPanel.Dock="Top">
 
-            <TextBox Text="{Binding Path=LastRectangleText}" />
-            <TextBox Text="{Binding Path=LastRectangleDrawn}" />
+            <TextBox Text="{Binding Path=Explorer.LastRectangleText}" />
+            <TextBox Text="{Binding Path=Explorer.LastRectangleDrawn}" />
 
             <Label 
                 DockPanel.Dock="Top" 
                 Content="Profile:" />
             <ComboBox 
                 DockPanel.Dock="Top" 
-                ItemsSource="{Binding Path=Profiles}" 
+                ItemsSource="{Binding Path=Profiling.Profiles}" 
                 DisplayMemberPath="Name" 
-                SelectedItem="{Binding Path=SelectedProfile}" />
+                SelectedItem="{Binding Path=Profiling.SelectedProfile}" />
         
         </StackPanel>
 
