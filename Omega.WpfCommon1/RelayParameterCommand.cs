@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Omega.WpfModels1;
+namespace Omega.WpfCommon1;
 
-public class RelayCommandAsync : ICommand
+public class RelayParameterCommand : ICommand
 {
-    private readonly Func<Task> _execute;
-    private readonly Predicate<object?>? _canExecute;
+    private readonly Action<object?> _execute;
+    private readonly Func<object?,bool>? _canExecute;
     private bool isExecuting;
 
-    public RelayCommandAsync(Func<Task> execute) : this(execute, null) { }
+    public RelayParameterCommand(Action<object?> execute) : this(execute, null) { }
 
-    public RelayCommandAsync(Func<Task> execute, Predicate<object?>? canExecute)
+    public RelayParameterCommand(Action<object?> execute, Func<object?, bool>? canExecute)
     {
         _execute = execute;
         _canExecute = canExecute;
@@ -31,10 +30,10 @@ public class RelayCommandAsync : ICommand
         remove { CommandManager.RequerySuggested -= value; }
     }
 
-    public async void Execute(object? parameter)
+    public void Execute(object? parameter)
     {
         isExecuting = true;
-        try { await _execute(); }
+        try { _execute(parameter); }
         finally { isExecuting = false; }
     }
 }

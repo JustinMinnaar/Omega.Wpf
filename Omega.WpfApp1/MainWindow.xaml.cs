@@ -4,6 +4,7 @@ using Jem.WpfCommonLibrary22;
 using Jem.OcrLibrary22.Windows;
 using Omega.WpfCommon1;
 using Omega.WpfControllers1;
+using Omega.WpfModels1.Profiling;
 
 // todo: store the last selected root, project, folder, file, page in the database
 // todo: store the last selected profile, template, identifier, etc. in the database
@@ -66,10 +67,17 @@ public partial class MainWindow
 
     private void AddProfileButton_Click(object sender, RoutedEventArgs e)
     {
-        if (controller.Profiling.Profiles == null) return;
+        var profiling = controller.Profiling;
 
-        var newProfile = new ProfileModel { Id = Guid.NewGuid(), Name = controller.Explorer.LastRectangleText ?? "(New)" };
-        controller.Profiling.Profiles.Add(newProfile);
-        controller.Profiling.SelectedProfile = newProfile;
+        var bag = profiling.SelectedBag;
+        if (bag == null) return;
+
+        var group = bag.SelectedGroup;
+        if (group == null) return;
+
+        var newProfile = new ProProfileModel { Id = Guid.NewGuid(), Name = controller.Explorer.LastRectangleText ?? "(New)" };
+        group.Profiles.Add(newProfile);
+
+        group.SelectedProfile = newProfile;
     }
 }

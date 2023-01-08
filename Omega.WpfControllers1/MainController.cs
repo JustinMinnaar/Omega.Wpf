@@ -21,7 +21,7 @@ public class MainController : CNotifyPropertyChanged
 
         Explorer = new DocumentsController { Main = this };
 
-        Profiling = new ProfilingController { Main = this };
+        Profiling = new ProfilingController(this);
     }
 
     public UserSettingsController Settings { get; set; }

@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.ObjectModel;
+
+namespace Omega.WpfModels1.Profiling;
+
+public class ProBagModel : IdNamedModel
+{
+    public ObservableCollection<ProGroupModel> Groups { get; set; } = new();
+
+    public ProGroupModel? SelectedGroup { get; set; }
+
+    protected virtual void OnSelectedGroupChanged() => Owner.SelectedGroupChanged?.Invoke(this, EventArgs.Empty);
+}

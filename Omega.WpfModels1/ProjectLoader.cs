@@ -4,6 +4,7 @@ using Jem.CommonLibrary22;
 
 using Microsoft.EntityFrameworkCore;
 
+using Omega.WpfCommon1;
 using Omega.WpfModels1;
 using Omega.WpfModels1.old;
 
