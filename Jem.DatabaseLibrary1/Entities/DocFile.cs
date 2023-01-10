@@ -11,7 +11,13 @@
     public DateTime? OcrDate { get; set; }
 
     public ICollection<DocPage> Pages { get; set; } = default!;
+    public Guid? SelectedDocPageId { get; set; }
+    public DocPage? SelectedDocPage { get; set; }
+
+    /// <summary>The profile that identified this page.</summary>
     public Guid? ProfileId { get; set; }
     public string? ProfileName { get; set; }
     public bool IsIdentified { get; set; }
+
+    //public ICollection<DocValue> Values { get; set; } = default!;
 }

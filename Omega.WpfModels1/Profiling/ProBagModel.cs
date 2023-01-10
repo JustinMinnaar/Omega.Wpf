@@ -7,7 +7,6 @@ public class ProBagModel : IdNamedModel
 {
     public ObservableCollection<ProGroupModel> Groups { get; set; } = new();
 
+    public Guid? SelectedGroupId { get; set; }
     public ProGroupModel? SelectedGroup { get; set; }
-
-    protected virtual void OnSelectedGroupChanged() => Owner.SelectedGroupChanged?.Invoke(this, EventArgs.Empty);
 }

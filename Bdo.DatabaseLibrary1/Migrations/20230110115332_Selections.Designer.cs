@@ -4,6 +4,7 @@ using Bdo.DatabaseLibrary1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bdo.DatabaseLibrary1.Migrations
 {
     [DbContext(typeof(BdoDbContext))]
-    partial class BdoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230110115332_Selections")]
+    partial class Selections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

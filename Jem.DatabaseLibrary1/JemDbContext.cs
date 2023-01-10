@@ -6,9 +6,29 @@ public abstract class JemDbContext : DbContext
 {
     protected const string defaultName = "(default)";
 
+    #region UserSettings
+
     public DbSet<SysUserSettings> SysUserSettings { get; set; } = default!;
+    //public DbSet<SysUserSelection> SysUserSelections { get; set; } = default!;
+
+    public async Task<SysUserSettings> AccessSysUserSettings(string userName)
+    {
+        var user = await SysUserSettings.FirstOrDefaultAsync(u => u.Name == userName);
+        if (user == null)
+        {
+            user = new SysUserSettings { Id = Guid.NewGuid(), Name = userName };
+            SysUserSettings.Add(user);
+        }
+        return user;
+    }
+
+    #endregion
+
+    #region Messages
 
     public DbSet<SysMessage> SysMessages { get; set; } = default!;
+
+    #endregion
 
     #region Solutions
 
@@ -186,7 +206,7 @@ public abstract class JemDbContext : DbContext
 
     #endregion
 
-    #region //Documents
+    //#region Documents
 
     //public DbSet<DocDocument> DocDocuments { get; set; } = default!;
 
@@ -239,9 +259,9 @@ public abstract class JemDbContext : DbContext
     //    return document;
     //}
 
-    #endregion
+    //#endregion
 
-    #region //DocumentsTypes
+    //#region DocumentsTypes
 
     //public DbSet<DocDocumentType> DocDocumentsTypes { get; set; } = default!;
 
@@ -268,9 +288,9 @@ public abstract class JemDbContext : DbContext
 
     //public DocDocumentType? TryGetDocumentType(string name) => DocDocumentsTypes.FirstOrDefault(p => p.Name == name);
 
-    #endregion
+    //#endregion
 
-    #region //DocumentsValues
+    //#region DocumentsValues
 
     //public DbSet<DocValue> DocDocumentsValues { get; set; } = default!;
 
@@ -291,7 +311,7 @@ public abstract class JemDbContext : DbContext
     //public DocValue? TryGetDocumentValue(ID<DocDocument> docId, string name) =>
     //    DocDocumentsValues.FirstOrDefault(p => p.OwnerDocumentId == docId.Guid && p.Name == name);
 
-    #endregion
+    //#endregion
 
     #region Pages
 
@@ -401,6 +421,8 @@ public abstract class JemDbContext : DbContext
         ConfigFiles(m);
         ConfigPages(m);
         //ConfigDocuments(m);
+
+        ConfigSettings(m);
     }
 
     private static void ConfigRoots(ModelBuilder m)
@@ -443,6 +465,12 @@ public abstract class JemDbContext : DbContext
             .WithOne(page => page.OwnerFile)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
+
+        //m.Entity<DocFile>()
+        //    .HasMany<DocDocument>(file => file.Values)
+        //    .WithOne(document => document.OwnerFolder)
+        //    .IsRequired()
+        //    .OnDelete(DeleteBehavior.Cascade);
     }
 
     private static void ConfigPages(ModelBuilder m)
@@ -454,14 +482,13 @@ public abstract class JemDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
     }
 
-
     //private static void ConfigDocuments(ModelBuilder m)
     //{
     //    m.Entity<DocDocumentType>()
-    //                    .HasMany<DocDocument>(type => type.Documents)
-    //                    .WithOne(page => page.Type)
-    //                    .IsRequired()
-    //                    .OnDelete(DeleteBehavior.Cascade);
+    //        .HasMany<DocDocument>(type => type.Documents)
+    //        .WithOne(page => page.Type)
+    //        .IsRequired()
+    //        .OnDelete(DeleteBehavior.Cascade);
 
     //    m.Entity<DocDocument>()
     //        .HasMany<DocPage>(file => file.Pages)
@@ -475,6 +502,18 @@ public abstract class JemDbContext : DbContext
     //        .IsRequired()
     //        .OnDelete(DeleteBehavior.Cascade);
     //}
+
+    private void ConfigSettings(ModelBuilder m)
+    {
+        m.Entity<SysUserSettings>()
+            .HasOne<DocSolution>(settings => settings.SelectedDocSolution);
+
+        //m.Entity<SysUserSettings>()
+        //    .HasMany<SysUserSelection>(user => user.Selections)
+        //    .WithOne(a => a.Settings)
+        //    .IsRequired()
+        //    .OnDelete(DeleteBehavior.Cascade);
+    }
 
     #endregion
 }

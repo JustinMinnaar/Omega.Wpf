@@ -14,4 +14,7 @@
     public int? ImagesCount { get; set; }
 
     public ICollection<DocFolder> Folders { get; set; } = default!;
+    public Guid? SelectedDocFolderId { get; set; }
+    public DocFolder? SelectedDocFolder { get; set; }
+
 }
