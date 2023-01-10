@@ -5,12 +5,12 @@ namespace Jem.Profiling22.Data;
 /// <summary>Represents a single type of document, and contains page templates for extraction of data from its pages.</summary>
 public class ProProfile : IdNamed
 {
-    public ProProfile(){}
+    public ProProfile() { }
     public ProProfile(string name) : base(name) { }
 
     public List<string> PhrasesToIgnore { get; set; } = new();
 
-    public ProfilingTag? Tag { get; set; } 
+    public ProfilingTag? Tag { get; set; }
 
     public bool AssumeAllPages { get; set; }
 
@@ -19,7 +19,7 @@ public class ProProfile : IdNamed
 
     /// <summary>If specified, only extract text matching this colour.</summary>
     public OcrColor? FontColor { get; set; }
-        
+
     /// <summary>Does this profile identify information about the folder, such as the project, employee, customer, supplier, etc.</summary>
     public bool IsFolderTemplate { get; set; }
 
@@ -38,7 +38,7 @@ public class ProProfile : IdNamed
 
     public ProProfile AddEndOfDocumentTerminators(params string[] terminators)
     {
-        foreach(var terminator in terminators)
+        foreach (var terminator in terminators)
             EndOfDocumentTerminators.Add(terminator);
         return this;
     }
@@ -55,8 +55,8 @@ public class ProProfile : IdNamed
         set => SelectedTemplateId = value?.Id;
     }
 
-    public   int LastTemplateNumberAdded { get; set; }
-    
+    public int LastTemplateNumberAdded { get; set; }
+
 
     public void AddTemplate()
     {

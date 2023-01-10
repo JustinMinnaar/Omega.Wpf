@@ -17,43 +17,45 @@ using Omega.WpfModels1.Profiling;
 
 public partial class MainWindow
 {
-    private readonly MainController controller;
+    private readonly MainController main;
+
+
 
     public MainWindow()
     {
         InitializeComponent();
 
-        controller = new MainController();
-        controller.Explorer.SelectedSolutionChanged += (sender, e) => Dispatcher.InvokeAsync(controller.Explorer.LoadProjectsAsync);
-        controller.Explorer.SelectedProjectChanged += (sender, e) => Dispatcher.InvokeAsync(controller.Explorer.LoadFoldersAsync);
-        controller.Explorer.SelectedIdentifiedFilterChanged += (sender, e) => Dispatcher.InvokeAsync(controller.Explorer.LoadFoldersAsync);
-        controller.Explorer.SelectedFolderChanged += (sender, e) => Dispatcher.InvokeAsync(controller.Explorer.LoadFilesAsync);
-        controller.Explorer.SelectedFileChanged += Explorer_SelectedFileChanged;
-        controller.Explorer.SelectedPageChanged += Explorer_SelectedPageChanged;
+        main = new MainController();
+        main.Explorer.SelectedSolutionChanged += (sender, e) => Dispatcher.InvokeAsync(main.Explorer.LoadProjectsAsync);
+        main.Explorer.SelectedProjectChanged += (sender, e) => Dispatcher.InvokeAsync(main.Explorer.LoadFoldersAsync);
+        main.Explorer.SelectedIdentifiedFilterChanged += (sender, e) => Dispatcher.InvokeAsync(main.Explorer.LoadFoldersAsync);
+        main.Explorer.SelectedFolderChanged += (sender, e) => Dispatcher.InvokeAsync(main.Explorer.LoadFilesAsync);
+        main.Explorer.SelectedFileChanged += Explorer_SelectedFileChanged;
+        main.Explorer.SelectedPageChanged += Explorer_SelectedPageChanged;
 
         // Force initial load of data to happen in separate thread
         Dispatcher.InvokeAsync(LoadAsync);
 
-        DataContext = controller;
+        DataContext = main;
     }
 
     private async Task LoadAsync()
     {
-        await controller.TryLoadAsync(Environment.UserName);
+        await main.TryLoadAsync(Environment.UserName);
     }
 
     private void Explorer_SelectedFileChanged(object? sender, EventArgs e)
     {
-        Dispatcher.InvokeAsync(controller.Explorer.AfterFileChangedAsync);
+        Dispatcher.InvokeAsync(main.Explorer.AfterFileChangedAsync);
 
         this.pageExplorer.DoSelectedFileChanged();
     }
 
     private void Explorer_SelectedPageChanged(object? sender, EventArgs e)
     {
-        controller.Explorer.LoadPage();
+        main.Explorer.LoadPage();
 
-        var oPage = controller.Explorer.OPage;
+        var oPage = main.Explorer.OPage;
         if (oPage == null)
         {
             pageExplorer.DoSelectedPageChanged(null);
@@ -65,19 +67,9 @@ public partial class MainWindow
         }
     }
 
-    private void AddProfileButton_Click(object sender, RoutedEventArgs e)
+    private void PageExplorer_RectangleDrawn(WpfProfilingLibrary1.JemProfilePageControl _, Rect mouseRect)
     {
-        var profiling = controller.Profiling;
-
-        var bag = profiling.SelectedBag;
-        if (bag == null) return;
-
-        var group = bag.SelectedGroup;
-        if (group == null) return;
-
-        var newProfile = new ProProfileModel { Id = Guid.NewGuid(), Name = controller.Explorer.LastRectangleText ?? "(New)" };
-        group.Profiles.Add(newProfile);
-
-        group.SelectedProfile = newProfile;
+        main.Explorer.LastRectangleDrawn= new(  mouseRect.X, mouseRect.Y, mouseRect.Width, mouseRect.Height);
     }
+
 }

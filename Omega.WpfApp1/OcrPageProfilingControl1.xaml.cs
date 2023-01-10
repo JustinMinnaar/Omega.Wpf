@@ -4,6 +4,8 @@ using Omega.WpfProfilingLibrary1;
 
 using System.Drawing;
 
+using static Omega.WpfProfilingLibrary1.JemProfilePageControl;
+
 namespace Omega.WpfApp1;
 
 public partial class OcrPageProfilingControl1 : UserControl
@@ -14,6 +16,7 @@ public partial class OcrPageProfilingControl1 : UserControl
     }
 
     public MainController Controller => (MainController)DataContext;
+
 
     public void DoSelectedFileChanged()
     {
@@ -41,5 +44,14 @@ public partial class OcrPageProfilingControl1 : UserControl
             ppc.LastOcrRect = Rect.Empty;
         else
             ppc.LastOcrRect = ocrRect.Value.ToRect();
+
+        RectangleDrawn?.Invoke(sender, mouseRect);
+    }
+
+    public event MouseRectDelegate? RectangleDrawn, LineDrawn;
+
+    private void ppc_LineDrawn(JemProfilePageControl sender, Rect mouseRect)
+    {
+        LineDrawn?.Invoke(sender, mouseRect);
     }
 }

@@ -31,6 +31,7 @@
                 <pl:JemProfilePageControl 
                     x:Name="ppc" 
                     RectangleDrawn="Ppc_RectangleDrawn" 
+                    LineDrawn="ppc_LineDrawn"
                     />
             </oc:ZoomBorder>
             <!--<TextBox Grid.Row="3" Text="{Binding ElementName=zoom,Path=ZoomWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Omega.WpfApp1"
              xmlns:models="clr-namespace:Omega.WpfModels1;assembly=Omega.WpfModels1"
              xmlns:controllers="clr-namespace:Omega.WpfControllers1;assembly=Omega.WpfControllers1"
+             xmlns:c="clr-namespace:Omega.WpfCommon1;assembly=Omega.WpfCommon1"
              mc:Ignorable="d" 
              d:Background="OldLace"
              d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=True}"
@@ -37,62 +38,94 @@
     </UserControl.Resources>
     <DockPanel>
 
-        <StackPanel DockPanel.Dock="Top">
+        <TabControl 
+            TabStripPlacement="Left"
+            SelectedValue="{Binding Path=Profiling.SelectedTab,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"        
+            SelectedValuePath="Tag"
+            >
+            <TabItem 
+                Tag="Bags"
+                Header="Bags"
+                >
+                <StackPanel>
+                    <ComboBox 
+                        ItemsSource="{Binding Path=Profiling.Bags}" 
+                        DisplayMemberPath="Name" 
+                        SelectedItem="{Binding Path=Profiling.SelectedBag}" />
+                    <Button 
+                        Content="New"
+                        IsEnabled="{Binding Path=Profiling.AddBagEnabled}"
+                        Click="AddBagButton_Click" />
 
-            <Label 
-                DockPanel.Dock="Top" 
-                Content="Bag:" />
-            <ComboBox 
-                DockPanel.Dock="Top" 
-                ItemsSource="{Binding Path=Profiling.Bags}" 
-                DisplayMemberPath="Name" 
-                SelectedItem="{Binding Path=Profiling.SelectedBag}" />
+                    <Label Content="Bag Name" />
+                    <TextBox Text="{Binding Path=Profiling.SelectedBag.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </TabItem>
+            <TabItem 
+                Tag="Groups"
+                Header="Groups"
+                >
+                <StackPanel>
+                    <ComboBox 
+                        ItemsSource="{Binding Path=Profiling.Groups}" 
+                        DisplayMemberPath="Name" 
+                        SelectedItem="{Binding Path=Profiling.SelectedGroup}" />
+                    <Button 
+                        Content="New"
+                        IsEnabled="{Binding Path=Profiling.AddGroupEnabled}"
+                        Click="AddGroupButton_Click" />
 
-            <Label 
-                DockPanel.Dock="Top" 
-                Content="Group:" />
-            <ComboBox 
-                DockPanel.Dock="Top" 
-                ItemsSource="{Binding Path=Profiling.Groups}" 
-                DisplayMemberPath="Name" 
-                SelectedItem="{Binding Path=Profiling.SelectedGroup}" />
+                    <Label Content="Group Name" />
+                    <TextBox Text="{Binding Path=Profiling.SelectedGroup.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </TabItem>
+            <TabItem 
+                Tag="Profiles"
+                Header="Profiles" 
+                >
+                <StackPanel>
+                    <ComboBox 
+                        ItemsSource="{Binding Path=Profiling.Profiles}" 
+                        DisplayMemberPath="Name" 
+                        SelectedItem="{Binding Path=Profiling.SelectedProfile}" />
+                    <Button 
+                        Content="New"
+                        IsEnabled="{Binding Path=Profiling.AddProfileEnabled}"
+                        Click="AddProfileButton_Click" />
 
-            <Label 
-                DockPanel.Dock="Top" 
-                Content="Profile:" />
-            <ComboBox 
-                DockPanel.Dock="Top" 
-                ItemsSource="{Binding Path=Profiling.Profiles}" 
-                DisplayMemberPath="Name" 
-                SelectedItem="{Binding Path=Profiling.SelectedProfile}" />
+                    <Label Content="Profile Name" />
+                    <TextBox Text="{Binding Path=Profiling.SelectedProfile.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label 
-                DockPanel.Dock="Top" 
-                Content="Template:" />
-            <ComboBox 
-                DockPanel.Dock="Top" 
-                ItemsSource="{Binding Path=Profiling.Templates}" 
-                DisplayMemberPath="Name" 
-                SelectedItem="{Binding Path=Profiling.SelectedTemplate}" />
+                    <Label Content="Profile Group" />
+                    <ComboBox 
+                        ItemsSource="{Binding Path=Profiling.Groups}"
+                        SelectedValuePath="Id"
+                        SelectedItem="{Binding Path=Profiling.SelectedProfile.GroupId}" />
+                </StackPanel>
+            </TabItem>
+            <TabItem 
+                Tag="Templates"
+                Header="Templates"
+                >
+                <StackPanel>
+                    <ComboBox 
+                        ItemsSource="{Binding Path=Profiling.Templates}" 
+                        DisplayMemberPath="Name" 
+                        SelectedItem="{Binding Path=Profiling.SelectedTemplate}" />
+                    <Button 
+                        Content="New"
+                        IsEnabled="{Binding Path=Profiling.AddTemplateEnabled}"
+                        Click="AddTemplateButton_Click" />
 
-            <Label 
-                DockPanel.Dock="Top" 
-                Content="Type:" />
-            <ComboBox 
-                DockPanel.Dock="Top" 
-                ItemsSource="{Binding Path=Profiling.TemplateTypes}" 
-                DisplayMemberPath="Name" 
-                SelectedItem="{Binding Path=Profiling.SelectedTemplate.Type}" />
+                    <Label Content="Template Name" />
+                    <TextBox Text="{Binding Path=Profiling.SelectedTemplate.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label 
-                DockPanel.Dock="Top" 
-                Content="Name:" />
-            <TextBox
-                DockPanel.Dock="Top" 
-                Text="{Binding Path=Profiling.SelectedTemplate.Name}" 
-                />
-
-        </StackPanel>
-
+                    <Label Content="Template Type" />
+                    <ComboBox 
+                        ItemsSource="{Binding Path=Profiling.TemplateTypes}"
+                        SelectedItem="{Binding Path=Profiling.SelectedTemplate.Type}" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </UserControl>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Omega.WpfControllers1;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,43 @@ namespace Omega.WpfApp1
         public ProfileExplorerControl1()
         {
             InitializeComponent();
+        }
+
+        MainController main => (MainController)DataContext;
+
+        private bool AskAddItem(string itemType)
+        {
+            var name = main.Explorer.LastRectangleText ?? "(New)";
+
+            var text = $"Do you want to add {itemType} '{name}'?";
+            var caption = "Add " + itemType;
+
+            var yn = MessageBox.Show(text, caption, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            return (yn == MessageBoxResult.Yes);
+        }
+
+        private void AddBagButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AskAddItem("bag"))
+                main.Profiling.AddBag();
+        }
+
+        private void AddGroupButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AskAddItem("group"))
+                main.Profiling.AddGroup();
+        }
+
+        private void AddProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AskAddItem("profile"))
+                main.Profiling.AddProfile();
+        }
+
+        private void AddTemplateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AskAddItem("template"))
+                main.Profiling.AddTemplate();
         }
     }
 }

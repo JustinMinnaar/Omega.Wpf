@@ -27,23 +27,26 @@ public class ProfilingController : CNotifyPropertyChanged
 {
     #region Commands
 
-    RelayCommand? _AddBagCommand, _AddGroupCommand, _AddProfileCommand;
+    RelayCommand? _AddBagCommand, _AddGroupCommand, _AddProfileCommand, _AddTemplateCommand;
 
     public ICommand AddBagCommand => _AddBagCommand ??= new RelayCommand(AddBag, CanAddBag);
     public ICommand AddGroupCommand => _AddGroupCommand ??= new RelayCommand(AddGroup, CanAddGroup);
     public ICommand AddProfileCommand => _AddProfileCommand ??= new RelayCommand(AddProfile, CanAddProfile);
+    public ICommand AddTemplateCommand => _AddTemplateCommand ??= new RelayCommand(AddTemplate, CanAddTemplate);
 
     private bool CanAddBag() { return true; }
+    public bool AddBagEnabled => CanAddBag();
     public void AddBag()
     {
         var bags = this.Bags; if (bags == null) return;
-        var bag = this.SelectedBag; if (bag == null) return;
 
         var name = Main.Explorer.LastRectangleText ?? "(New)";
         var newBag = new ProBagModel { Id = Guid.NewGuid(), Name = name };
         bags.Add(newBag);
 
         this.SelectedBag = newBag;
+        
+        this.SelectedTab = ProfilingTabs.Groups;
     }
 
     public bool CanAddGroup()
@@ -53,50 +56,85 @@ public class ProfilingController : CNotifyPropertyChanged
 
         return true;
     }
+    public bool AddGroupEnabled => CanAddGroup();
     public void AddGroup()
     {
         var bags = this.Bags; if (bags == null) return;
         var bag = this.SelectedBag; if (bag == null) return;
 
-        var groups = bag.Groups; if (groups == null) return;
-        var group = bag.SelectedGroupId; if (group == null) return;
+        var groups = this.Groups; if (groups == null) return;
 
         var name = Main.Explorer.LastRectangleText ?? "(New)";
-        var newGroup = new ProGroupModel { Id = Guid.NewGuid(), Name = name };
+        var newGroup = new ProGroupModel { OwnerBag = bag, Id = Guid.NewGuid(), Name = name };
         groups.Add(newGroup);
 
-        bag.SelectedGroup = newGroup;
+        this.SelectedGroup = newGroup;
+
+        this.SelectedTab = ProfilingTabs.Profiles;
     }
 
     public bool CanAddProfile()
     {
-        var bag = this.SelectedBag;
-        if (bag == null) return false;
-
-        var group = bag.SelectedGroup;
+        var group = this.SelectedGroup;
         if (group == null) return false;
 
         return true;
     }
+    public bool AddProfileEnabled => CanAddProfile();
     public void AddProfile()
     {
-        var bags = this.Bags; if (bags == null) return;
-        var bag = this.SelectedBag; if (bag == null) return;
+        //var bags = this.Bags; if (bags == null) return;
+        //var bag = this.SelectedBag; if (bag == null) return;
 
-        var groups = bag.Groups; if (groups == null) return;
-        var group = bag.SelectedGroup; if (group == null) return;
+        var group = this.SelectedGroup; if (group == null) return;
 
-        var profiles = group.Profiles; if (profiles == null) return;
-        var profile = SelectedProfile; if (profile == null) return;
+        var profiles = this.Profiles; if (profiles == null) return;
 
         var name = Main.Explorer.LastRectangleText ?? "(New)";
-        var newProfile = new ProProfileModel { Id = Guid.NewGuid(), Name = name };
+        var newProfile = new ProProfileModel { OwnerGroup = group, Id = Guid.NewGuid(), Name = name };
         profiles.Add(newProfile);
 
         SelectedProfile = newProfile;
+
+        this.SelectedTab = ProfilingTabs.Profiles;
+    }
+
+    public bool CanAddTemplate()
+    {
+        var profile = this.SelectedProfile;
+        if (profile == null) return false;
+
+        return true;
+    }
+    public bool AddTemplateEnabled => CanAddTemplate();
+
+    public void AddTemplate()
+    {
+        var profile = this.SelectedProfile;
+        if (profile == null) return;
+
+        var templates = this.Templates;
+        if (templates == null) return;
+
+        var name = Main.Explorer.LastRectangleText ?? "(New)";
+        var newTemplate = new ProTemplateModel
+        {
+            OwnerProfile = profile,
+            Id = Guid.NewGuid(),
+            Name = name,
+            Rect = Main.Explorer.LastRectangleDrawn,
+            RectText = Main.Explorer.LastRectangleText,
+        };
+        templates.Add(newTemplate);
+
+        SelectedTemplate = newTemplate;
     }
 
     #endregion
+
+    public enum ProfilingTabs { Bags, Groups, Profiles, Templates }
+
+    public ProfilingTabs? SelectedTab { get; set; } = ProfilingTabs.Bags;
 
     [SetsRequiredMembers]
     public ProfilingController(MainController main)
@@ -148,7 +186,7 @@ public class ProfilingController : CNotifyPropertyChanged
     #region Templates
 
     public ObservableCollection<ProTemplateModel> Templates { get; set; } = new();
-    public ProfileTemplateType[] TemplateTypes { get; set; } = (ProfileTemplateType[]) Enum.GetValues(typeof(ProfileTemplateType));
+    public ProfileTemplateType[] TemplateTypes { get; set; } = (ProfileTemplateType[])Enum.GetValues(typeof(ProfileTemplateType));
     public ProTemplateModel? SelectedTemplate
     {
         get => Templates.FirstOrDefault(t => t.Id == SelectedProfile?.SelectedTemplateId);

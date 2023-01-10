@@ -13,6 +13,12 @@
         Title="BDO Explorer" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         >
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Padding" Value="3" />
+        </Style>
+    </Window.Resources>
     <Grid Background="OldLace">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -26,7 +32,18 @@
 
         <local:ProjectExplorerControl1 Grid.Column="0" />
 
-        <local:OcrPageProfilingControl1 Grid.Column="1" x:Name="pageExplorer" />
+        <DockPanel Grid.Column="1">
+            <WrapPanel DockPanel.Dock="Bottom">
+                <Button x:Name="UndoLastButton" Content="_Undo Last" />
+                <Button x:Name="IgnoreButton" Content="_Ignore" />
+                <Button x:Name="ConsentButton" Content="_Consent" />
+                <Button x:Name="BankingButton" Content="_Banking" />
+            </WrapPanel>
+            <local:OcrPageProfilingControl1
+                x:Name="pageExplorer"
+                RectangleDrawn="PageExplorer_RectangleDrawn"
+                />
+        </DockPanel>
 
         <local:ProfileExplorerControl1 Grid.Column="2" x:Name="proExplorer" />
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace Omega.WpfControllers1;
@@ -27,6 +28,8 @@ public class MainController : CNotifyPropertyChanged
     public UserSettingsController Settings { get; set; }
     public DocumentsController Explorer { get; set; }
     public ProfilingController Profiling { get; set; }
+
+    public Rect? LastRectangleDrawn;
 
     public string? LastError { get; set; }
     public bool HasLastError => LastError != null;
