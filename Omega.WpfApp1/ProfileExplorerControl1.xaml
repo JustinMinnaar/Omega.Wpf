@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:Background="OldLace"
              d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=True}"
-             d:DesignHeight="200" d:DesignWidth="200">
+             d:DesignHeight="400" d:DesignWidth="200">
     <UserControl.Resources>
         <Style TargetType="StackPanel">
             <Setter Property="Margin" Value="4" />
@@ -39,8 +39,23 @@
 
         <StackPanel DockPanel.Dock="Top">
 
-            <TextBox Text="{Binding Path=Explorer.LastRectangleText}" />
-            <TextBox Text="{Binding Path=Explorer.LastRectangleDrawn}" />
+            <Label 
+                DockPanel.Dock="Top" 
+                Content="Bag:" />
+            <ComboBox 
+                DockPanel.Dock="Top" 
+                ItemsSource="{Binding Path=Profiling.Bags}" 
+                DisplayMemberPath="Name" 
+                SelectedItem="{Binding Path=Profiling.SelectedBag}" />
+
+            <Label 
+                DockPanel.Dock="Top" 
+                Content="Group:" />
+            <ComboBox 
+                DockPanel.Dock="Top" 
+                ItemsSource="{Binding Path=Profiling.Groups}" 
+                DisplayMemberPath="Name" 
+                SelectedItem="{Binding Path=Profiling.SelectedGroup}" />
 
             <Label 
                 DockPanel.Dock="Top" 
@@ -50,7 +65,33 @@
                 ItemsSource="{Binding Path=Profiling.Profiles}" 
                 DisplayMemberPath="Name" 
                 SelectedItem="{Binding Path=Profiling.SelectedProfile}" />
-        
+
+            <Label 
+                DockPanel.Dock="Top" 
+                Content="Template:" />
+            <ComboBox 
+                DockPanel.Dock="Top" 
+                ItemsSource="{Binding Path=Profiling.Templates}" 
+                DisplayMemberPath="Name" 
+                SelectedItem="{Binding Path=Profiling.SelectedTemplate}" />
+
+            <Label 
+                DockPanel.Dock="Top" 
+                Content="Type:" />
+            <ComboBox 
+                DockPanel.Dock="Top" 
+                ItemsSource="{Binding Path=Profiling.TemplateTypes}" 
+                DisplayMemberPath="Name" 
+                SelectedItem="{Binding Path=Profiling.SelectedTemplate.Type}" />
+
+            <Label 
+                DockPanel.Dock="Top" 
+                Content="Name:" />
+            <TextBox
+                DockPanel.Dock="Top" 
+                Text="{Binding Path=Profiling.SelectedTemplate.Name}" 
+                />
+
         </StackPanel>
 
     </DockPanel>

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bdo.DatabaseLibrary1.Migrations
 {
-    [DbContext(typeof(BdoDbContext))]
+    [DbContext(typeof(BdoDocDbContext))]
     partial class BdoDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

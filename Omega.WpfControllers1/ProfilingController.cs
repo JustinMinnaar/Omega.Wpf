@@ -1,4 +1,7 @@
-﻿using Jem.CommonLibrary22;
+﻿using Bdo.DatabaseLibrary1;
+
+using Jem.CommonLibrary22;
+using Jem.Profiling22.Data;
 
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -10,6 +13,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Omega.WpfControllers1;
@@ -111,7 +115,7 @@ public class ProfilingController : CNotifyPropertyChanged
         set { Main.Settings.SelectedProBagId = value?.Id; }
     }
     public event EventHandler? SelectedBagChanged;
-    protected virtual void OnSelectedBagChanged() { SelectedBagChanged?.Invoke(this, EventArgs.Empty); }
+    protected virtual void OnSelectedBagChanged() => SelectedBagChanged?.Invoke(this, EventArgs.Empty);
 
     #endregion
 
@@ -144,6 +148,7 @@ public class ProfilingController : CNotifyPropertyChanged
     #region Templates
 
     public ObservableCollection<ProTemplateModel> Templates { get; set; } = new();
+    public ProfileTemplateType[] TemplateTypes { get; set; } = (ProfileTemplateType[]) Enum.GetValues(typeof(ProfileTemplateType));
     public ProTemplateModel? SelectedTemplate
     {
         get => Templates.FirstOrDefault(t => t.Id == SelectedProfile?.SelectedTemplateId);

@@ -53,7 +53,7 @@ public class ProjectLoaderModel : CNotifyPropertyChanged
 
     public async Task<ProjectModel> ImportProjectAsync(string solutionName, string importPath, IProgress<JobProgress> progress)
     {
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
 
         var solution = await db.AccessSolutionAsync(solutionName);
         return await ImportProjectAsync(solution.Id, importPath, progress);
@@ -61,7 +61,7 @@ public class ProjectLoaderModel : CNotifyPropertyChanged
 
     public async Task<ProjectModel> ImportProjectAsync(Guid solutionId, string importPath, IProgress<JobProgress> progress)
     {
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
 
         var projectName = System.IO.Path.GetFileName(importPath);
 
@@ -89,7 +89,7 @@ public class ProjectLoaderModel : CNotifyPropertyChanged
     private async Task ProcessFolderAsync(string folderPath, ID<DocProject> projectId, JobTotals totals, IProgress<JobProgress> progress)
     {
         // For parallel processing, we need a separate context
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
 
         // Create the folder if missing
         var folderName = System.IO.Path.GetFileName(folderPath);

@@ -26,7 +26,7 @@ public class UserSettingsController : IdNamedModel
     public async Task LoadAsync()
     {
 
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
 
         var user = await db.AccessSysUserSettings(userName: this.Name);
 
@@ -45,7 +45,7 @@ public class UserSettingsController : IdNamedModel
 
     public async Task SaveAsync()
     {
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
 
         var user = await db.AccessSysUserSettings(userName: this.Name);
 

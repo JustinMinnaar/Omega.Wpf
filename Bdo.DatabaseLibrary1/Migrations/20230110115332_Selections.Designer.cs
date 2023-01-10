@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bdo.DatabaseLibrary1.Migrations
 {
-    [DbContext(typeof(BdoDbContext))]
+    [DbContext(typeof(BdoDocDbContext))]
     [Migration("20230110115332_Selections")]
     partial class Selections
     {

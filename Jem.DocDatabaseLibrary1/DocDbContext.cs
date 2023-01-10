@@ -1,10 +1,10 @@
 ﻿using Jem.CommonLibrary22;
 
-namespace Jem.DatabaseLibrary1;
+namespace Jem.DocDatabaseLibrary1;
 
-public abstract class JemDbContext : DbContext
+public abstract class DocDbContext : DbContext
 {
-    protected const string defaultName = "(default)";
+    // protected const string defaultName = "(default)";
 
     #region UserSettings
 
@@ -206,6 +206,86 @@ public abstract class JemDbContext : DbContext
 
     #endregion
 
+    #region Pages
+
+    public DbSet<DocPage> DocPages { get; set; } = default!;
+
+    public async Task<DocPage> AddPageAsync(ID<DocFile> ownerFileId, string name) =>
+        await AddPageAsync(ownerFileId, new(), name);
+
+    public async Task<DocPage> AddPageAsync(ID<DocFile> ownerFileId, ID<DocPage> id, string name)
+    {
+        var row = new DocPage
+        {
+            OwnerFileId = ownerFileId,
+            Id = id,
+            Name = name,
+        };
+
+        DocPages.Add(row);
+        await SaveChangesAsync();
+        return row;
+    }
+
+    public async Task<DocPage> GetPageAsync(ID<DocPage> id) =>
+        await TryGetPageAsync(id) ??
+        throw new NotFoundException($"Page {id} not found!");
+
+    public async Task<DocPage?> TryGetPageAsync(ID<DocPage> id) =>
+        await DocPages.FindAsync(id.Guid);
+
+    public async Task<DocPage?> TryGetPage(ID<DocFile> ownerFileId, string name) =>
+        await DocPages.FirstOrDefaultAsync(d => d.Name == name && d.OwnerFileId == ownerFileId);
+
+    public async Task<DocPage> AccessPageAsync(ID<DocFile> ownerFileId, ID<DocPage> id, string name) =>
+        await TryGetPageAsync(id) ??
+        await TryGetPage(ownerFileId, name) ??
+        await AddPageAsync(ownerFileId, id, name);
+
+    #endregion
+
+    #region Images
+
+    public DbSet<DocImage> DocImages { get; set; } = default!;
+
+    public async Task<DocImage> AddImageAsync(DocPage ownerPage, string name) =>
+        await AddImageAsync(ownerPage, new(), name);
+
+    public async Task<DocImage> AddImageAsync(DocPage ownerPage, ID<DocImage> id, string name,
+        int width = 0, int height = 0, string? checksum = null)
+    {
+        var row = new DocImage
+        {
+            OwnerPage = ownerPage,
+            Id = id,
+            Name = name,
+            Width = width,
+            Height = height,
+            Checksum = checksum,
+        };
+
+        DocImages.Add(row);
+        await SaveChangesAsync();
+        return row;
+    }
+
+    public async Task<DocImage> GetImageAsync(ID<DocImage> id) =>
+        await TryGetImageAsync(id) ?? 
+        throw new NotFoundException($"Image {id} not found!");
+
+    public async Task<DocImage?> TryGetImageAsync(ID<DocImage> id) =>
+        await DocImages.FindAsync(id);
+
+    public async Task<DocImage?>  TryGetImageAsync(DocPage ownerPage, string name) =>
+        await DocImages.FirstOrDefaultAsync(d => d.Name == name && d.OwnerPage == ownerPage);
+
+    public async Task<DocImage> AccessImageAsync(DocPage page, ID<DocImage> id, string name) =>
+        await TryGetImageAsync(id) ??
+        await TryGetImageAsync(page, name) ??
+        await AddImageAsync(page, id, name);
+
+    #endregion
+
     //#region Documents
 
     //public DbSet<DocDocument> DocDocuments { get; set; } = default!;
@@ -313,93 +393,13 @@ public abstract class JemDbContext : DbContext
 
     //#endregion
 
-    #region Pages
-
-    public DbSet<DocPage> DocPages { get; set; } = default!;
-
-    public async Task<DocPage> AddPageAsync(ID<DocFile> ownerFileId, string name) =>
-        await AddPageAsync(ownerFileId, new(), name);
-
-    public async Task<DocPage> AddPageAsync(ID<DocFile> ownerFileId, ID<DocPage> id, string name)
-    {
-        var row = new DocPage
-        {
-            OwnerFileId = ownerFileId,
-            Id = id,
-            Name = name,
-        };
-
-        DocPages.Add(row);
-        await SaveChangesAsync();
-        return row;
-    }
-
-    public async Task<DocPage> GetPageAsync(ID<DocPage> id) =>
-        await TryGetPageAsync(id) ??
-        throw new NotFoundException($"Page {id} not found!");
-
-    public async Task<DocPage?> TryGetPageAsync(ID<DocPage> id) =>
-        await DocPages.FindAsync(id.Guid);
-
-    public async Task<DocPage?> TryGetPage(ID<DocFile> ownerFileId, string name) =>
-        await DocPages.FirstOrDefaultAsync(d => d.Name == name && d.OwnerFileId == ownerFileId);
-
-    public async Task<DocPage> AccessPageAsync(ID<DocFile> ownerFileId, ID<DocPage> id, string name) =>
-        await TryGetPageAsync(id) ??
-        await TryGetPage(ownerFileId, name) ??
-        await AddPageAsync(ownerFileId, id, name);
-
-    #endregion
-
-    #region Images
-
-    public DbSet<DocImage> DocImages { get; set; } = default!;
-
-    public async Task<DocImage> AddImageAsync(DocPage ownerPage, string name) =>
-        await AddImageAsync(ownerPage, new(), name);
-
-    public async Task<DocImage> AddImageAsync(DocPage ownerPage, ID<DocImage> id, string name,
-        int width = 0, int height = 0, string? checksum = null)
-    {
-        var row = new DocImage
-        {
-            OwnerPage = ownerPage,
-            Id = id,
-            Name = name,
-            Width = width,
-            Height = height,
-            Checksum = checksum,
-        };
-
-        DocImages.Add(row);
-        await SaveChangesAsync();
-        return row;
-    }
-
-    public async Task<DocImage> GetImageAsync(ID<DocImage> id) =>
-        await TryGetImageAsync(id) ?? 
-        throw new NotFoundException($"Image {id} not found!");
-
-    public async Task<DocImage?> TryGetImageAsync(ID<DocImage> id) =>
-        await DocImages.FindAsync(id);
-
-    public async Task<DocImage?>  TryGetImageAsync(DocPage ownerPage, string name) =>
-        await DocImages.FirstOrDefaultAsync(d => d.Name == name && d.OwnerPage == ownerPage);
-
-    public async Task<DocImage> AccessImageAsync(DocPage page, ID<DocImage> id, string name) =>
-        await TryGetImageAsync(id) ??
-        await TryGetImageAsync(page, name) ??
-        await AddImageAsync(page, id, name);
-
-    #endregion
-
     #region ctor
 
     private readonly string? _connectionString;
 
-    public JemDbContext(string connectionString) => _connectionString = connectionString;
+    public DocDbContext(string connectionString) => _connectionString = connectionString;
 
-    public JemDbContext(DbContextOptions options) : base(options) { }
+    public DocDbContext(DbContextOptions options) : base(options) { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -517,3 +517,4 @@ public abstract class JemDbContext : DbContext
 
     #endregion
 }
+

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bdo.DatabaseLibrary1.Migrations
 {
-    [DbContext(typeof(BdoDbContext))]
+    [DbContext(typeof(BdoDocDbContext))]
     [Migration("20230104125457_Initial")]
     partial class Initial
     {

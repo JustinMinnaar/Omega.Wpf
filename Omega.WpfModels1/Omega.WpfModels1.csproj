@@ -19,6 +19,7 @@
     <ProjectReference Include="..\Bdo.DatabaseLibrary1\Bdo.DatabaseLibrary1.csproj" />
     <ProjectReference Include="..\Jem.DatabaseLibrary1\Jem.DatabaseLibrary1.csproj" />
     <ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+    <ProjectReference Include="..\Jem.Profiling22.Data\Jem.Profiling22.Data.csproj" />
     <ProjectReference Include="..\Omega.WpfCommon1\Omega.WpfCommon1.csproj" />
   </ItemGroup>
 

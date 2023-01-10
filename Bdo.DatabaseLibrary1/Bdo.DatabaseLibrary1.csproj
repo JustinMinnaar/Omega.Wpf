@@ -21,6 +21,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Jem.CommonLibrary22\Jem.CommonLibrary22.csproj" />
 		<ProjectReference Include="..\Jem.DatabaseLibrary1\Jem.DatabaseLibrary1.csproj" />
+		<ProjectReference Include="..\Jem.DocDatabaseLibrary1\Jem.DocDatabaseLibrary1.csproj" />
 	</ItemGroup>
 
 </Project>

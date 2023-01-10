@@ -85,7 +85,7 @@ public class DocumentsController : CNotifyPropertyChanged
 
     public async Task<SolutionModel> AccessSolutionAsync(string solutionName)
     {
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
 
         var dbSolution = await db.AccessSolutionAsync(solutionName);
 
@@ -105,7 +105,7 @@ public class DocumentsController : CNotifyPropertyChanged
 
         Solutions = new ObservableCollection<SolutionModel>();
 
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
         var dbSolutions = await db.DocSolutions.OrderBy(r => r.Name).ToListAsync();
 
         // If no previous user selection matches, we'll select the first one
@@ -133,7 +133,7 @@ public class DocumentsController : CNotifyPropertyChanged
         var mRoot = SelectedSolution;
         if (mRoot == null) return;
 
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
         var dbProjects = await db.DocProjects.Where(p => p.OwnerSolutionId == mRoot.Id).OrderBy(p => p.Name).ToListAsync();
 
         foreach (var dbProject in dbProjects)
@@ -155,7 +155,7 @@ public class DocumentsController : CNotifyPropertyChanged
         var mProject = SelectedProject;
         if (mProject == null) return;
 
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
 
         var q = db.DocFolders.Where(f => f.OwnerProjectId == mProject.Id);
         if (SelectedIdentifiedFilter == IdentifiedFilter.Unknown)
@@ -186,7 +186,7 @@ public class DocumentsController : CNotifyPropertyChanged
         var mFolder = SelectedFolder;
         if (mFolder == null) return;
 
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
 
         var q = db.DocFiles.Where(f => f.OwnerFolderId == mFolder.Id);
         if (SelectedIdentifiedFilter == IdentifiedFilter.Unknown)
@@ -243,7 +243,7 @@ public class DocumentsController : CNotifyPropertyChanged
 
         var mFile = SelectedFile; if (mFile == null) return;
 
-        using var db = new BdoDbContext();
+        using var db = new BdoDocDbContext();
         var dbPages = await db.DocPages.Where(f => f.OwnerFileId == mFile.Id).OrderBy(p => p.Name).ToListAsync();
 
         if (ODocument != null)

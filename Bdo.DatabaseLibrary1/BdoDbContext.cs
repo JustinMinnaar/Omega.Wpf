@@ -1,15 +1,15 @@
-﻿using Jem.DatabaseLibrary1;
+﻿using Jem.DocDatabaseLibrary1;
 
 namespace Bdo.DatabaseLibrary1;
 
-public sealed class BdoDbContext : JemDbContext
+public sealed class BdoDocDbContext : DocDbContext
 {
-    public BdoDbContext() : base(@"Server=.;Database=bdo;integrated security=true;connection timeout=5;Trust Server Certificate=true;") { }
+    public BdoDocDbContext() : base(@"Server=.;Database=bdo;integrated security=true;connection timeout=5;Trust Server Certificate=true;") { }
     // public BdoDbContext() : base(@"Server=.;Database=Omega;user id=omega;password=d8W2B5HG!Nq.2g8;connection timeout=5;Trust Server Certificate=true;") { }
 
-    public BdoDbContext(string connectionString) : base(connectionString) { }
+    public BdoDocDbContext(string connectionString) : base(connectionString) { }
 
-    public BdoDbContext(DbContextOptions options) : base(options) { }
+    public BdoDocDbContext(DbContextOptions options) : base(options) { }
 
     #region Banks
 
