@@ -148,8 +148,7 @@ public class ProfilingController : CNotifyPropertyChanged
         if (template == null) return;
 
         template.Rect = Main.Explorer.LastRectangleDrawn;
-        template.RectText = Main.Explorer.LastRectangleText;
-        
+        template.RectText = Main.Explorer.LastRectangleText;        
     }
 
     #endregion
