@@ -12,6 +12,7 @@ public class SysUserSettings : IdNamed
     public bool SnapBottom { get; set; } = true;
     public bool SnapLeft { get; set; } = false;
     public bool SnapRight { get; set; } = false;
+    public bool DarkMode { get; set; }
 
     //#region Selections
 

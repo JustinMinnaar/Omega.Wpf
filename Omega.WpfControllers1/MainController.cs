@@ -39,6 +39,7 @@ public class MainController : CNotifyPropertyChanged
         try
         {
             await Explorer.LoadSolutionsAsync();
+            Profiling.LoadProfiles();
         }
         catch (Exception ex)
         {

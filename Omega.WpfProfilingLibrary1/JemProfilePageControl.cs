@@ -152,6 +152,20 @@ public class JemProfilePageControl : UserControl
 
     #endregion ShowTemplates
 
+    #region DarkMode
+
+    public bool DarkMode
+    {
+        get { return (bool)GetValue(DarkModeProperty); }
+        set { SetValue(DarkModeProperty, value); }
+    }
+
+    public static readonly DependencyProperty DarkModeProperty = DependencyProperty.Register
+        (nameof(DarkMode), typeof(bool), typeof(JemProfilePageControl),
+         new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
+
+    #endregion DarkMode
+
     #region EditorMode
 
     public EEditorMode EditorMode

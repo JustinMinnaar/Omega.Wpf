@@ -5,6 +5,7 @@ using Jem.OcrLibrary22.Windows;
 using Omega.WpfCommon1;
 using Omega.WpfControllers1;
 using Omega.WpfModels1.Profiling;
+using Bdo.DatabaseLibrary1.Migrations;
 
 // todo: store the last selected root, project, folder, file, page in the database
 // todo: store the last selected profile, template, identifier, etc. in the database
@@ -33,10 +34,18 @@ public partial class MainWindow
         main.Explorer.SelectedFileChanged += Explorer_SelectedFileChanged;
         main.Explorer.SelectedPageChanged += Explorer_SelectedPageChanged;
 
+
+        main.Settings.PropertyChanged += Settings_PropertyChanged;
+
         // Force initial load of data to happen in separate thread
         Dispatcher.InvokeAsync(LoadAsync);
 
         DataContext = main;
+    }
+
+    private void Settings_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        Explorer_SelectedPageChanged(sender, e);
     }
 
     private async Task LoadAsync()
@@ -62,7 +71,7 @@ public partial class MainWindow
         }
         else
         {
-            var bmp = oPage.ToBitmap(inverse: true);
+            var bmp = oPage.ToBitmap(inverse: main.Settings.DarkMode);
             pageExplorer.DoSelectedPageChanged(bmp);
         }
     }

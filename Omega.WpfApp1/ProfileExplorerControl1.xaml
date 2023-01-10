@@ -12,6 +12,9 @@
              d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=True}"
              d:DesignHeight="400" d:DesignWidth="200">
     <UserControl.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="4,0,0,0" />
+        </Style>
         <Style TargetType="StackPanel">
             <Setter Property="Margin" Value="4" />
         </Style>
@@ -37,7 +40,13 @@
         </Style>
     </UserControl.Resources>
     <DockPanel>
-
+        <WrapPanel DockPanel.Dock="Bottom">
+            <CheckBox Content="left"    IsChecked="{Binding Path=Settings.SnapLeft}" />
+            <CheckBox Content="right"   IsChecked="{Binding Path=Settings.SnapRight}" />
+            <CheckBox Content="top"     IsChecked="{Binding Path=Settings.SnapTop}" />
+            <CheckBox Content="bottom"  IsChecked="{Binding Path=Settings.SnapBottom}" />
+            <CheckBox Content="dark"    IsChecked="{Binding Path=Settings.DarkMode}" />
+        </WrapPanel>
         <TabControl 
             TabStripPlacement="Left"
             SelectedValue="{Binding Path=Profiling.SelectedTab,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"        
@@ -99,8 +108,9 @@
                     <Label Content="Profile Group" />
                     <ComboBox 
                         ItemsSource="{Binding Path=Profiling.Groups}"
+                        DisplayMemberPath="Name"
                         SelectedValuePath="Id"
-                        SelectedItem="{Binding Path=Profiling.SelectedProfile.GroupId}" />
+                        SelectedValue="{Binding Path=Profiling.SelectedProfile.GroupId}" />
                 </StackPanel>
             </TabItem>
             <TabItem 
@@ -124,8 +134,17 @@
                     <ComboBox 
                         ItemsSource="{Binding Path=Profiling.TemplateTypes}"
                         SelectedItem="{Binding Path=Profiling.SelectedTemplate.Type}" />
+
+                    <Label Content="Template Rect" />
+                    <TextBox Text="{Binding Path=Profiling.SelectedTemplate.Rect,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Content="Set" Command="{Binding Path=Profiling.SetTemplateRectCommand}" />
+
+                    <Label Content="Template Rect Text" />
+                    <TextBox Text="{Binding Path=Profiling.SelectedTemplate.RectText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
                 </StackPanel>
             </TabItem>
         </TabControl>
+        
     </DockPanel>
 </UserControl>

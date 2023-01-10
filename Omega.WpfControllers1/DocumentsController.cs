@@ -341,7 +341,7 @@ public class DocumentsController : CNotifyPropertyChanged
         {
             if (Main.Settings.SnapTop) rect.Top = result.Bounds.Top; else rect.Top = Math.Min(rect.Top, result.Bounds.Top);
             if (Main.Settings.SnapBottom) rect.Bottom = result.Bounds.Bottom; else rect.Bottom = Math.Max(rect.Bottom, result.Bounds.Bottom);
-            if (Main.Settings.SnapLeft) rect.Left = result.Bounds.Left; else rect.Left = Math.Min(rect.Left, result.Bounds.Left);
+            if (Main.Settings.SnapLeft) { var w = result.Bounds.Left - rect.Left; rect.Width -= w; rect.Left += w; } else rect.Left = Math.Min(rect.Left, result.Bounds.Left);
             if (Main.Settings.SnapRight) rect.Right = result.Bounds.Right; else rect.Right = Math.Max(rect.Right, result.Bounds.Right);
             LastRectangleDrawn = rect;
         }

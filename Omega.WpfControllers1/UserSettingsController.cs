@@ -39,6 +39,8 @@ public class UserSettingsController : IdNamedModel
         this.SnapLeft = user.SnapLeft;
         this.SnapRight = user.SnapRight;
 
+        this.DarkMode = user.DarkMode;
+
         this.SelectedDocSolutionId = user.SelectedDocSolutionId;
         this.SelectedProBagId = user.SelectedProBagId;
     }
@@ -54,6 +56,8 @@ public class UserSettingsController : IdNamedModel
         user.SnapBottom = this.SnapBottom;
         user.SnapLeft = this.SnapLeft;
         user.SnapRight = this.SnapRight;
+
+        user.DarkMode = this.DarkMode;
 
         user.SelectedDocSolutionId = this.SelectedDocSolutionId;
         user.SelectedProBagId = this.SelectedProBagId;
@@ -71,5 +75,6 @@ public class UserSettingsController : IdNamedModel
     public bool SnapBottom { get; set; } = true;
     public bool SnapLeft { get; set; } = false;
     public bool SnapRight { get; set; } = false;
-
+    
+    public bool DarkMode { get; set; }
 }

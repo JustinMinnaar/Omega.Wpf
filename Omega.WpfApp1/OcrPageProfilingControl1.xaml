@@ -20,6 +20,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <TextBox Text="{Binding Path=Explorer.LastRectangleText}" Grid.Row="0" Background="OldLace" />
             <!--<TextBlock 
@@ -37,6 +38,7 @@
             <!--<TextBox Grid.Row="3" Text="{Binding ElementName=zoom,Path=ZoomWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="4" Text="{Binding ElementName=zoom,Path=ZoomHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />-->
             <TextBlock Text="{Binding Path=Explorer.LastMessage}" Grid.Row="4" />
+            
         </Grid>
     </Border>
 </UserControl>

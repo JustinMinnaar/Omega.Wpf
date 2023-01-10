@@ -27,8 +27,11 @@ public class ProfilingController : CNotifyPropertyChanged
 {
     #region Commands
 
-    RelayCommand? _AddBagCommand, _AddGroupCommand, _AddProfileCommand, _AddTemplateCommand;
+    RelayCommand?
+        _SetTemplateRectCommand,
+        _AddBagCommand, _AddGroupCommand, _AddProfileCommand, _AddTemplateCommand;
 
+    public ICommand SetTemplateRectCommand => _SetTemplateRectCommand ??= new RelayCommand(SetTemplateRect, CanSetTemplateRect);
     public ICommand AddBagCommand => _AddBagCommand ??= new RelayCommand(AddBag, CanAddBag);
     public ICommand AddGroupCommand => _AddGroupCommand ??= new RelayCommand(AddGroup, CanAddGroup);
     public ICommand AddProfileCommand => _AddProfileCommand ??= new RelayCommand(AddProfile, CanAddProfile);
@@ -45,7 +48,7 @@ public class ProfilingController : CNotifyPropertyChanged
         bags.Add(newBag);
 
         this.SelectedBag = newBag;
-        
+
         this.SelectedTab = ProfilingTabs.Groups;
     }
 
@@ -128,6 +131,25 @@ public class ProfilingController : CNotifyPropertyChanged
         templates.Add(newTemplate);
 
         SelectedTemplate = newTemplate;
+    }
+
+    public bool CanSetTemplateRect()
+    {
+        var template = this.SelectedTemplate;
+        if (template == null) return false;
+
+        return true;
+    }
+    public bool SetTemplateRectEnabled => CanSetTemplateRect();
+
+    public void SetTemplateRect()
+    {
+        var template = this.SelectedTemplate;
+        if (template == null) return;
+
+        template.Rect = Main.Explorer.LastRectangleDrawn;
+        template.RectText = Main.Explorer.LastRectangleText;
+        
     }
 
     #endregion
@@ -221,5 +243,25 @@ public class ProfilingController : CNotifyPropertyChanged
     //        mRoot.Profiles.Add(profile);
 
     //}
+
+    public void LoadProfiles()
+    {
+        var bag = new ProBagModel { Id = Guid.NewGuid(), Name = "Consent" };
+        Bags.Add(bag);
+        SelectedBag = bag;
+
+        var group  = new ProGroupModel { OwnerBag = bag, Id = Guid.NewGuid(), Name = "Consent" };
+        Groups.Add(group);
+        SelectedGroup = group;
+
+        var profile = new ProProfileModel { OwnerGroup = group, Id = Guid.NewGuid(), Name = "Consent" };
+        Profiles.Add(profile);
+        SelectedProfile = profile;
+
+        var template = new ProTemplateModel { OwnerProfile = profile, Id = Guid.NewGuid(), Name = "Page", Type = ProfileTemplateType.Page };
+        Templates.Add(template);
+        SelectedTemplate = template;
+    }
+
 
 }
