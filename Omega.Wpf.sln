@@ -29,9 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jem.OcrLibrary22.Windows", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omega.WpfControllers1", "Omega.WpfControllers1\Omega.WpfControllers1.csproj", "{8D1D56C8-864E-407A-8EBA-CCAA8904B419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jem.ProDatabaseLibrary1", "Jem.ProDatabaseLibrary1\Jem.ProDatabaseLibrary1.csproj", "{483471FB-72E9-4DEB-B90A-B4ECFC002D6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jem.ProDatabaseLibrary1", "Jem.ProDatabaseLibrary1\Jem.ProDatabaseLibrary1.csproj", "{483471FB-72E9-4DEB-B90A-B4ECFC002D6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jem.DocDatabaseLibrary1", "Jem.DocDatabaseLibrary1\Jem.DocDatabaseLibrary1.csproj", "{25D40263-04A7-40D8-9C0F-04C130A363AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jem.DocDatabaseLibrary1", "Jem.DocDatabaseLibrary1\Jem.DocDatabaseLibrary1.csproj", "{25D40263-04A7-40D8-9C0F-04C130A363AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omega.ProfilingService", "Omega.ProfilingService\Omega.ProfilingService.csproj", "{C42E923F-F54E-457F-B1F3-B037F8033BF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omega.ProfilingLibrary1", "Omega.ProfilingLibrary1\Omega.ProfilingLibrary1.csproj", "{F1461FC0-AAB3-41A1-804A-935531CEED20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +103,14 @@ Global
 		{25D40263-04A7-40D8-9C0F-04C130A363AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25D40263-04A7-40D8-9C0F-04C130A363AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25D40263-04A7-40D8-9C0F-04C130A363AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C42E923F-F54E-457F-B1F3-B037F8033BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42E923F-F54E-457F-B1F3-B037F8033BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42E923F-F54E-457F-B1F3-B037F8033BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42E923F-F54E-457F-B1F3-B037F8033BF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1461FC0-AAB3-41A1-804A-935531CEED20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1461FC0-AAB3-41A1-804A-935531CEED20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1461FC0-AAB3-41A1-804A-935531CEED20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1461FC0-AAB3-41A1-804A-935531CEED20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,7 +10,7 @@
         xmlns:controllers="clr-namespace:Omega.WpfControllers1;assembly=Omega.WpfControllers1"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=True}"
-        Title="BDO Explorer" Height="450" Width="800"
+        Title="BDO Explorer" Height="750" Width="1150"
         WindowStartupLocation="CenterScreen"
         >
     <Grid>

@@ -117,6 +117,12 @@ public abstract class DocDbContext : DbContext
 
     #endregion
 
+    #region Jobs
+
+    // public DbSet<JobImportFiles> JobsImportFiles { get; set; } = default!;
+
+    #endregion
+
     #region Folders
 
     public DbSet<DocFolder> DocFolders { get; set; } = default!;

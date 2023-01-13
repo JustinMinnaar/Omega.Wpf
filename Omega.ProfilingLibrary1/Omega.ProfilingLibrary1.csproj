@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="6.6.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
+    <PackageReference Include="PropertyChanging.Fody" Version="1.30.3" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+	<ItemGroup>
+    <ProjectReference Include="..\Bdo.DatabaseLibrary1\Bdo.DatabaseLibrary1.csproj" />
+		<ProjectReference Include="..\Jem.CommonLibrary22\Jem.CommonLibrary22.csproj" />
+		<ProjectReference Include="..\Jem.DatabaseLibrary1\Jem.DatabaseLibrary1.csproj" />
+		<ProjectReference Include="..\Jem.DocDatabaseLibrary1\Jem.DocDatabaseLibrary1.csproj" />
+    <ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+    <ProjectReference Include="..\Jem.ProDatabaseLibrary1\Jem.ProDatabaseLibrary1.csproj" />
+  </ItemGroup>
+
+</Project>
