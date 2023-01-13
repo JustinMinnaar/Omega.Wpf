@@ -16,5 +16,19 @@
             Text="{Binding Path=Settings.WorkingFolderPath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
             />
 
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <WrapPanel>
+                <Button x:Name="BeginButton" Content="Run" Command="{Binding Path=ImportJob.JobBeginCommand}" />
+                <Button x:Name="EndButton" Content="Stop" Command="{Binding Path=ImportJob.JobEndCommand}" />
+            </WrapPanel>
+            <StackPanel Grid.Column="1">
+                <ProgressBar Height="6" Value="{Binding Path=ImportJob.JobProgress}" />
+                <TextBlock Text="{Binding Path=ProfilingJob.JobStatus}" />
+            </StackPanel>
+        </Grid>
     </StackPanel>
 </UserControl>

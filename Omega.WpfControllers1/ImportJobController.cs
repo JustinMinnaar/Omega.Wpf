@@ -37,6 +37,8 @@ namespace Omega.WpfControllers1
             using var db = new BdoDocDbContext();
 
             var solution = await db.AccessSolutionAsync(rootName);
+            await db.SaveChangesAsync();
+            
             var project = await db.AccessProjectAsync(new(solution.Id), rootName);
             await db.SaveChangesAsync();
 
