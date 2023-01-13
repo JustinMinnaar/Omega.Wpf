@@ -29,6 +29,9 @@ public class MainController : CNotifyPropertyChanged
     public DocumentsController Explorer { get; set; }
     public ProfilingController Profiling { get; set; }
 
+    public ProfilingJobController Job { get; set; }
+
+
     public Rect? LastRectangleDrawn;
 
     public string? LastError { get; set; }

@@ -13,76 +13,30 @@
         Title="BDO Explorer" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         >
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="3" />
-            <Setter Property="Padding" Value="3" />
-        </Style>
-    </Window.Resources>
-    <Grid Background="OldLace">
+    <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="200" />
-        </Grid.ColumnDefinitions>
 
-        <local:ProjectExplorerControl1 Grid.Column="0" />
+        <WrapPanel 
+            Grid.Row="0" 
+            Background="AliceBlue"
+            >
+            <Label Content="Profiling:" />
+            <Button Content="Run" />
+            <Button Content="Pause" />
+        </WrapPanel>
 
-        <DockPanel Grid.Column="1">
-            <WrapPanel DockPanel.Dock="Bottom">
-                <Button x:Name="UndoLastButton" Content="_Undo Last" />
-                <Button x:Name="IgnoreButton" Content="_Ignore" />
-                <Button x:Name="ConsentButton" Content="_Consent" />
-                <Button x:Name="BankingButton" Content="_Banking" />
-            </WrapPanel>
-            <local:OcrPageProfilingControl1
-                x:Name="pageExplorer"
-                RectangleDrawn="PageExplorer_RectangleDrawn"
-                />
-        </DockPanel>
-
-        <local:ProfileExplorerControl1 Grid.Column="2" x:Name="proExplorer" />
-
-        <ProgressBar x:Name="progress" Grid.Row="1" Grid.ColumnSpan="3" Height="4" />
-
-        <!--<Grid
-            Grid.Column="2">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
-
-            <DockPanel
-                Grid.Row="0">
-                <Label DockPanel.Dock="Left" Content="Profile:" />
-                <Button DockPanel.Dock="Right" Content="Add" x:Name="AddProfileButton" Click="AddProfileButton_Click" />
-                <ComboBox ItemsSource="{Binding Path=Profiles}" 
-                          DisplayMemberPath="Name" 
-                          SelectedItem="{Binding Path=SelectedProfile}" />
-            </DockPanel>
-
-            <Label Grid.Row="2"  Content="Template:" />
-
-            <DockPanel
-                Grid.Row="3">
-                <ListBox ItemsSource="{Binding Path=SelectedProfile.Templates}" 
-                          DisplayMemberPath="Name" 
-                          SelectedItem="{Binding Path=SelectedProfile.SelectedTemplate}" />
-            </DockPanel>
-
-            <TextBox 
-            Grid.Column="1"
-            Text="{Binding Path=SelectedProfile.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+        <local:MainControl1
+            Grid.Row="1"
             />
-
-        </Grid>-->
-
+            
+        <ProgressBar 
+            Grid.Row="2"
+            Height="4"
+             Value="{Binding Path=Profiling.ProgressValue}"
+            />
     </Grid>
 </Window>
