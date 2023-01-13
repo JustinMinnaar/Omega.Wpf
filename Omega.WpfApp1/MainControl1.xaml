@@ -45,8 +45,6 @@
 
         <local:ProfileExplorerControl1 Grid.Column="2" x:Name="proExplorer" />
 
-        <ProgressBar x:Name="progress" Grid.Row="1" Grid.ColumnSpan="3" Height="4" />
-
         <!--<Grid
             Grid.Column="2">
 

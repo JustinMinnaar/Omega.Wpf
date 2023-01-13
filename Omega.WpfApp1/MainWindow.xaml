@@ -20,23 +20,15 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <WrapPanel 
-            Grid.Row="0" 
-            Background="AliceBlue"
-            >
-            <Label Content="Profiling:" />
-            <Button Content="Run" />
-            <Button Content="Pause" />
-        </WrapPanel>
+        <Menu Background="AliceBlue">
+            <MenuItem Header="_File" />
+            <MenuItem Header="_Profiling" />
+        </Menu>
 
         <local:MainControl1
             Grid.Row="1"
             />
-            
-        <ProgressBar 
-            Grid.Row="2"
-            Height="4"
-             Value="{Binding Path=Profiling.ProgressValue}"
-            />
+
+        <local:ProfilingJobControl1 Grid.Row="2" />
     </Grid>
 </Window>
