@@ -2,17 +2,23 @@
 using static Omega.WpfControllers1.ProfilingController;
 using System;
 using System.Threading;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Omega.WpfControllers1
 {
     public class ProfilingJobController : AbstractBackgroundJobController
     {
-        private readonly MainController main;
+        #region class
 
+        [SetsRequiredMembers]
         public ProfilingJobController(MainController main)
         {
-            this.main = main;
+            this.Main = main;
         }
+
+        public required MainController Main { get; init; }
+
+        #endregion
 
         protected override void DoWork()
         {

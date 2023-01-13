@@ -13,22 +13,33 @@
         Title="BDO Explorer" Height="750" Width="1150"
         WindowStartupLocation="CenterScreen"
         >
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+    <TabControl>
+        <TabItem Header="Files">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
-        <Menu Background="AliceBlue">
-            <MenuItem Header="_File" />
-            <MenuItem Header="_Profiling" />
-        </Menu>
+                <Menu Background="AliceBlue">
+                    <MenuItem Header="_File" />
+                    <MenuItem Header="_Profiling" />
+                </Menu>
 
-        <local:MainControl1
+                <local:MainControl1
             Grid.Row="1"
             />
 
-        <local:ProfilingJobControl1 Grid.Row="2" />
-    </Grid>
+
+                <!--<local:ProfilingJobControl1 Grid.Row="2" />-->
+            </Grid>
+        </TabItem>
+        <TabItem Header="Import">
+            
+        </TabItem>
+        <TabItem Header="Employees">
+
+        </TabItem>
+    </TabControl>
 </Window>

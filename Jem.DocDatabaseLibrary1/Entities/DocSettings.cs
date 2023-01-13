@@ -14,6 +14,8 @@ public class SysUserSettings : IdNamed
     public bool SnapRight { get; set; } = false;
     public bool DarkMode { get; set; }
 
+    public string? WorkingFolderPath { get; set; }
+
     //#region Selections
 
     ///// <summary>A collection of selections for this user.</summary>

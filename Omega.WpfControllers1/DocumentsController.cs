@@ -9,6 +9,7 @@ using Omega.WpfModels1;
 
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,7 +18,18 @@ namespace Omega.WpfControllers1;
 
 public class DocumentsController : CNotifyPropertyChanged
 {
+    #region class
+
+    [SetsRequiredMembers]
+    public DocumentsController(MainController main)
+    {
+        this.Main = main;
+    }
+
     public required MainController Main { get; init; }
+
+    #endregion
+
     public string? LastMessage { get; set; }
 
     // Projects, Folders, Files, Pages, Profiles: are loaded on demand

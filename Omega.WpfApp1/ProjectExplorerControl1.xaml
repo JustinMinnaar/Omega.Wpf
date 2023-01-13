@@ -11,7 +11,13 @@
              d:DesignHeight="450" d:DesignWidth="200"
              d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=False}">
     <UserControl.Resources>
-        <Style TargetType="DockPanel">
+        <Style TargetType="TabItem">
+            <Setter Property="Padding" Value="4" />
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="4,0,0,0" />
+        </Style>
+        <Style TargetType="StackPanel">
             <Setter Property="Margin" Value="4" />
         </Style>
         <Style TargetType="Button">
@@ -34,80 +40,79 @@
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="4,0" />
         </Style>
+        <Style TargetType="DockPanel">
+            <Setter Property="Margin" Value="4" />
+        </Style>
     </UserControl.Resources>
-    <DockPanel>
+    <TabControl TabStripPlacement="Left">
+        <TabItem Header="Projects">
+            <StackPanel>
 
-        <Label 
-            DockPanel.Dock="Top" 
+                <Label 
             Content="Solution:" />
-        <ComboBox 
-            DockPanel.Dock="Top" 
+                <ComboBox 
             ItemsSource="{Binding Path=Explorer.Solutions}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=Explorer.SelectedSolution}" />
 
-        <Label 
-            DockPanel.Dock="Top" 
+                <Label 
             Content="Project:" />
-        <ComboBox 
-            DockPanel.Dock="Top" 
+                <ComboBox 
             ItemsSource="{Binding Path=Explorer.Projects}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=Explorer.SelectedProject}" />
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Files">
+            <StackPanel>
 
-        <Label 
-            DockPanel.Dock="Top" 
+                <Label 
             Content="Identified Filter:" />
-        <ComboBox 
-            DockPanel.Dock="Top" 
+                <ComboBox 
             ItemsSource="{Binding Path=Explorer.IdentifiedFilters}" 
             SelectedItem="{Binding Path=Explorer.SelectedIdentifiedFilter}" />
 
-        <Label 
-            DockPanel.Dock="Top" 
+                <Label 
             Content="Folder:" />
-        <ComboBox 
-            DockPanel.Dock="Top" 
+                <ComboBox 
             ItemsSource="{Binding Path=Explorer.Folders}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=Explorer.SelectedFolder}" />
 
-        <Label 
-            DockPanel.Dock="Top" 
+                <Label 
             Content="File:" />
-        <ComboBox 
-            DockPanel.Dock="Top" 
+                <ComboBox 
             ItemsSource="{Binding Path=Explorer.Files}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=Explorer.SelectedFile}" />
 
-        <Label 
-            DockPanel.Dock="Top" 
+                <Label 
             Content="Page:" />
-        <ComboBox 
-            DockPanel.Dock="Top" 
+                <ComboBox 
             ItemsSource="{Binding Path=Explorer.Pages}" 
             DisplayMemberPath="Name" 
             SelectedItem="{Binding Path=Explorer.SelectedPage}" />
 
-        <Label 
-            DockPanel.Dock="Top" 
+                <Label 
             Content="Matched:" />
-        <TextBox
-            DockPanel.Dock="Top" 
+                <TextBox
             Text="{Binding Path=Explorer.SelectedPage.ProfileName}" 
             IsReadOnly="True"
             Background="WhiteSmoke" 
             />
 
-        <Label 
-            DockPanel.Dock="Top" 
+                <Label 
             Content="Results:" />
-        <ListBox
+                <ListBox
             ItemsSource="{Binding Path=Explorer.SelectedPage.Values}"
             Background="WhiteSmoke" 
             />
 
 
-    </DockPanel>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Import">
+            <local:ImportProjectControl1 Grid.Row="2" />
+        </TabItem>
+    </TabControl>
 </UserControl>

@@ -25,6 +25,18 @@ public static class ProfilingCommands
 
 public class ProfilingController : CNotifyPropertyChanged
 {
+    #region class
+
+    [SetsRequiredMembers]
+    public ProfilingController(MainController main)
+    {
+        this.Main = main;
+    }
+
+    public required MainController Main { get; init; }
+
+    #endregion
+
     #region Commands
 
     RelayCommand?
@@ -157,14 +169,7 @@ public class ProfilingController : CNotifyPropertyChanged
 
     public ProfilingTabs? SelectedTab { get; set; } = ProfilingTabs.Bags;
 
-    [SetsRequiredMembers]
-    public ProfilingController(MainController main)
-    {
-        this.Main = main;
-    }
-
-    public required MainController Main { get; init; }
-
+    
     #region Bags
 
     public ObservableCollection<ProBagModel> Bags { get; set; } = new();

@@ -19,18 +19,16 @@ public class MainController : CNotifyPropertyChanged
     public MainController()
     {
         Settings = new UserSettingsController(this);
-
-        Explorer = new DocumentsController { Main = this };
-
+        Explorer = new DocumentsController(this);
+        ImportJob = new ImportJobController(this);
         Profiling = new ProfilingController(this);
-
         ProfilingJob = new ProfilingJobController(this);
     }
 
     public UserSettingsController Settings { get; set; }
     public DocumentsController Explorer { get; set; }
     public ProfilingController Profiling { get; set; }
-
+    public ImportJobController ImportJob { get; set; }
     public ProfilingJobController ProfilingJob { get; set; }
 
 

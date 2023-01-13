@@ -25,7 +25,6 @@ public class UserSettingsController : IdNamedModel
 
     public async Task LoadAsync()
     {
-
         using var db = new BdoDocDbContext();
 
         var user = await db.AccessSysUserSettings(userName: this.Name);
@@ -43,6 +42,8 @@ public class UserSettingsController : IdNamedModel
 
         this.SelectedDocSolutionId = user.SelectedDocSolutionId;
         this.SelectedProBagId = user.SelectedProBagId;
+
+        this.WorkingFolderPath = user.WorkingFolderPath;
     }
 
     public async Task SaveAsync()
@@ -69,7 +70,7 @@ public class UserSettingsController : IdNamedModel
 
     public Guid? SelectedDocSolutionId { get; set; }
     public Guid? SelectedProBagId { get; set; }
-
+    public string? WorkingFolderPath { get; set; }
     public bool ResetPanZoomOnFileSelect { get; set; } = true;
     public bool SnapTop { get; set; } = true;
     public bool SnapBottom { get; set; } = true;
