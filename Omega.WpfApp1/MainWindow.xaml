@@ -36,7 +36,7 @@
             </Grid>
         </TabItem>
         <TabItem Header="Import">
-            
+            <local:ImportProjectControl1 />
         </TabItem>
         <TabItem Header="Employees">
 

@@ -13,7 +13,7 @@
         <Label 
             Content="Root Folder:" />
         <TextBox 
-            Text="{Binding Path=ImportJob.RootFolderPath}" 
+            Text="{Binding Path=Settings.WorkingFolderPath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
             />
 
     </StackPanel>

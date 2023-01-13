@@ -22,15 +22,9 @@ namespace Omega.WpfControllers1
 
         #endregion
 
-        public string? RootFolderPath
-        {
-            get => Main.Settings.WorkingFolderPath;
-            set { Main.Settings.WorkingFolderPath = value; }
-        }
-
         protected override void DoWork()
         {
-            var rootPath = RootFolderPath;
+            var rootPath = Main.Settings.WorkingFolderPath;
             if (rootPath == null) return;
 
             Task.Run(() => ProcessProject(rootPath));

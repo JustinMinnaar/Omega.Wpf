@@ -37,12 +37,19 @@ public class MainController : CNotifyPropertyChanged
     public string? LastError { get; set; }
     public bool HasLastError => LastError != null;
 
+    //public event EventHandler LoadCompleted;
+
     public async Task TryLoadAsync(string userName)
     {
         try
         {
+            await Settings.LoadAsync();
+            Settings.HasChanged = false;
+
             await Explorer.LoadSolutionsAsync();
+
             Profiling.LoadProfiles();
+            //LoadCompleted?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

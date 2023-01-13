@@ -111,8 +111,5 @@
 
             </StackPanel>
         </TabItem>
-        <TabItem Header="Import">
-            <local:ImportProjectControl1 Grid.Row="2" />
-        </TabItem>
     </TabControl>
 </UserControl>
