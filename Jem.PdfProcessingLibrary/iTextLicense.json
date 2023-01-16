@@ -1,0 +1,246 @@
+[
+  {
+    "product": "itext-core",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 7,
+      "minor": 2
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "MnrDVX94hhvJB7uppjL8Sf/nC4Zv09UmdJ4ee5tXo1TuVo6O2qsqZC/Q8TAzMSy6NWtEwrkuGs9xyxkykMrgadKa0Ex6ZsVf70qQprN0Qkka6luwdxaB/hty+y+C+xbQzcn9pWfP5Emwrgr6dOPIyZ4l8FmM14H3wy6kj9YyH1awM3VW8xLXCwgAbODVqDQHm8/1E1NMPuWYSzOoQVRUPt/DalfWVPtDhVCy4OWKMdTAmYM5RlosY/uDmL3Kk39xTSeFtppsQXyDfDNAlz8BTr06wDlY75Yd6dB4XZBiLpq3mMkupb57S0M1RM+IM/4klo6vz1iem4FWE9O9gJrnRm0jg4YrbyIl944Zt1u0mHSB3q9Kgo3AONNqmtYd0HWNGeGQNLpDpaZWE+epyvPeWQEYB8LTddNesxKFDdQKBvFi5kuQZcT5213imXam1CxBOH1XlD1HBBJmJuW4EyttrPdGCJnkLDyjeN/o83gxqXIyxjwxHQmbBqmxZVbz7v8W6QBSRRVeON2rQ3UOLkp4/vwDY7MuiOvf3SAbOugg478MCvfYTIXcQQ6pj4qMrjq4OjgNzwMd+dCoUkpZ/7CoNiz3JI2VWB3r3iyBvrcJha3rgIGgYLMqlzs/3nmIJTk7NObqwUZ1jNyTD8yVDlfVFc5naw62iVefzkcvYIfEGL0="
+  },
+  {
+    "product": "pdfXfa",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 3
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "JgAjCu5aAdHj3WVehlBvOMgKBHgwI/+rBi95u+6UOLNpdVD86jd3wGmT+VFwHvoOQ7SPo+Q5aDRFAexRmGKK51rNd8yY9br011+nMBo1DO0i3roGDjMggIMZT272om6BtpeepoDjog643vIofc4N+K79pAx+CqAGxfcD1z3fLwJ6Gurd6WxTd09iiARMkBToLtuS6A8RP9er1jJipn471Cxbl4Z0LtcB4RcQWln7SI5Ameoqu+13iKUN56qaT5iNzppTmHUA5sklVQpW/Is1C4arB+bpxoR3ZIWbGaAkBqy6JhsGYVJoXzaZp3255zP9Fy1pEUGYcjxYoEyUKIL5APlqV/AmX2lPqOSI7aGFf/f4RAvoRldx7UeqGqlzYDaH3lMg1AiPMYdB7Kw8Iwfbaz7d1GnMyB9K2xKUPpJBK3HQD+QPenBiiN5V8zZjskVK9pCzics8y0Rs3HwWY/MAeWHikqv2uSdVtnCqfzkAV0rPuyITC0Tj9Bs9KQieyHWcw8aLOrxoQFb9PjYGK+s/cprtlgAvvv9IPxzIfblZQsZnDpr0E00+uPDcKpTAb/0fD0eECS7E0S6Koqm/erQGBj+xlpgx6sDhEN0OCbpllyWqVN7HyysIeeJwOWYSLn0339XZEX+QkdlKd7VCYAQPCOy1ACCJoFQGbqhI4mbN3HY="
+  },
+  {
+    "product": "pdfSweep",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 3
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "UjY1JPZ0WY3EHl8Jef7gBY/Yt/S0GsgnwsRgDHlRnnr7lcNvAKgpO+YAZtSPVFoTjbgFDivnqM/m1wZGmN1cBSKwT9D7RKPW9Ip80FDyf/WUVitOMLv9sV0vbIE6KjVo1xprFd9RhjYTzDCIaedVF7KFAdYL/KlrUK+H0CaUVqMVpHVLbfxwuaRKSQDnSLnzadcFc0grW5PC1LpLhvk60pRDA4MeHXqICuVHxLM5P2vOWf1y208AFgXjWiVMydwuJxkNlx4iNbK5qnh64hhErZctiuTJ9F17PUjlSGZYF5QB+GWjljexL96zh66EGVfpLBRNxs7fyhJN5GcarZygCscio2WSnTx3n2oa9Kdai6BuivPqlqYvFhgyuqo3dgeEW8fW2HdNwPfmxgXpNCJTjhvpwtAJfhVjAx+fusXJe/KygpZDfqa/ltGby/eE0DAXuQrhdvm82aQpdcElLENmEKTW+l7zzxn407/4xg93ScorJl5+4nWfe6CFt9QGpP2xWGHqONAj64o8pDELEezZXj9qzQh+RUY91TCSbyLHe5TRx2TlSS+AjhBC4laWug+SNDTdKe6ECblwHXI2TNgZcIpNU8TKWOxTqu3MIEsbmaNAcHgHemSA4a9Uikken2QhnujsjvJMRAPMt4y18kKrhri9uAfL8OXVNvEwRm51wSE="
+  },
+  {
+    "product": "pdfRender",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 2
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "TayVlitYH9cHy13CdfgyuNY4wppvUCOWlmXXEjyODBDEQkfn82Km+wxakixm8Ina2Cv5zcRsOjaFR+LAC2vYohecOOX+Ib++R8m/wQgLLi/zSMdjnCtJAJM8kygCZZ7TqyhP1ZxtCpEYrpo8AQxSxqQQ85CC1Qy9s+CneHnOy//rJL6m+RSB1QSs1QQx4reJee8zOwk4Ag10c6iKWotY+UXVpARSGEXsadZ1Xk08LwH3yx2qDY6PaonjwENBqucSn/GxZxHDZaoz5+3ZGJ27icEgCg7afJwrSftusKDAKXSuGFsZJ+DNH9mhp7SE9Kn6vwNUbNrsK0bchXImGu9HG8q/rIx4LozImXzH/70krHIaLiHtzpqF0ATab1cI+NkuvcuNJ+CqNVl5vFxJq1lwVhvdSZmPiB4tweTtktCxe+CF7ZXP6WDTWBqw9Rzs+FD4UJcX3RX6J/RQ1sBcAHqrC3uugRvms44cgnbQIDOyzpZvr1Osd9Oh9ejauB5AUI37P5YfSDzD1QkoWXjaTNzm+A5MSLgxsWS1MCY/uQCvB0FGBaYlxLe7YPCsChAv6QkgKbhhCBSLCSwNJgbB6EkioFxQpewPVg/+RaPp8mqUJp5AVoKwsZcQSWJMMhatWDGSO37FKQw69ZtYuNzDao0GT7ab3Zu0BsDPed8T1sT4Ly4="
+  },
+  {
+    "product": "pdfOcr-tesseract4",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 2
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "BnW2unZHWF3pu4matWaIS2wqWZ9YaOkRH8kNFUOhS1oxOPwR37ZAlhBymiGDxT1/8x+abctCOqq/eoISl2MjZUFxJz5oNHqjIPS49oEvttgSKyj7szjKMWSxJOqI4VMT9dt1h72WpJiPFtDfyEXFHNkgetKFWYR0BK9aXdD2odL+KX0QHuOKwh5nqExC4JuzkWJ3r2nSWGcgfB/jhmVVNRPg1Tdk/mjpvRkgXRJX+TveALoShCJPgN2YXUrLGo2GBGsE5z+pdVATfD5u5mSP/bBOtw/lsS7Vlel5fgTEwwTPbZheAGFY9u025j8LjwDm9/mIDsGEuiRcb2hce6x2nmFRbQ3rGaCqgad/hhXfAaqxULg5KmOInYhCTrkCilRCZg8JdUPQBz6rDR4J0SKqTSITe2qNJP32ofzq6qvyHT0ghTPm0AK5zzEjUwNRtD+DmSSkcgpXHkVwQIONVHIt9n5k8wdutXvrh277mDR/hADVVhWf+TNuXKKlSaLD142wCxGXp6G9JUPIuIFNLz+gGnSkYL79YJ/+mz3jUqsmnhkhJJpUNQwDd1SxtxYgPRoEbKn+YaWb8iC2NcPaf/bnxPE/P5xwBl/7Tkaso9KX9NtCNB1KojkLSkVNwmj/GGkYQ5/c2z54hKgL4i65TwyXf2L/IAyT7fVHJxyv49/rVC4="
+  },
+  {
+    "product": "pdfOptimizer",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 2
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "jxeM6+HwRRkvmETPekXlRbHxisqkypo2ocXzcmTn6ORttedCLK3Q/eD1dcXuOo/Q1ef7/oIqjA/OLvUvwiUWfUgKxI5338EK418pv9q9Z2JnLaOKz+d8tc50w0pqq+Tfu/6CR6fQIR6myEk9uZRQIIW7h4IwvJ39ASch9unW/oNSAjYB6xttcudV1/OghVOtLeH1BEpQ0hyVQBPGiSIwlS58R24hS7zlGUBGUmTzO/vliiRjMfiNMHpxK5PXakrECQWaQe7Z89XZyM14FULmX6AGEeKl2HDaAVMbmB1nZ6lYyPI03ugXalz7MKDrDt+ESukRL07ZCL0d4fSBiL7+CuWpFoFknf/NIo/lRkMZbZTbCeMvCj6f1CV2P/3o43ZZ6CGzjSVyeo13sY+xekZtnSb0YfgkSXOrGUptGJVu1itxUw2LQVYGNUNeOgDpOFjy+RzTN/TeUTgh4sF9tbgb0SfvPj03d/82NdAtj6vJtvTB4+qdcfyaJPmFzsy2yGMzILv5aJQ2x+iMHo1GgmuKcQO9lJIJLdW7ca4JXw7M72Fptt7HZnvkkeIZyO6QkMQ+C6ambIRVQopsXxL4NFjyfRHNyxXFbDFuuUnncIrSmYaFvmx9Jc9BVJfd5NUIKVmSHWWcrEelPZZqz7jOGakRUoqivW5laOT4ARFnRUGGt7Q="
+  },
+  {
+    "product": "pdfHtml",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 4
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "cWn2kfIbDjdV9wGjd2/DmDcdfUK0KhPOvazJleg+BiJmVkjtmvlSWnJFEo0da2b30+QrNy0qqdCsonT4igObTzneJF15J6FXpQ6soYwsLUQeAVHxiWKh00gJvlDHETp6hbSC+ky7+SNiacgvYPvin9dDWrwHZD1lFDQGIuaCeQeptrwdtNPX7TxDDYUXzNixnvuyBbOubABBsgtfD/tcbN0rO8U+6EqBMabOKggXmVl/Sxw/hyeQt9OvKn5M+SAzmOr22jo1XFYK6OF+27ee0mEclirh+VP2/IVnQkeb9f/+9dNU1ZEqeky58c+gzhszHpWZi5z26cx7qAAx3ZI4rxyczvGW5L5NkPLnqzjV6lrMUuRYOMgT5BKl9E263WgsTRfkw5l5tGhcl7WfXf0VPZqgYduD4oE4+sX1nC54g70zlaRFPPax9bMNdMO7Vbslc+s6SwdB0BP+f7s6Q4LOaupLcc0N6ii4eF8y7weTgREXyPiLI3RcgG9v+vHqsB9n3jEyVZoEpcxYwu1XfVsmOMlz8aYtO34Bdr8LhsHB0WOL+qvIOdxyB9nPpTcrrTfse/eIXdk5WXoM981dgCBmF67DyZL+JXKYbD48lH6GCX9ny4/BrD1+ftkSKs178Y8/QfqoaJs72jO0cA/1pqMGqDDapHEO1Ev8QtcoR1OrH5U="
+  },
+  {
+    "product": "pdfCalligraph",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 3
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "gauTORrjbPG7BCB2t7CKa1xd2DKsBvCuxUykUzoFpaAAjb9tKqMWjWKwVOkZYrS0rUu8g8IUYTeg0Eqm1MozS2m4FpPnm8dZeHhx4tRTmt36EJJBQx5QuwNX49CeizOzfsN/9vHLtkfoOTg6MBenflJDvqVpjeY0NMVh5kz7zqPv24BsPnAEu5ZBqq/90rkDDvXbUyS2h9hF+Xh9kmSOct33IbGZk0JXhKwLYYRehami+IU2jQjqzRcIGZHB9eryHXd1COMOubDkXTr32/X3ohgqkEUO4aLPYQWPOdt+CMOj16XEUKleJsAdLenPEzmfJpgnu3f0NM6hF9eL5bcH8zIOrGHGoWMpgLJ2ZID1Iq6hn11PsWSd6P3mgJS2AVSdRAn2wsYMPVUzK6XCSuO1je+Q1UX8kLFSZ2v/J5tdj7zPWOPGR6b6oPh9LWTH0irZ6H+Zi9g8BKbVX92Nm2k86I0xCIoMWZ6zDHjm7vZmUzDyL1U4SHNdcOnta/xkmOh0n+mMSTT/cKfsv60U7pXYdHAilz1nY0iz57yl9kbRxYKpg+B6SUeHORmCaqVBPzQbU64eHgc5/Bo1yplOzVyJhJ13Jt06z/m14hFCfGtsb9/zcxIOSNMO7M2qmEofR4N0J98Mu6MB85AQ9z9LgadWJp/rvYpd7zvkOoc/OiyVXU0="
+  },
+  {
+    "product": "pdfOffice",
+    "licensee": {
+      "company": "N/A",
+      "name": "Justin Rose",
+      "email": "Justin@TinaRose.co.za"
+    },
+    "key": "782218edd0482fae05a0b76494e4c93aae0532e9408fe55257fa049eecef176c",
+    "creationDate": "2022-11-29",
+    "expirationDate": "2022-12-29",
+    "onExpiration": "grace",
+    "gracePeriod": "1d0h0m",
+    "platform": "any",
+    "licenseType": "trial",
+    "productVersion": {
+      "major": 2
+    },
+    "limits": {
+      "default": {
+        "limitType": "unlimited",
+        "sendEvents": false
+      }
+    },
+    "licenseVersion": "1.0.0",
+    "sendStatistics": "disabled",
+    "signature": "Fc3zosjh1Zw9G3Z9bbJuuvkJCNw2mNE+wyGHdYdmAhRhC+xQeWrvMojCaFl1lgfeNofQcznI7azJu4aJRr1nphFnvur5Aowisu4VLsINuRQK/Gwozd6EqV3XeJGlTzlAUBxXhjMDq8ysH6OnpNnUtf4DBkzk7CjDKAdwlPPpf6Kyq6mAOZ7rBOMtn4xC5OsihOto86skr6kAzkalWEyesCgpncYRPIQBsYpCJ/kwFI28Kr5RcfVprDJ6NgPIf5nEg4ok72OnG2sZ1RKEpOLh1jojZ4auvEvdGZhf2/xCVfqw2MefbzBp90hH+E7IIwMdz2DvN7QSKb3FOoTcxRwKGIDrSNHeNxfimxBkcC6lifl8HXk4l61oQq+NO6se14vY+51NEfWNwgefqSusTiT9UXMXF0oJyKzD401wCy2ZaGnoeReTK0aiSPCCJDJvqbg/PqxjgLX/m1Mqg7ubuZazcXdK58rb5wtre4D2tx8eijgJdIQbhujZaY5rVR0IN24+GcQxdO+JWS04Kz6D2L6fsgKoz2LRb/ZAIzVHwk+Hh8+SMu9V6/C+gTd5+yDsX8v1GZnsQNkTRiZ0D4DkoII9mFqvoVTUtHZ3P4pL08H+XmgAGAJTvwEdsIVA1N5Cye/p39900EMbnA4X/o8X/+sHsDg8O3thTjCqVHEaDiyiC1k="
+  }
+]

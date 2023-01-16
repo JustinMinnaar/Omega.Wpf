@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="IronOcr" Version="2022.12.10830" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Jem.CommonLibrary22\Jem.CommonLibrary22.csproj" />
+		<ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="IronOcrLicenseKey.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

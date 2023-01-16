@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+    <ProjectReference Include="..\Jem.Profiling22.Data\Jem.Profiling22.Data.csproj" />
+    <ProjectReference Include="..\Jem.Profiling22\Jem.Profiling22.csproj" />
+  </ItemGroup>
+
+</Project>

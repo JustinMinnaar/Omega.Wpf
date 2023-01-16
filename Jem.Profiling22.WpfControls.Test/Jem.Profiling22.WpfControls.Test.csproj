@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jem.Profiling22.WpfControls\Jem.Profiling22.WpfControls.csproj" />
+    <ProjectReference Include="..\Jem.WpfCommonLibrary22\Jem.WpfCommonLibrary22.csproj" />
+  </ItemGroup>
+
+</Project>

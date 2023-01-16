@@ -1,0 +1,19 @@
+Folders                       18
+  Identified                  12    (These employee folders have consent + bank statements only)
+       66.0%
+  With unknown files           6
+
+Files                        198
+  OCR                        197    (These files are read and OCR complete)
+  Identified                 122
+       61.0%
+  With unknown pages           6
+  Invalid password             0    (We need to find passwords for these files)
+  Exception                    1    (We need to obtain new files)
+
+Pages                        750
+  Identified                 533
+       71.0%
+  Empty                        0
+  Unknown                    217
+

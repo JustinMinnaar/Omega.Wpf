@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Omega.WpfApp1;
 
-public partial class MainControl1
+public partial class MainControl1 : UserControl
 {
     public MainControl1()
     {

@@ -1,0 +1,17 @@
+PageIndex='0' Profile='FNB Credit Card' Ocr='F:\DevExec\Bdo\Bdo.Samples\Samples\DuPlooy\Fnb202203\4a3b725d.bocr'
+----------------------------------------------------------------------------------------------------------------
+    /00 Template='Page' PageNumber='1' PageCount='2' AccountNumber='4901360370670002' StatementDate='2022/02/07' 
+   1/01 Template='Address' AccountName='MRS ADRIANA C DU PLOOY' Address1='39 LOUDON AVENUE' Address2='FYNNLAND' Address3='4052' 
+   1/02 Template='Opening Balance' OpenBalance='17 950.57' CloseBalance='12 316.00' 
+
+PageIndex='1' Profile='FNB Credit Card' Ocr='F:\DevExec\Bdo\Bdo.Samples\Samples\DuPlooy\Fnb202203\4a3b725d.bocr'
+----------------------------------------------------------------------------------------------------------------
+    /00 Template='Page' PageNumber='2' PageCount='2' AccountNumber='4901360370670002' StatementDate='2022/02/07' 
+   2/01 Template='Transaction' Date='17 Jan' Description='Engen Ushaka' Reference='Durban ZA' Amount='797.72' 
+   2/02 Template='Transaction' Date='19 Jan' Description='Takealot Online' Reference='Foreshore' Amount='578.00' 
+   2/03 Template='Transaction' Date='24 Jan' Description='2co.Com*kaspersky.Co.Z 1' Reference='Amsterdam' Amount='386.39' 
+   2/04 Template='Transaction' Date='07 Feb' Description='Rente' Amount='159.45' 
+   2/05 Template='Transaction' Date='07 Feb' Description='Rente Op Termynkrediet' Amount='0.00' 
+   2/06 Template='Transaction' Date='17 Jan' Description='1sa A Du Plooy' Reference='Vodslgqxh S4H' Amount='2811.00Kt' 
+   2/07 Template='Transaction' Date='27 Jan' Description='1sa A Du Plooy' Reference='Vods2h6cw R5H' Amount='6901.00Kt' 
+

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="itext.licensing.base" Version="4.0.4" />
+		<PackageReference Include="itext7" Version="7.2.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Jem.IronOcrLibrary\Jem.IronOcrLibrary.csproj" />
+	  <ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="iTextLicense.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

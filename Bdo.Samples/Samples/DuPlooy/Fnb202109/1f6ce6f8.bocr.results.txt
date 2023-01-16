@@ -1,0 +1,16 @@
+PageIndex='0' Profile='FNB Credit Card' Ocr='F:\DevExec\Bdo\Bdo.Samples\Samples\DuPlooy\Fnb202109\1f6ce6f8.bocr'
+----------------------------------------------------------------------------------------------------------------
+    /00 Template='Page' PageNumber='1' PageCount='2' AccountNumber='4901360370670002' StatementDate='2021/09/09' 
+   1/01 Template='Address' AccountName='MRS ADRIANA C DU PLOOY' Address1='39 LOUDON AVENUE' Address2='FYNNLAND' Address3='4052' 
+   1/02 Template='Opening Balance' OpenBalance='919.86' CloseBalance='20 859.00' 
+
+PageIndex='1' Profile='FNB Credit Card' Ocr='F:\DevExec\Bdo\Bdo.Samples\Samples\DuPlooy\Fnb202109\1f6ce6f8.bocr'
+----------------------------------------------------------------------------------------------------------------
+    /00 Template='Page' PageNumber='2' PageCount='2' AccountNumber='4901360370670002' StatementDate='2021/09/09' 
+   2/01 Template='Transaction' Date='10 Aug' Description='Engen Ushaka' Reference='Durban ZA' Amount='733.97' 
+   2/02 Template='Transaction' Date='01 Sep' Description='Takealot.Com' Reference='Www.Takealot.' Amount='596.00' 
+   2/03 Template='Transaction' Date='13 Aug' Description='Cltx Bluff Service S Fo' Reference='Durban' Amount='1032.80' 
+   2/04 Template='Transaction' Date='17 Aug' Description='Cltx Bluff Service S Fo' Reference='Durban' Amount='967.08' 
+   2/05 Template='Transaction' Date='25 Aug' Description='Cltx Bluff Service S Fo' Reference='Durban' Amount='350.90' 
+   2/06 Template='Transaction' Date='27 Aug' Description='1sa A Du Plooy' Reference='Vods9np75 SPH' Amount='2500.00Kt' 
+

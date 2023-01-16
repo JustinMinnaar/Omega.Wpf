@@ -1,0 +1,17 @@
+﻿<Window x:Class="Jem.Profiling22.WpfControls.Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="clr-namespace:Jem.Profiling22.WpfControls;assembly=Jem.Profiling22.WpfControls"
+        xmlns:local="clr-namespace:Jem.Profiling22.WpfControls.Test"
+        mc:Ignorable="d"
+        Title="Test Profiling Control" 
+        Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ImageSource x:Key="testBmp" />
+    </Window.Resources>
+    <Grid>
+        <c:JemProfilePageControl x:Name="ppc" />
+    </Grid>
+</Window>

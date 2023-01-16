@@ -22,10 +22,10 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <Menu Background="AliceBlue">
+                <!--<Menu Background="AliceBlue">
                     <MenuItem Header="_File" />
                     <MenuItem Header="_Profiling" />
-                </Menu>
+                </Menu>-->
 
                 <local:MainControl1
             Grid.Row="1"

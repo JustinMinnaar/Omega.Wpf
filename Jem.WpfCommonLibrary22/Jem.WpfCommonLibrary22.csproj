@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Jem.CommonLibrary22\Jem.CommonLibrary22.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="WComboBox.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="WTextBox.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="WComboBox.xaml">
+	    <SubType>Designer</SubType>
+	  </Page>
+	  <Page Update="WTextBox.xaml">
+	    <SubType>Designer</SubType>
+	  </Page>
+	</ItemGroup>
+
+</Project>

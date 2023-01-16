@@ -1,0 +1,6 @@
+ProjectName;FolderIndex;FolderName;FileIndex;FileName;PageCount;FileStatus;CountPagesIdentifiedInFile;PageIndex;ProfileName"Samples";3;"Shadrack";0;"Consent\Consent.pdf";1;"Consent";1;0;"Consent"
+"Samples";3;"Shadrack";1;"Nedbank1\2021.pdf";5;"OcrProcessed";5;0;"Nedbank Current Account Statement"
+"Samples";3;"Shadrack";1;"Nedbank1\2021.pdf";5;"OcrProcessed";5;1;"Nedbank Current Account Statement"
+"Samples";3;"Shadrack";1;"Nedbank1\2021.pdf";5;"OcrProcessed";5;2;"Nedbank Current Account Statement"
+"Samples";3;"Shadrack";1;"Nedbank1\2021.pdf";5;"OcrProcessed";5;3;"Nedbank Current Account Statement"
+"Samples";3;"Shadrack";1;"Nedbank1\2021.pdf";5;"OcrProcessed";5;4;"Nedbank Current Account Statement"

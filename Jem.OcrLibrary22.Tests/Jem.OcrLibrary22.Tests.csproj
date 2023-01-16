@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.0.0" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.0.0" />
+		<PackageReference Include="coverlet.collector" Version="3.2.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Bdo.Samples\Bdo.Samples.csproj" />
+		<ProjectReference Include="..\Jem.IronOcrLibrary\Jem.IronOcrLibrary.csproj" />
+		<ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+	</ItemGroup>
+
+</Project>

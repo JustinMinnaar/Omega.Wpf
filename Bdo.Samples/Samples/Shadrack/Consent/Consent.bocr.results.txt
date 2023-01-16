@@ -1,0 +1,4 @@
+PageIndex='0' Profile='Consent' Ocr='F:\DevExec\Bdo\Bdo.Samples\Samples\Shadrack\Consent\Consent.bocr'
+------------------------------------------------------------------------------------------------------
+    /00 Template='Consent' Name='Shadrack Lesoro' Number='135972' Date='5/31/2022 1:28:16 PM' 
+

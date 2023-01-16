@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="Jem.WpfFileLibrary.FolderFileSelectionControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Jem.WpfFileLibrary"
+             xmlns:jf="clr-namespace:Jem.FileManager22;assembly=Jem.FileManager22"
+             xmlns:jc="clr-namespace:Jem.WpfCommonLibrary22;assembly=Jem.WpfCommonLibrary22"
+             mc:Ignorable="d" 
+             d:Background="WhiteSmoke"
+             d:DesignHeight="450" d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance Type=jf:JProject,IsDesignTimeCreatable=True}"             
+             >
+    <StackPanel Background="Wheat">
+        
+        <jc:WComboBox
+            Prefix="Status:"
+            ItemsSource="{Binding Path=SearchFileStatusList}"
+            SelectedValue="{Binding Path=SearchFileStatus,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+            />
+        
+        <jc:WTextBox 
+            Prefix="Filter:"
+            Text="{Binding Path=SearchFolderText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+            />
+        
+        <jc:WComboBox
+            x:Name="lstFolders"            
+            Prefix="Folder:"
+            ItemsSource="{Binding Path=SearchFolders}"
+            SelectedValuePath="Id"
+            DisplayMemberPath="Name"
+            SelectedValue="{Binding Path=SelectedFolderId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            SelectionChanged="lstFolders_SelectionChanged"
+            />
+        
+        <jc:WComboBox 
+            x:Name="lstFiles"
+            Prefix="File:"
+            ItemsSource="{Binding Path=SelectedFolder.Files}"
+            SelectedValuePath="Id"
+            DisplayMemberPath="NameAndStatus"
+            SelectedValue="{Binding Path=SelectedFolder.SelectedFileId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            SelectionChanged="lstFiles_SelectionChanged"
+            />
+
+        <jc:WComboBox
+            x:Name="lstSkip"
+            Prefix="Skip:"
+            ItemsSource="{Binding Path=SkipReasons}"
+            SelectedValuePath="Name"
+            DisplayMemberPath="Name"
+            SelectedValue="{Binding Path=SelectedFolder.SelectedFile.SkipReason,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            />
+
+        <jc:WComboBox
+            x:Name="lstPages"
+            Prefix="Page:"
+            Suffix="{Binding Path=SelectedFolder.SelectedFile.OfPagesCount}"
+            ItemsSource="{Binding Path=SelectedFolder.SelectedFile.Pages}"
+            SelectedValuePath="PageIndex"
+            DisplayMemberPath="Name"
+            SelectedValue="{Binding Path=SelectedFolder.SelectedFile.SelectedPageIndex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            SelectionChanged="lstPages_SelectionChanged"
+            />
+
+        <jc:WComboBox
+            x:Name="lstProfile"
+            Prefix="Profile:"            
+            ItemsSource="{Binding Path=Profiles}"
+            SelectedValuePath="Id"
+            DisplayMemberPath="Name"
+            SelectedValue="{Binding Path=SelectedFolder.SelectedFile.ProfileId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            />
+
+        <jc:WTextBox
+            Prefix="Profile Name:"
+            Text="{Binding Path=SelectedFolder.SelectedFile.ProfileName}" />
+
+        <jc:WTextBox
+            Prefix="Skip Reason:"
+            Text="{Binding Path=SelectedFolder.SelectedFile.SkipReason}" />
+
+        <jc:WTextBox
+            Prefix="Skip Text:"
+            Text="{Binding Path=SelectedFolder.SelectedFile.SkipText}" />
+
+    </StackPanel>
+</UserControl>

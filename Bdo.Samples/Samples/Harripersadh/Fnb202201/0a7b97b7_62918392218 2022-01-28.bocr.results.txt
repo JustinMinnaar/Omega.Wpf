@@ -1,0 +1,10 @@
+PageIndex='0' Profile='FNB Revolving' Ocr='F:\DevExec\Bdo\Bdo.Samples\Samples\Harripersadh\Fnb202201\0a7b97b7_62918392218 2022-01-28.bocr'
+------------------------------------------------------------------------------------------------------------------------------------------
+    /00 Template='Page' AccountNumber='62918392218' StatementDate='27 January 2022' PageNumber='1' PageCount='2' 
+   1/01 Template='Detail' StatementNumber='4' 
+   1/02 Template='Address' AccountName='MR PREANUND HARRIPERSADH' Address1='3 MEER PL' Address2='ISIPINGO' Address3='4133' Address4='PREANUND.HARRIPERSADH@TRANSNET.NET' 
+   1/03 Template='Balances' OpenBalance='66,305.14 Dr' CloseBalance='65,272.25 Dr' 
+
+PageIndex='1' Profile='FNB Revolving' Ocr='F:\DevExec\Bdo\Bdo.Samples\Samples\Harripersadh\Fnb202201\0a7b97b7_62918392218 2022-01-28.bocr'
+------------------------------------------------------------------------------------------------------------------------------------------
+

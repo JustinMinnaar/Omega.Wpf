@@ -1,0 +1,428 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jem.OcrLibrary22.Windows\Jem.OcrLibrary22.Windows.csproj" />
+    <ProjectReference Include="..\Jem.OcrLibrary22\Jem.OcrLibrary22.csproj" />
+    <ProjectReference Include="..\Jem.PdfProcessingLibrary\Jem.PdfProcessingLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Samples\Charnley\Absa202202\7623bbce.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Absa02\7623bbce.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Absa202202\7623bbce.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Absa202202\7623bbce.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Consent\00f47ad1.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Absa202107\36df4220.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Absa202106\442bce89.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\56ade75c.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\6ec63298.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\725b700a.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\a0785266.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\b7591e78.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\baca9f66.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\d7b437d4.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\e15c422f.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\fb91b136.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Charnley\Other\fd35dfed.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Chonela\Absa01\1762450c.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Botes\Absa202204\c0cf4751.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Schutte\Capitec202201\2ef63b94.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Schutte\Capitec202201\2ef63b94.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Schutte\Capitec202201\2ef63b94.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Botes\Capitec202106\7f4eeeba.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Botes\Capitec01\7f4eeeba.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Botes\Capitec202106\7f4eeeba.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Botes\Capitec202106\7f4eeeba.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\Consent\0a2696b0.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\FnbCredit03\2110b9d4.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\FnbCredit04\15f276ea.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\FnbCredit11\0f0b5b9e.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\FnbEasy06\107e4812.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\FnbEasy11\17ff81f7.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\FnbHome11\20a805c3.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\Toyata01\0e7c1253.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\Toyata\16110820.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Jarryd\Toyata\1e42fa44.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa01\0db592e4.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa01\0db592e4.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa02\059d8fa3.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Consent\00a9d205.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Molapo\Absa01\06af0545.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Molapo\Absa01\06af0545.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Molapo\Absa01\06af0545.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Molapo\Absa01\06af0545.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Naidoo\Consent\0baaf068.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Naidoo\SB04\0081c407.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Naidoo\SB04\0081c407.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Naidoo\SB04\0081c407.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa01\39581a75.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa01\39581a75.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa02\b70c880a.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa02\b70c880a.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa03\ab26470f.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Consent\Consent.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Princess\Capitec06\74d5fe48.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Princess\Capitec06\74d5fe48.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Princess\Capitec06\74d5fe48.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Rama\Absa01\059d8fa3.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Rama\Absa01\059d8fa3.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Rama\Absa01\059d8fa3.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Kalpesh\Consent\Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Kalpesh\Consent\Consent.pdf.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Kalpesh\Consent\Consent.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Lebogang\Consent\Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa01\0db592e4.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa01\0db592e4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa02\059d8fa3-a224-4f6a-bf59-57ec77dcd3d1_BKS_00a9d205-3d04-4574-a6b6-0-9773_2022-02-25.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa03\084f9dd1-a828-4058-9bf3-cc547ac0c724_BKS_00a9d205-3d04-4574-a6b6-0-9773_2022-03-25.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa05\1c528077-d2c7-42af-b54c-99acd024237f_BKS_00a9d205-3d04-4574-a6b6-0-9773_2021-05-25 Statement.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa06\45d65d4e-cdc9-4add-bdff-8b6182c3ceb5_BKS_00a9d205-3d04-4574-a6b6-0-9773_2021-06-25 June.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa07\0beccdd3-ddea-4954-9484-965c51da4beb_BKS_00a9d205-3d04-4574-a6b6-0-9773_2021-07-25 July.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa08\1f8aee50-9502-42c4-837d-7289fccd83b2_BKS_00a9d205-3d04-4574-a6b6-0-9773_2021-08-25 August.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa09\cde9ad27-4123-454c-ae06-efda6391bc88_BKS_00a9d205-3d04-4574-a6b6-0-9773_2021-09-25.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa10\0feccc4e-3882-4574-b82b-b34aaafe5d5a_BKS_00a9d205-3d04-4574-a6b6-0-9773_2021-10-25.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa11\3dd9f215-6fff-4be3-a249-5f316f70a116_BKS_00a9d205-3d04-4574-a6b6-0-9773_2021-11-25.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Absa12\0aba87e0-d4f0-4977-92b7-61dfe163bc6d_BKS_00a9d205-3d04-4574-a6b6-0-9773_2021-12-25.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Consent\00a9d205-3d04-4574-a6b6-0-9773_Terms_and_Conditions_Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Payslip03\4a8cae4f-ddd0-4ee5-86d7-19d6be3cc642_00a9d205-3d04-4574-a6b6-0-9773_Payslip March.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Payslip04\016b7949-db4a-4e3f-89d5-6b866956cf11_00a9d205-3d04-4574-a6b6-0-9773_Payslip April.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Moffat\Payslip05\a5ffb32c-b150-4975-bf5a-b8b6f53a68d5_00a9d205-3d04-4574-a6b6-0-9773_Payslip May.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa01\39581a75.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa01\39581a75.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa02\b70c880a.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa02\b70c880a.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa03\ab26470f-4906-4f76-bc13-eb5a39939e53_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 1.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa04\92d1d25e-cfa0-4bf2-b729-b41896c8a052_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 12.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa05\74cb1b1e-155e-49ae-a128-5cbead6a053c_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 11.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa06\d1a13395-f425-4465-9c1c-e5ae00ed7069_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 10.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa07\e772c55a-46b9-41ca-b0fc-fc549bf0dd71_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 9.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa08\f363b39f-e491-4574-beb5-3b7c84c537ec_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 8.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa09\9aba3e94-5d1c-4b9b-a496-70eec3f65c81_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 7.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa10\ebe3a69d-5764-4120-977e-c346a0e6234b_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 6.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa11\35f4569f-4d01-44d8-b510-a3fafdac3500_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 5.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Absa12\89ba6757-5634-4a5a-896a-f4df0b6b0f08_BKS_0005f2a2-96e9-43af-974c-d-7054_AUDIT 4.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Peter\Consent\Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Princess\Capitec06\74d5fe48.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Princess\Consent\00ae8165-7e42-489a-8d19-5-9922_Terms_and_Conditions_Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Princess\Rental05\79f7a686-438a-4fe3-bff9-1979d9b2d9d9_00ae8165-7e42-489a-8d19-5-9922_Rental Statement.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Rama\Absa01\059d8fa3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Reddy\AbsaCredit11\1544177a.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Shadrack\Consent\Consent.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Shadrack\Consent\Consent.pdf.1.debug.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Shadrack\Consent\Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Shadrack\Consent\Consent.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Shadrack\Nedbank1\2021-10-29.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Shadrack\Nedbank1\2021-10-29.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Shadrack\Nedbank1\2021.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Sunderpaul\Absa03\3decfe7e-c6cd-416e-9276-48e295fb63ae_BKS_0a0044de-d60f-4f2e-b078-9-2649_Absa3.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Sunderpaul\Absa05\15f03770-9c90-43b4-ade9-10f53020a7d1_BKS_0a0044de-d60f-4f2e-b078-9-2649_Absa5.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Sunderpaul\Absa09\0f8c24f3-3584-45b7-899e-76de78b95952_BKS_0a0044de-d60f-4f2e-b078-9-2649_Absa12.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Sunderpaul\Consent\0a0044de-d60f-4f2e-b078-9-2649_Terms_and_Conditions_Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec01\162117579.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec01\162117579.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec01\162117579.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec02\bd904459 - Copy.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec02\bd904459.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec02\bd904459.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec02\bd904459.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec02\bd904459.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Capitec02\bd904459.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Certificate1\53c7ec5a-0300-48c8-9ffa-24fa0c182172_03dbdec0-d454-43eb-98fa-8-4086_Proof of qualification.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Certificate1\53c7ec5a-0300-48c8-9ffa-24fa0c182172_03dbdec0-d454-43eb-98fa-8-4086_Proof of qualification.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Certificate1\53c7ec5a.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Certificate2\429f1d63-ccf9-4e60-8b3c-6a8fe0076b80_03dbdec0-d454-43eb-98fa-8-4086_ECSA Certificate %281%29.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Certificate2\429f1d63-ccf9-4e60-8b3c-6a8fe0076b80_03dbdec0-d454-43eb-98fa-8-4086_ECSA Certificate %281%29.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Certificate2\429f1d63.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Consent\03dbdec0-d454-43eb-98fa-8-4086_Terms_and_Conditions_Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Nedbank1\3b3691c2-12be-4681-be12-8a8d3fb17117_BKS_03dbdec0-d454-43eb-98fa-8-4086_Nedbank_Credit_5898460993558402.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Nedbank1\3b3691c2-12be-4681-be12-8a8d3fb17117_BKS_03dbdec0-d454-43eb-98fa-8-4086_Nedbank_Credit_5898460993558402.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Nedbank1\3b3691c2.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Nedbank2\ad14d19b-fa50-49e7-a02b-b6fe8953370f_BKS_03dbdec0-d454-43eb-98fa-8-4086_Nedbank_1018999205_Current.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Nedbank2\ad14d19b-fa50-49e7-a02b-b6fe8953370f_BKS_03dbdec0-d454-43eb-98fa-8-4086_Nedbank_1018999205_Current.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thando\Nedbank2\ad14d19b.bocr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thebang\Consent\Consent.pdf.bocr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\Thebang\Consent\Consent.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Samples\Lebogang\Consent\" />
+    <Folder Include="Samples\Moffat\Absa04\" />
+  </ItemGroup>
+
+</Project>
