@@ -1,4 +1,5 @@
-﻿
+﻿namespace Jem.DocDatabaseLibrary1;
+
 /// <summary>Contains options and configuration for the solution.</summary>
 public sealed class DocSolution : IdNamed
 {

@@ -1,35 +1,37 @@
 ﻿<UserControl x:Class="Omega.WpfApp1.ImportProjectControl1"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Omega.WpfApp1"
-             xmlns:controllers="clr-namespace:Omega.WpfControllers1;assembly=Omega.WpfControllers1"
-             mc:Ignorable="d" 
-             d:Background="OldLace"
-             d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=False}"
-             d:DesignHeight="138" d:DesignWidth="400">
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                     xmlns:local="clr-namespace:Omega.WpfApp1"
+                     xmlns:controllers="clr-namespace:Omega.WpfControllers1;assembly=Omega.WpfControllers1"
+                     mc:Ignorable="d" 
+                     d:Background="OldLace"
+                     d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=False}"
+                     d:DesignHeight="138" d:DesignWidth="400">
     <StackPanel>
 
         <Label 
-            Content="Import from Folder:" />
-        <TextBox Style="{StaticResource SimpleTextBox}"
+            Content="Import Folder:" />
+        <TextBox 
+            Style="{StaticResource SimpleTextBox}"
             Text="{Binding Path=Settings.ImportFolderPath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
             />
-        
+
         <Label 
-            Content="Store files in Working Folder:" />
-        <TextBox Style="{StaticResource SimpleTextBox}"
+            Content="Working Folder:" />
+        <TextBox 
+            Style="{StaticResource SimpleTextBox}"
             Text="{Binding Path=Settings.WorkingFolderPath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
             />
 
         <WrapPanel Margin="4,2">
             <CheckBox 
-                Content="Import Folders In Parallel   " 
-                IsChecked="{Binding Path=Settings.ImportFoldersInParallel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        Content="Import Folders In Parallel   " 
+                        IsChecked="{Binding Path=Settings.ImportFoldersInParallel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
             <CheckBox
-                Content="Import Files In SubFolders   "
-                IsChecked="{Binding Path=Settings.ImportFilesInSubFolders,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />            
+                        Content="Import Files In SubFolders   "
+                        IsChecked="{Binding Path=Settings.ImportFilesInSubFolders,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
         </WrapPanel>
 
         <Grid>

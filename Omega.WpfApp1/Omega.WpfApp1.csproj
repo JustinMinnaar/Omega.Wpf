@@ -14,4 +14,10 @@
     <ProjectReference Include="..\Omega.WpfProfilingLibrary1\Omega.WpfProfilingLibrary1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="FoldersExplorerControl1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

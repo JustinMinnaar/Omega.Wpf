@@ -4,6 +4,7 @@ using Bdo.DatabaseLibrary1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bdo.DatabaseLibrary1.Migrations
 {
     [DbContext(typeof(BdoDocDbContext))]
-    partial class BdoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230116125120_NameIsUnique")]
+    partial class NameIsUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.Bank", b =>
+            modelBuilder.Entity("Bank", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +44,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("BdoBanks");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankAccount", b =>
+            modelBuilder.Entity("BankAccount", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +91,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("BankAccount");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankCard", b =>
+            modelBuilder.Entity("BankCard", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,7 +126,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("BdoBankCards");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankStatement", b =>
+            modelBuilder.Entity("BankStatement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,7 +218,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("BdoBankStatements");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankStatementPage", b =>
+            modelBuilder.Entity("BankStatementPage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -237,7 +240,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("BdoBankPages");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankTransaction", b =>
+            modelBuilder.Entity("BankTransaction", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -275,7 +278,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("BdoBankTransactions");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.Consent", b =>
+            modelBuilder.Entity("Consent", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -311,49 +314,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("BdoConsents");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.Employee", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ConsentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DateSource")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("FolderName")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("NameSource")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Number")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("NumberSource")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BdoEmployees");
-                });
-
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocFile", b =>
+            modelBuilder.Entity("DocFile", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -410,7 +371,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("DocFiles");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocFolder", b =>
+            modelBuilder.Entity("DocFolder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -452,7 +413,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("DocFolders");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocImage", b =>
+            modelBuilder.Entity("DocImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -484,7 +445,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("DocImages");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocPage", b =>
+            modelBuilder.Entity("DocPage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -533,7 +494,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("DocPages");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocProject", b =>
+            modelBuilder.Entity("DocProject", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -548,21 +509,6 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Property<int?>("ImagesCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImportExcludeWildcards")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("ImportFilesInSubFolders")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ImportFolderPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ImportProgressPercentage")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ImportStatus")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -575,11 +521,11 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Property<int?>("PagesCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("SelectedDocFolderId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("WorkingFolderPath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -593,7 +539,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("DocProjects");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocSolution", b =>
+            modelBuilder.Entity("DocSolution", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -617,7 +563,49 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("DocSolutions");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.SysMessage", b =>
+            modelBuilder.Entity("Employee", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ConsentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DateSource")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("FolderName")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("NameSource")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Number")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NumberSource")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BdoEmployees");
+                });
+
+            modelBuilder.Entity("SysMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -636,7 +624,7 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("SysMessages");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.SysUserSettings", b =>
+            modelBuilder.Entity("SysUserSettings", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -664,9 +652,6 @@ namespace Bdo.DatabaseLibrary1.Migrations
 
                     b.Property<bool>("ResetPanZoomOnFileSelect")
                         .HasColumnType("bit");
-
-                    b.Property<Guid?>("SelectedDocProjectId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("SelectedDocSolutionId")
                         .HasColumnType("uniqueidentifier");
@@ -699,15 +684,15 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.ToTable("SysUserSettings");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankAccount", b =>
+            modelBuilder.Entity("BankAccount", b =>
                 {
-                    b.HasOne("Bdo.DatabaseLibrary1.Bank", "Bank")
+                    b.HasOne("Bank", "Bank")
                         .WithMany("Accounts")
                         .HasForeignKey("BankId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bdo.DatabaseLibrary1.Employee", "Employee")
+                    b.HasOne("Employee", "Employee")
                         .WithMany("Accounts")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -718,16 +703,16 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankCard", b =>
+            modelBuilder.Entity("BankCard", b =>
                 {
-                    b.HasOne("Bdo.DatabaseLibrary1.BankAccount", null)
+                    b.HasOne("BankAccount", null)
                         .WithMany("Cards")
                         .HasForeignKey("BankAccountId");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankStatement", b =>
+            modelBuilder.Entity("BankStatement", b =>
                 {
-                    b.HasOne("Bdo.DatabaseLibrary1.BankAccount", "Account")
+                    b.HasOne("BankAccount", "Account")
                         .WithMany("Statements")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -736,16 +721,16 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankStatementPage", b =>
+            modelBuilder.Entity("BankStatementPage", b =>
                 {
-                    b.HasOne("Bdo.DatabaseLibrary1.BankStatement", null)
+                    b.HasOne("BankStatement", null)
                         .WithMany("SourcePages")
                         .HasForeignKey("BankStatementId");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.Consent", b =>
+            modelBuilder.Entity("Consent", b =>
                 {
-                    b.HasOne("Bdo.DatabaseLibrary1.Employee", "Employee")
+                    b.HasOne("Employee", "Employee")
                         .WithMany("Consents")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -754,15 +739,15 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocFile", b =>
+            modelBuilder.Entity("DocFile", b =>
                 {
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocFolder", "OwnerFolder")
+                    b.HasOne("DocFolder", "OwnerFolder")
                         .WithMany("Files")
                         .HasForeignKey("OwnerFolderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocPage", "SelectedDocPage")
+                    b.HasOne("DocPage", "SelectedDocPage")
                         .WithMany()
                         .HasForeignKey("SelectedDocPageId");
 
@@ -771,15 +756,15 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("SelectedDocPage");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocFolder", b =>
+            modelBuilder.Entity("DocFolder", b =>
                 {
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocProject", "OwnerProject")
+                    b.HasOne("DocProject", "OwnerProject")
                         .WithMany("Folders")
                         .HasForeignKey("OwnerProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocFile", "SelectedDocFile")
+                    b.HasOne("DocFile", "SelectedDocFile")
                         .WithMany()
                         .HasForeignKey("SelectedDocFileId");
 
@@ -788,9 +773,9 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("SelectedDocFile");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocImage", b =>
+            modelBuilder.Entity("DocImage", b =>
                 {
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocPage", "OwnerPage")
+                    b.HasOne("DocPage", "OwnerPage")
                         .WithMany("Images")
                         .HasForeignKey("OwnerPageId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -799,9 +784,9 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("OwnerPage");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocPage", b =>
+            modelBuilder.Entity("DocPage", b =>
                 {
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocFile", "OwnerFile")
+                    b.HasOne("DocFile", "OwnerFile")
                         .WithMany("Pages")
                         .HasForeignKey("OwnerFileId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -810,15 +795,15 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("OwnerFile");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocProject", b =>
+            modelBuilder.Entity("DocProject", b =>
                 {
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocSolution", "OwnerSolution")
+                    b.HasOne("DocSolution", "OwnerSolution")
                         .WithMany("Projects")
                         .HasForeignKey("OwnerSolutionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocFolder", "SelectedDocFolder")
+                    b.HasOne("DocFolder", "SelectedDocFolder")
                         .WithMany()
                         .HasForeignKey("SelectedDocFolderId");
 
@@ -827,71 +812,71 @@ namespace Bdo.DatabaseLibrary1.Migrations
                     b.Navigation("SelectedDocFolder");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocSolution", b =>
+            modelBuilder.Entity("DocSolution", b =>
                 {
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocProject", "SelectedDocProject")
+                    b.HasOne("DocProject", "SelectedDocProject")
                         .WithMany()
                         .HasForeignKey("SelectedDocProjectId");
 
                     b.Navigation("SelectedDocProject");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.SysUserSettings", b =>
+            modelBuilder.Entity("SysUserSettings", b =>
                 {
-                    b.HasOne("Jem.DocDatabaseLibrary1.DocSolution", "SelectedDocSolution")
+                    b.HasOne("DocSolution", "SelectedDocSolution")
                         .WithMany()
                         .HasForeignKey("SelectedDocSolutionId");
 
                     b.Navigation("SelectedDocSolution");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.Bank", b =>
+            modelBuilder.Entity("Bank", b =>
                 {
                     b.Navigation("Accounts");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankAccount", b =>
+            modelBuilder.Entity("BankAccount", b =>
                 {
                     b.Navigation("Cards");
 
                     b.Navigation("Statements");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.BankStatement", b =>
+            modelBuilder.Entity("BankStatement", b =>
                 {
                     b.Navigation("SourcePages");
                 });
 
-            modelBuilder.Entity("Bdo.DatabaseLibrary1.Employee", b =>
-                {
-                    b.Navigation("Accounts");
-
-                    b.Navigation("Consents");
-                });
-
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocFile", b =>
+            modelBuilder.Entity("DocFile", b =>
                 {
                     b.Navigation("Pages");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocFolder", b =>
+            modelBuilder.Entity("DocFolder", b =>
                 {
                     b.Navigation("Files");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocPage", b =>
+            modelBuilder.Entity("DocPage", b =>
                 {
                     b.Navigation("Images");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocProject", b =>
+            modelBuilder.Entity("DocProject", b =>
                 {
                     b.Navigation("Folders");
                 });
 
-            modelBuilder.Entity("Jem.DocDatabaseLibrary1.DocSolution", b =>
+            modelBuilder.Entity("DocSolution", b =>
                 {
                     b.Navigation("Projects");
+                });
+
+            modelBuilder.Entity("Employee", b =>
+                {
+                    b.Navigation("Accounts");
+
+                    b.Navigation("Consents");
                 });
 #pragma warning restore 612, 618
         }

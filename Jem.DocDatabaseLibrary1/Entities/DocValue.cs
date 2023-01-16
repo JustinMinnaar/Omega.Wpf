@@ -1,4 +1,6 @@
-﻿//public sealed class DocValue : IdNamed
+﻿namespace Jem.DocDatabaseLibrary1;
+
+//public sealed class DocValue : IdNamed
 //{
 //    public Guid? OwnerDocumentId { get; set; }
 //    public DocDocument? OwnerDocument { get; set; }

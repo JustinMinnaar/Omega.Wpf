@@ -1,7 +1,8 @@
-﻿    // The Id and Name define the job to be run
+﻿namespace Jem.DocDatabaseLibrary1;
+
+// The Id and Name define the job to be run
 public sealed class JobImportFiles : BaseEntity
 {
-
     public EJobStatus Status { get; set; }
 
     /// <summary></summary>

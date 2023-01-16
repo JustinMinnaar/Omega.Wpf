@@ -1,4 +1,8 @@
-﻿public class BankAccount : BaseEntity
+﻿using Jem.DocDatabaseLibrary1;
+
+namespace Bdo.DatabaseLibrary1;
+
+public class BankAccount : BaseEntity
 {
     public Guid? BankId { get; set; }
     public Bank? Bank { get; set; }

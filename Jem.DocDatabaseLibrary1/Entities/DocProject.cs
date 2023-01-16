@@ -1,4 +1,8 @@
-﻿public sealed class DocProject : IdNamed
+﻿namespace Jem.DocDatabaseLibrary1;
+
+public enum DocProjectImportStatus { New, Busy, Completed }
+
+public sealed class DocProject : IdNamed
 {
     public Guid? OwnerSolutionId { get; set; }
     public DocSolution? OwnerSolution { get; set; }
@@ -16,5 +20,12 @@
     public ICollection<DocFolder> Folders { get; set; } = default!;
     public Guid? SelectedDocFolderId { get; set; }
     public DocFolder? SelectedDocFolder { get; set; }
-    public string? Path { get; set; }
+    
+    public string? WorkingFolderPath { get; set; }
+
+    public string? ImportFolderPath { get; set; }
+    public string? ImportExcludeWildcards { get; set; }
+    public bool ImportFilesInSubFolders { get; set; }
+    public DocProjectImportStatus ImportStatus { get; set; }
+    public int ImportProgressPercentage { get; set; }
 }

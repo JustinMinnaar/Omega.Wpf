@@ -1,8 +1,11 @@
-﻿
+﻿namespace Jem.DocDatabaseLibrary1;
+
 /// <summary>Contains configuration for the current user.</summary>
 public class SysUserSettings : IdNamed
 {
     public Guid? SelectedDocSolutionId { get ; set; }
+    public Guid? SelectedDocProjectId { get; set; }
+
     public DocSolution ?SelectedDocSolution { get; set; }
     
     public Guid? SelectedProBagId { get; set; }

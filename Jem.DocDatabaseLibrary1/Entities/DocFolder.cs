@@ -1,4 +1,6 @@
-﻿public sealed class DocFolder : BaseEntity
+﻿namespace Jem.DocDatabaseLibrary1;
+
+public sealed class DocFolder : BaseEntity
 {
     public Guid? OwnerProjectId { get; set; }
     public DocProject? OwnerProject { get; set; }

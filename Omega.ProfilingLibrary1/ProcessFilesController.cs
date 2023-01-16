@@ -1,4 +1,6 @@
-﻿namespace Omega.ProfilingLibrary1;
+﻿using Jem.DocDatabaseLibrary1;
+
+namespace Omega.ProfilingLibrary1;
 
 public class ProcessFilesController : CNotifyPropertyChanged
 {

@@ -1,4 +1,8 @@
-﻿public class BankCard : BaseEntity
+﻿using Jem.DocDatabaseLibrary1;
+
+namespace Bdo.DatabaseLibrary1;
+
+public class BankCard : BaseEntity
 {
     public string? CardName { get; set; }
 

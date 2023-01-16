@@ -22,7 +22,7 @@
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
 
-        <local:ProjectExplorerControl1 Grid.Column="0" />
+        <local:FoldersExplorerControl1 Grid.Column="0" />
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

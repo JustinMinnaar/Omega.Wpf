@@ -1,4 +1,6 @@
-﻿public enum SysMessageLevel { Message, Warning, Error }
+﻿namespace Jem.DocDatabaseLibrary1;
+
+public enum SysMessageLevel { Message, Warning, Error }
 
 public sealed class SysMessage
 {

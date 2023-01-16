@@ -14,10 +14,13 @@
         WindowStartupLocation="CenterScreen"
         >
     <TabControl>
-        <TabItem Header="Import">
+        <TabItem Header="Projects">
+            <local:ProjectExplorerControl1 />
+        </TabItem>
+        <TabItem Header="Importer">
             <local:ImportProjectControl1 />
         </TabItem>
-        <TabItem Header="Files">
+        <TabItem Header="Folders and Files">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />

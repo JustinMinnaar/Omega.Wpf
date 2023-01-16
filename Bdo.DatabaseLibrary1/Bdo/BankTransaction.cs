@@ -1,4 +1,8 @@
-﻿public class BankTransaction
+﻿using Jem.DocDatabaseLibrary1;
+
+namespace Bdo.DatabaseLibrary1;
+
+public class BankTransaction
 {
     [Key] public Guid Id { get; set; } = Guid.NewGuid();
 

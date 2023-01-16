@@ -1,4 +1,6 @@
-﻿//public sealed class DocDocumentType : IdNamed
+﻿namespace Jem.DocDatabaseLibrary1;
+
+//public sealed class DocDocumentType : IdNamed
 //{
 //    public ICollection<DocDocument> Documents { get; set; } = default!;
 

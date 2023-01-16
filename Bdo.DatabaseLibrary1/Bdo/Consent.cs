@@ -1,4 +1,8 @@
-﻿public class Consent : BaseEntity
+﻿using Jem.DocDatabaseLibrary1;
+
+namespace Bdo.DatabaseLibrary1;
+
+public class Consent : BaseEntity
 {
     [MaxLength(100)]
     public string? Number { get; set; }

@@ -1,4 +1,6 @@
-﻿public sealed class DocPage : IdNamed
+﻿namespace Jem.DocDatabaseLibrary1;
+
+public sealed class DocPage : IdNamed
 {
     public ID<DocPage> GetId() => new(this.Id);
 

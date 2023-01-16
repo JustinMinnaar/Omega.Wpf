@@ -40,12 +40,14 @@ public class UserSettingsController : IdNamedModel
         this.SnapRight = user.SnapRight;
 
         this.SelectedDocSolutionId = user.SelectedDocSolutionId;
+        this.SelectedDocProjectId = user.SelectedDocProjectId;
+
         this.SelectedProBagId = user.SelectedProBagId;
 
         this.DarkMode = user.DarkMode;
         this.WorkingFolderPath = user.WorkingFolderPath;
         this.ImportFolderPath = user.ImportFolderPath;
-        this.ImportExcludeExtensions = user.ImportExcludeExtensions;
+        this.ImportExcludeWildcards = user.ImportExcludeExtensions;
         this.ImportFoldersInParallel = user.ImportFoldersInParallel;
         this.ImportFilesInSubFolders = user.ImportFilesInSubFolders;
 
@@ -67,12 +69,14 @@ public class UserSettingsController : IdNamedModel
         user.SnapRight = this.SnapRight;
 
         user.SelectedDocSolutionId = this.SelectedDocSolutionId;
+        user.SelectedDocProjectId = this.SelectedDocProjectId;
+
         user.SelectedProBagId = this.SelectedProBagId;
 
         user.DarkMode = this.DarkMode;
         user.WorkingFolderPath = this.WorkingFolderPath;
         user.ImportFolderPath = this.ImportFolderPath;
-        user.ImportExcludeExtensions = this.ImportExcludeExtensions;
+        user.ImportExcludeExtensions = this.ImportExcludeWildcards;
         user.ImportFoldersInParallel = this.ImportFoldersInParallel;
         user.ImportFilesInSubFolders = this.ImportFilesInSubFolders;
 
@@ -90,6 +94,8 @@ public class UserSettingsController : IdNamedModel
     public bool SnapRight { get; set; } = false;
 
     public Guid? SelectedDocSolutionId { get; set; }
+    public Guid? SelectedDocProjectId { get; set; }
+
     public Guid? SelectedProBagId { get; set; }
 
     public bool DarkMode { get; set; }
@@ -100,7 +106,7 @@ public class UserSettingsController : IdNamedModel
     public string? ImportFolderPath { get; set; }
 
     /// <summary>A list of extensions, separated by ;, to exclude from import.</summary>
-    public string? ImportExcludeExtensions { get; set; }
+    public string? ImportExcludeWildcards { get; set; }
 
     /// <summary>True to optimise and perform import of folders in parallel.</summary>
     /// <remarks>Turn off during debugging.</remarks>

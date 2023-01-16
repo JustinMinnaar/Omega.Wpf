@@ -1,6 +1,7 @@
 ﻿using Bdo.DatabaseLibrary1;
 
 using Jem.CommonLibrary22;
+using Jem.DocDatabaseLibrary1;
 using Jem.OcrLibrary22;
 
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Omega.WpfControllers1;
 
@@ -49,7 +51,31 @@ public class DocumentsController : CNotifyPropertyChanged
     public ProjectModel? SelectedProject { get; set; }
 
     public event EventHandler? SelectedProjectChanged;
-    protected virtual void OnSelectedProjectChanged() => SelectedProjectChanged?.Invoke(this, EventArgs.Empty);
+    protected virtual void OnSelectedProjectChanged(ProjectModel oldProject, ProjectModel newProject)
+    {
+        SelectedProjectChanged?.Invoke(this, EventArgs.Empty);
+
+        Main.Settings.SelectedDocProjectId = SelectedProject?.Id;
+
+        if (oldProject != null)
+            oldProject.PropertyChanged -= SelectedProject_PropertyChanged;
+
+        if (newProject != null)
+            newProject.PropertyChanged += SelectedProject_PropertyChanged;
+    }
+
+    private void SelectedProject_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        var project = SelectedProject;
+        if (project == null) return;
+
+        using var db = new BdoDocDbContext();
+        var dbProject = db.DocProjects.Find(project.Id);
+        if (dbProject == null) return;
+
+        dbProject.Name = project.Name;
+        db.SaveChanges();
+    }
 
     #endregion
     #region IdentifiedFilters 
@@ -154,6 +180,9 @@ public class DocumentsController : CNotifyPropertyChanged
             Projects.Add(mProject);
             SelectedProject ??= mProject;
         }
+
+        var selectedProject = Projects.FirstOrDefault(p => p.Id == Main.Settings.SelectedDocProjectId);
+        if (selectedProject != null) SelectedProject = selectedProject;
     }
 
     public async Task LoadFoldersAsync()
@@ -359,4 +388,50 @@ public class DocumentsController : CNotifyPropertyChanged
         }
     }
 
+    public async Task<SolutionModel?> AddNewSolutionAsync()
+    {
+        var solutionId = Guid.NewGuid();
+        var solutionName = "(New Solution)";
+
+        using var db = new BdoDocDbContext();
+        var dbSolution = await db.DocSolutions.FindAsync(solutionId);
+        if (dbSolution == null)
+        {
+            dbSolution = new() { Id = solutionId, Name = solutionName };
+            db.DocSolutions.Add(dbSolution);
+            await db.SaveChangesAsync();
+        }
+        
+        var model = SolutionModel.From(dbSolution);
+        Solutions!.Add(model);
+
+        await Dispatcher.CurrentDispatcher.BeginInvoke(() => SelectedSolution = model );
+
+        return model;
+    }
+
+    public async Task<ProjectModel?> AddNewProjectAsync()
+    {
+        var solution = SelectedSolution;
+        if (solution == null) return null;
+
+        var projectId = Guid.NewGuid();
+        var projectName = projectId.ToString();
+
+        using var db = new BdoDocDbContext();
+        var dbProject = await db.DocProjects.FindAsync(projectId);
+        if (dbProject == null)
+        {
+            dbProject = new() { Id = projectId, Name = projectName, OwnerSolutionId = solution.Id };
+            db.DocProjects.Add(dbProject);
+            await db.SaveChangesAsync();
+        }
+
+        var model = ProjectModel.From(dbProject);
+        Projects!.Add(model);
+        
+        await Dispatcher.CurrentDispatcher.BeginInvoke(() => SelectedProject = model);
+
+        return model;
+    }
 }

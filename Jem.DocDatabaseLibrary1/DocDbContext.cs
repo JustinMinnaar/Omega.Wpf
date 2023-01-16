@@ -1,6 +1,20 @@
 ﻿using Jem.CommonLibrary22;
 
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+using System.Formats.Tar;
+
 namespace Jem.DocDatabaseLibrary1;
+
+public static class DbExtensions
+{
+    public static EntityTypeBuilder<TEntity> NameIsUnique<TEntity>(this EntityTypeBuilder<TEntity> e)
+        where TEntity : class, IName
+    {
+        e.HasIndex(x => x.Name).IsUnique();
+        return e;
+    }
+}
 
 public abstract class DocDbContext : DbContext
 {
@@ -76,13 +90,13 @@ public abstract class DocDbContext : DbContext
 
     public DbSet<DocProject> DocProjects { get; set; } = default!;
 
-    public async Task<DocProject> AccessProjectAsync(ID<DocSolution> solutionId, string name, string importFolder) => 
-        await TryGetProjectAsync(solutionId, name) ?? 
+    public async Task<DocProject> AccessProjectAsync(ID<DocSolution> solutionId, string name, string importFolder) =>
+        await TryGetProjectAsync(solutionId, name) ??
         await AddProjectAsync(solutionId, name, importFolder);
 
-    public async Task<DocProject> AccessProjectAsumc(ID<DocSolution> solutionId, ID<DocProject> id, string name, string importFolder)=> 
-        await TryGetProjectAsync(id) ?? 
-        await TryGetProjectAsync(solutionId, name) ?? 
+    public async Task<DocProject> AccessProjectAsumc(ID<DocSolution> solutionId, ID<DocProject> id, string name, string importFolder) =>
+        await TryGetProjectAsync(id) ??
+        await TryGetProjectAsync(solutionId, name) ??
         await AddProjectAsync(solutionId, id, name, importFolder);
 
     public async Task<DocProject> AddProjectAsync(ID<DocSolution> solutionId, string name, string importFolder) =>
@@ -95,7 +109,7 @@ public abstract class DocDbContext : DbContext
             OwnerSolutionId = solutionId,
             Id = id,
             Name = name,
-            Path = importFolder,
+            ImportFolderPath = importFolder,
         };
 
         DocProjects.Add(row);
@@ -277,13 +291,13 @@ public abstract class DocDbContext : DbContext
     }
 
     public async Task<DocImage> GetImageAsync(ID<DocImage> id) =>
-        await TryGetImageAsync(id) ?? 
+        await TryGetImageAsync(id) ??
         throw new NotFoundException($"Image {id} not found!");
 
     public async Task<DocImage?> TryGetImageAsync(ID<DocImage> id) =>
         await DocImages.FindAsync(id);
 
-    public async Task<DocImage?>  TryGetImageAsync(DocPage ownerPage, string name) =>
+    public async Task<DocImage?> TryGetImageAsync(DocPage ownerPage, string name) =>
         await DocImages.FirstOrDefaultAsync(d => d.Name == name && d.OwnerPage == ownerPage);
 
     public async Task<DocImage> AccessImageAsync(DocPage page, ID<DocImage> id, string name) =>
@@ -422,7 +436,7 @@ public abstract class DocDbContext : DbContext
     {
         base.OnModelCreating(m);
 
-        ConfigRoots(m);
+        ConfigSolutions(m);
         ConfigProjects(m);
         ConfigFolders(m);
         ConfigFiles(m);
@@ -432,18 +446,21 @@ public abstract class DocDbContext : DbContext
         ConfigSettings(m);
     }
 
-    private static void ConfigRoots(ModelBuilder m)
+    private static void ConfigSolutions(ModelBuilder m)
     {
         m.Entity<DocSolution>()
+            .NameIsUnique()
             .HasMany<DocProject>(type => type.Projects)
             .WithOne(project => project.OwnerSolution)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
     }
 
+
     private static void ConfigProjects(ModelBuilder m)
     {
         m.Entity<DocProject>()
+            .NameIsUnique()
             .HasMany<DocFolder>(project => project.Folders)
             .WithOne(folder => folder.OwnerProject)
             .IsRequired()
@@ -453,6 +470,7 @@ public abstract class DocDbContext : DbContext
     private static void ConfigFolders(ModelBuilder m)
     {
         m.Entity<DocFolder>()
+            .NameIsUnique()
             .HasMany<DocFile>(folder => folder.Files)
             .WithOne(file => file.OwnerFolder)
             .IsRequired()
@@ -468,6 +486,7 @@ public abstract class DocDbContext : DbContext
     private static void ConfigFiles(ModelBuilder m)
     {
         m.Entity<DocFile>()
+            .NameIsUnique()
             .HasMany<DocPage>(file => file.Pages)
             .WithOne(page => page.OwnerFile)
             .IsRequired()
@@ -513,6 +532,7 @@ public abstract class DocDbContext : DbContext
     private void ConfigSettings(ModelBuilder m)
     {
         m.Entity<SysUserSettings>()
+            .NameIsUnique()
             .HasOne<DocSolution>(settings => settings.SelectedDocSolution);
 
         //m.Entity<SysUserSettings>()
