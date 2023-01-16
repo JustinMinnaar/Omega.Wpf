@@ -39,16 +39,23 @@ public class UserSettingsController : IdNamedModel
         this.SnapLeft = user.SnapLeft;
         this.SnapRight = user.SnapRight;
 
-        this.DarkMode = user.DarkMode;
-
         this.SelectedDocSolutionId = user.SelectedDocSolutionId;
         this.SelectedProBagId = user.SelectedProBagId;
 
+        this.DarkMode = user.DarkMode;
         this.WorkingFolderPath = user.WorkingFolderPath;
+        this.ImportFolderPath = user.ImportFolderPath;
+        this.ImportExcludeExtensions = user.ImportExcludeExtensions;
+        this.ImportFoldersInParallel = user.ImportFoldersInParallel;
+        this.ImportFilesInSubFolders = user.ImportFilesInSubFolders;
+
+        this.HasChanged = false;
     }
 
     public async Task SaveAsync()
     {
+        if (!this.HasChanged) return;
+
         using var db = new BdoDocDbContext();
 
         var user = await db.AccessSysUserSettings(userName: this.Name);
@@ -59,26 +66,47 @@ public class UserSettingsController : IdNamedModel
         user.SnapLeft = this.SnapLeft;
         user.SnapRight = this.SnapRight;
 
-        user.DarkMode = this.DarkMode;
-        user.WorkingFolderPath = this.WorkingFolderPath;
-
         user.SelectedDocSolutionId = this.SelectedDocSolutionId;
         user.SelectedProBagId = this.SelectedProBagId;
 
+        user.DarkMode = this.DarkMode;
+        user.WorkingFolderPath = this.WorkingFolderPath;
+        user.ImportFolderPath = this.ImportFolderPath;
+        user.ImportExcludeExtensions = this.ImportExcludeExtensions;
+        user.ImportFoldersInParallel = this.ImportFoldersInParallel;
+        user.ImportFilesInSubFolders = this.ImportFilesInSubFolders;
+
         await db.SaveChangesAsync();
+
+        this.HasChanged = false;
     }
 
     public required MainController Main { get; init; }
 
-    public Guid? SelectedDocSolutionId { get; set; }
-    public Guid? SelectedProBagId { get; set; }
     public bool ResetPanZoomOnFileSelect { get; set; } = true;
     public bool SnapTop { get; set; } = true;
     public bool SnapBottom { get; set; } = true;
     public bool SnapLeft { get; set; } = false;
     public bool SnapRight { get; set; } = false;
+
+    public Guid? SelectedDocSolutionId { get; set; }
+    public Guid? SelectedProBagId { get; set; }
+
     public bool DarkMode { get; set; }
+    /// <summary>the path used to store ocr, csv, txt, etc. temporary files.</summary>
     public string? WorkingFolderPath { get; set; }
+
+    /// <summary>The path to import on a run.</summary>
+    public string? ImportFolderPath { get; set; }
+
+    /// <summary>A list of extensions, separated by ;, to exclude from import.</summary>
+    public string? ImportExcludeExtensions { get; set; }
+
+    /// <summary>True to optimise and perform import of folders in parallel.</summary>
+    /// <remarks>Turn off during debugging.</remarks>
+    public bool ImportFoldersInParallel { get; set; }
+
+    public bool ImportFilesInSubFolders { get; set; }
 
     public bool HasChanged { get; set; }
 
@@ -86,7 +114,7 @@ public class UserSettingsController : IdNamedModel
     {
         base.OnPropertyChanged(propertyName);
 
-        if (propertyName != nameof(HasChanged))
+        if (propertyName != nameof(HasChanged) && propertyName != nameof(Main))
             this.HasChanged = true;
     }
 

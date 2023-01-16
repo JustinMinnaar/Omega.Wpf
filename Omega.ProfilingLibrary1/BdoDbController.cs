@@ -8,15 +8,6 @@ namespace Omega.ProfilingLibrary1;
 
 public class BdoDbController : CNotifyPropertyChanged
 {
-    public async Task EnsureDatabaseCreatedAsync()
-    {
-        using var db = new BdoDocDbContext();
-        await db.Database.EnsureCreatedAsync();
-
-        var user = db.AccessSysUserSettings(Environment.MachineName);
-        await db.SaveChangesAsync();
-    }
-
     //    /// <summary>Adds a new import job request to the database, so that a machine can pick it up and begin working.</summary>
     //    /// <param name="solutionName">The solution to create or work with, typically the name of the client.</param>
     //    /// <param name="rootFolderPath">The folder on the local machine to be imported from. It should contain folders and files.</param>

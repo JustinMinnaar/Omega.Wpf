@@ -23,10 +23,10 @@ namespace Omega.WpfControllers1
         public double JobProgress { get; set; }
         protected virtual void OnJobProgressChanged() { }
 
-        public object? JobStatus { get; set; }
-        public object? JobResult { get; private set; }
-        public Exception? JobError { get; private set; }
-        public bool JobCancelled { get; private set; }
+        public object? JobStatus { get; protected set; }
+        public object? JobResult { get; protected set; }
+        public Exception? JobError { get; protected set; }
+        public bool JobCancelled { get; protected set; }
 
         public override void JobBegin()
         {
@@ -42,6 +42,7 @@ namespace Omega.WpfControllers1
 
         public override void JobEnd()
         {
+            IsJobRunning = false;
             IsCancellationPending = true;
             bw.CancelAsync();
         }

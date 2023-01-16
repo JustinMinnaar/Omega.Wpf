@@ -41,7 +41,8 @@ public partial class MainWindow
 
     private async Task LoadAsync()
     {
-        await main.TryLoadAsync(Environment.UserName);
+        await main.EnsureDatabaseCreatedAsync();
+        await main.TryLoadAsync();
         
         DataContext = main;
     }

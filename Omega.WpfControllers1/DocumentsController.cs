@@ -150,7 +150,7 @@ public class DocumentsController : CNotifyPropertyChanged
 
         foreach (var dbProject in dbProjects)
         {
-            var mProject = new ProjectModel { Id = dbProject.Id, Name = dbProject.Name };
+            var mProject = ProjectModel.From(dbProject);
             Projects.Add(mProject);
             SelectedProject ??= mProject;
         }

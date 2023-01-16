@@ -4,6 +4,7 @@ using Bdo.DatabaseLibrary1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bdo.DatabaseLibrary1.Migrations
 {
     [DbContext(typeof(BdoDocDbContext))]
-    partial class BdoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230116082612_ImportFolderPath")]
+    partial class ImportFolderPath
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -617,12 +620,6 @@ namespace Bdo.DatabaseLibrary1.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("DarkMode")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ImportExcludeExtensions")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("ImportFilesInSubFolders")
                         .HasColumnType("bit");
 
                     b.Property<string>("ImportFolderPath")

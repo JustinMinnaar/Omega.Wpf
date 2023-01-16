@@ -14,6 +14,9 @@
         WindowStartupLocation="CenterScreen"
         >
     <TabControl>
+        <TabItem Header="Import">
+            <local:ImportProjectControl1 />
+        </TabItem>
         <TabItem Header="Files">
             <Grid>
                 <Grid.RowDefinitions>
@@ -35,11 +38,7 @@
                 <!--<local:ProfilingJobControl1 Grid.Row="2" />-->
             </Grid>
         </TabItem>
-        <TabItem Header="Import">
-            <local:ImportProjectControl1 />
-        </TabItem>
         <TabItem Header="Employees">
-
         </TabItem>
     </TabControl>
 </Window>

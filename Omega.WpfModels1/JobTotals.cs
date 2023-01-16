@@ -15,11 +15,13 @@ public class JobTotals
     public int IndexJobs { get => indexJobs; }
     public void IncrementIndexJobs(int value = 1) { lock (this.padlock) { indexJobs += value; } }
 
+    public int Percentage => indexJobs * 100 / countJobs;
+
     public override string ToString()
     {
         var elapsedSeconds = Elapsed.TotalSeconds;
         return
-            $"{indexJobs}/{countJobs} " +
+            $"{indexJobs}/{countJobs} ({Percentage}%) " +
             $"in {(int)(elapsedSeconds / 60)}:{(int)(elapsedSeconds % 60)} " +
             $"at {(double)indexJobs / elapsedSeconds:N1}/sec";
     }

@@ -39,12 +39,17 @@ public class MainController : CNotifyPropertyChanged
 
     //public event EventHandler LoadCompleted;
 
-    public async Task TryLoadAsync(string userName)
+    public async Task EnsureDatabaseCreatedAsync()
+    {
+        using var db = new BdoDocDbContext();
+        await db.Database.EnsureCreatedAsync();
+    }
+
+    public async Task TryLoadAsync()
     {
         try
         {
-            await Settings.LoadAsync();
-            Settings.HasChanged = false;
+            await Settings.LoadAsync();            
 
             await Explorer.LoadSolutionsAsync();
 

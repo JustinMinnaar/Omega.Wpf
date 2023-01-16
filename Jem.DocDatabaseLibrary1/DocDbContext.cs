@@ -76,25 +76,26 @@ public abstract class DocDbContext : DbContext
 
     public DbSet<DocProject> DocProjects { get; set; } = default!;
 
-    public async Task<DocProject> AccessProjectAsync(ID<DocSolution> solutionId, string name)=> 
+    public async Task<DocProject> AccessProjectAsync(ID<DocSolution> solutionId, string name, string importFolder) => 
         await TryGetProjectAsync(solutionId, name) ?? 
-        await AddProjectAsync(solutionId, name);
+        await AddProjectAsync(solutionId, name, importFolder);
 
-    public async Task<DocProject> AccessProject(ID<DocSolution> solutionId, ID<DocProject> id, string name)=> 
+    public async Task<DocProject> AccessProjectAsumc(ID<DocSolution> solutionId, ID<DocProject> id, string name, string importFolder)=> 
         await TryGetProjectAsync(id) ?? 
         await TryGetProjectAsync(solutionId, name) ?? 
-        await AddProjectAsync(solutionId, id, name);
+        await AddProjectAsync(solutionId, id, name, importFolder);
 
-    public async Task<DocProject> AddProjectAsync(ID<DocSolution> solutionId, string name) =>
-        await AddProjectAsync(solutionId, new ID<DocProject>(), name);
+    public async Task<DocProject> AddProjectAsync(ID<DocSolution> solutionId, string name, string importFolder) =>
+        await AddProjectAsync(solutionId, new ID<DocProject>(), name, importFolder);
 
-    public async Task<DocProject> AddProjectAsync(ID<DocSolution> solutionId, ID<DocProject> id, string name)
+    public async Task<DocProject> AddProjectAsync(ID<DocSolution> solutionId, ID<DocProject> id, string name, string importFolder)
     {
         var row = new DocProject
         {
             OwnerSolutionId = solutionId,
             Id = id,
             Name = name,
+            Path = importFolder,
         };
 
         DocProjects.Add(row);

@@ -1,10 +1,19 @@
 ﻿using Bdo.DatabaseLibrary1;
 
+using Jem.CommonLibrary22;
+
+using Omega.WpfModels1;
+using Omega.WpfModels1.old;
+
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Omega.WpfControllers1
 {
@@ -24,54 +33,69 @@ namespace Omega.WpfControllers1
 
         protected override void DoWork()
         {
-            var rootPath = Main.Settings.WorkingFolderPath;
-            if (rootPath == null) return;
-
-            Task.Run(() => ProcessProject(rootPath));
+            Task.Run(() => ProcessProjectAsync()).Wait();
         }
 
-        private async Task ProcessProject(string rootPath)
+        private async Task ProcessProjectAsync()
         {
-            var rootName = Path.GetFileName(rootPath);
-
-            using var db = new BdoDocDbContext();
-
-            var solution = await db.AccessSolutionAsync(rootName);
-            await db.SaveChangesAsync();
-            
-            var project = await db.AccessProjectAsync(new(solution.Id), rootName);
-            await db.SaveChangesAsync();
-
-            var folderPaths = Directory.GetDirectories(rootPath);
-            var index = 0;
-            foreach (var folderPath in folderPaths)
+            try
             {
-                if (IsCancellationPending) break;
-
-                await ProcessFolder(solution, project, folderPath);
-
-                var progress = index * 100 / folderPaths.Length;
-                ReportProgress(progress, folderPath);
+                this.JobResult = await ProcessProjectAndReportError();
+                this.JobError = null;
+            }
+            catch (Exception ex)
+            {
+                this.JobResult = null;
+                this.JobError = ex;
             }
         }
 
-        private async Task ProcessFolder(DocSolution solution, DocProject project, string folderPath)
+        private async Task<string?> ProcessProjectAndReportError()
         {
-            using var db = new BdoDocDbContext();
+            await Main.Settings.SaveAsync();
 
-            var folderName = Path.GetFileName(folderPath);
-            var folder = await db.AccessFolderAsync(new(project.Id), folderName);
+            var workingFolder = Main.Settings.WorkingFolderPath;
+            if (workingFolder == null || workingFolder == null) return "No working folder specified!";
 
-            var filePaths = Directory.GetFiles(folderPath, "*.pdf", SearchOption.TopDirectoryOnly);
-            foreach (var filePath in filePaths)
+            if (!Directory.Exists(workingFolder))
+                Directory.CreateDirectory(workingFolder);
+
+            var importFolder = Main.Settings.ImportFolderPath;
+            var importName = Path.GetFileName(importFolder);
+            if (importFolder == null || importName == null) return "No import folder specified!";
+
+            var solution = Main.Explorer.SelectedSolution;
+            if (solution == null) return "No solution selected!";
+
+            var project = Main.Explorer.SelectedProject;
+            if (project == null)
             {
-                if (IsCancellationPending) break;
-
-                var fileName = Path.GetFileName(filePath);
-                var file = await db.AccessFileAsync(new(folder.Id), fileName);
+                using var db = new BdoDocDbContext();
+                var dbProject = await db.AccessProjectAsync(new(solution.Id), importName, importFolder);
+                await db.SaveChangesAsync();
+                project = ProjectModel.From(dbProject);
             }
 
-            await db.SaveChangesAsync();
+            var excludeExtensions = ("" + Main.Settings.ImportExcludeExtensions).Split(';');
+
+            var job = new ImportProjectJob
+            {
+                Solution = solution,
+                Project = project,
+                WorkingFolder = workingFolder,
+                ProjectFolder = importFolder,
+                ProjectName = importName,
+                ExcludeExtensions = excludeExtensions,
+                ImportFoldersInParallel = Main.Settings.ImportFoldersInParallel,
+                ImportFilesInSubFolders = Main.Settings.ImportFilesInSubFolders,
+                Progress = (int jobProgress, object? jobState) => { ReportProgress(jobProgress, jobState); return IsCancellationPending; }
+            };
+
+            await job.Execute();
+
+            return null;
+
+
         }
 
         protected override void DoCompleted()

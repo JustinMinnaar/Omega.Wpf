@@ -8,20 +8,36 @@
              mc:Ignorable="d" 
              d:Background="OldLace"
              d:DataContext="{d:DesignInstance Type=controllers:MainController,IsDesignTimeCreatable=False}"
-             d:DesignHeight="150" d:DesignWidth="800">
+             d:DesignHeight="138" d:DesignWidth="400">
     <StackPanel>
+
         <Label 
-            Content="Root Folder:" />
-        <TextBox 
+            Content="Import from Folder:" />
+        <TextBox Style="{StaticResource SimpleTextBox}"
+            Text="{Binding Path=Settings.ImportFolderPath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+            />
+        
+        <Label 
+            Content="Store files in Working Folder:" />
+        <TextBox Style="{StaticResource SimpleTextBox}"
             Text="{Binding Path=Settings.WorkingFolderPath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
             />
+
+        <WrapPanel Margin="4,2">
+            <CheckBox 
+                Content="Import Folders In Parallel   " 
+                IsChecked="{Binding Path=Settings.ImportFoldersInParallel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <CheckBox
+                Content="Import Files In SubFolders   "
+                IsChecked="{Binding Path=Settings.ImportFilesInSubFolders,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />            
+        </WrapPanel>
 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <WrapPanel>
+            <WrapPanel Margin="1,0">
                 <Button x:Name="BeginButton" Content="Run" Command="{Binding Path=ImportJob.JobBeginCommand}" />
                 <Button x:Name="EndButton" Content="Stop" Command="{Binding Path=ImportJob.JobEndCommand}" />
             </WrapPanel>

@@ -15,6 +15,10 @@ public class SysUserSettings : IdNamed
     public bool DarkMode { get; set; }
 
     public string? WorkingFolderPath { get; set; }
+    public bool ImportFoldersInParallel { get; set; }
+    public string? ImportFolderPath { get; set; }
+    public string? ImportExcludeExtensions { get; set; }
+    public bool ImportFilesInSubFolders { get; set; }
 
     //#region Selections
 
