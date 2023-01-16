@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace Omega.WpfControllers1
 {
@@ -51,8 +52,11 @@ namespace Omega.WpfControllers1
 
         private void Bw_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
-            JobProgress = e.ProgressPercentage;
-            JobStatus = e.UserState;
+            Dispatcher.CurrentDispatcher.BeginInvoke(() =>
+            {
+                JobProgress = e.ProgressPercentage;
+                JobStatus = e.UserState;
+            });
         }
 
         private void Bw_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
@@ -63,7 +67,7 @@ namespace Omega.WpfControllers1
             JobResult = e.Result;
             JobError = e.Error;
             JobCancelled = e.Cancelled;
-            DoCompleted();            
+            DoCompleted();
         }
 
         protected void ReportProgress(int jobProgress, object? jobState)
